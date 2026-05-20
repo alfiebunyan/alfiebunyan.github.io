@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alfie Bunyan | Games User Researcher</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #06060f;
+    --surface: rgba(12, 10, 28, 0.58);
+    --surface-2: rgba(22, 18, 48, 0.72);
+    --border: rgba(110, 80, 220, 0.14);
+    --border-bright: rgba(124, 95, 252, 0.32);
+    --accent: #7c5ffc;
+    --accent-light: #a899ff;
+    --cyan: #22d3ee;
+    --text: #dde1f5;
+    --text-muted: #7878a8;
+    --text-dim: #35355a;
+    --white: #fff;
+    --green: #22c55e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background:
+      radial-gradient(ellipse at 14% 18%, rgba(90, 20, 180, 0.24) 0%, transparent 52%),
+      radial-gradient(ellipse at 88% 78%, rgba(10, 110, 180, 0.16) 0%, transparent 48%),
+      radial-gradient(ellipse at 55% 52%, rgba(110, 20, 200, 0.08) 0%, transparent 44%),
+      var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ANIMATED GRID */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(124,95,252,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,95,252,0.04) 1px, transparent 1px),
+      radial-gradient(circle at 1px 1px, rgba(124,95,252,0.14) 1px, transparent 0);
+    background-size: 72px 72px, 72px 72px, 36px 36px;
+    animation: grid-drift 28s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes grid-drift {
+    from { background-position: 0 0, 0 0, 0 0; }
+    to   { background-position: 72px 72px, 72px 72px, 36px 36px; }
+  }
+
+  /* ORBS */
+  .orb {
+    position: fixed; border-radius: 50%;
+    pointer-events: none; filter: blur(85px); z-index: 0;
+  }
+  .orb-1 {
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(124,95,252,0.26) 0%, transparent 70%);
+    top: -160px; right: -100px;
+    animation: float-a 20s ease-in-out infinite;
+  }
+  .orb-2 {
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(34,211,238,0.15) 0%, transparent 70%);
+    top: 28vh; left: -140px;
+    animation: float-b 26s ease-in-out infinite 3s;
+  }
+  .orb-3 {
+    width: 620px; height: 620px;
+    background: radial-gradient(circle, rgba(100,50,220,0.2) 0%, transparent 70%);
+    bottom: -80px; right: 18%;
+    animation: float-a 32s ease-in-out infinite 9s;
+  }
+  .orb-4 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(34,211,238,0.11) 0%, transparent 70%);
+    top: 62vh; right: -60px;
+    animation: float-b 23s ease-in-out infinite 14s;
+  }
+  @keyframes float-a {
+    0%,100% { transform: translate(0,0) scale(1); }
+    25%     { transform: translate(-65px,55px) scale(1.07); }
+    50%     { transform: translate(45px,-95px) scale(0.93); }
+    75%     { transform: translate(80px,22px) scale(1.04); }
+  }
+  @keyframes float-b {
+    0%,100% { transform: translate(0,0) scale(1); }
+    33%     { transform: translate(72px,-52px) scale(1.1); }
+    66%     { transform: translate(-48px,62px) scale(0.92); }
+  }
+
+  /* BEAMS */
+  .beam {
+    position: fixed; top: -100%; height: 300%;
+    pointer-events: none; z-index: 0;
+  }
+  .beam-1 {
+    left: 12%; width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(124,95,252,0.3), transparent);
+    transform: rotate(13deg); transform-origin: top center;
+    animation: beam-fade 15s ease-in-out infinite;
+  }
+  .beam-2 {
+    left: 53%; width: 2px;
+    background: linear-gradient(180deg, transparent, rgba(34,211,238,0.2), transparent);
+    transform: rotate(-9deg); transform-origin: top center;
+    animation: beam-fade 20s ease-in-out infinite 5s;
+  }
+  .beam-3 {
+    left: 79%; width: 1px;
+    background: linear-gradient(180deg, transparent, rgba(124,95,252,0.16), transparent);
+    transform: rotate(20deg); transform-origin: top center;
+    animation: beam-fade 12s ease-in-out infinite 2s;
+  }
+  @keyframes beam-fade {
+    0%,100% { opacity: 0; }
+    20%,80% { opacity: 1; }
+    50%     { opacity: 0.5; }
+  }
+
+  /* SCANLINE */
+  .scanline {
+    position: fixed; left: 0; right: 0; height: 140px;
+    background: linear-gradient(180deg, transparent, rgba(124,95,252,0.05), transparent);
+    animation: scan 10s linear infinite;
+    pointer-events: none; z-index: 0;
+  }
+  @keyframes scan {
+    from { top: -140px; }
+    to   { top: 100vh; }
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    background: rgba(6,6,15,0.82);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 52px; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-left { display: flex; align-items: center; gap: 18px; }
+  .nav-logo {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--accent-light);
+  }
+  .open-chip {
+    display: flex; align-items: center; gap: 6px;
+    padding: 3px 10px;
+    background: rgba(34,197,94,0.1);
+    border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 20px;
+    font-size: 11px; font-weight: 600;
+    color: var(--green); letter-spacing: 0.3px;
+  }
+  .open-dot {
+    width: 6px; height: 6px;
+    background: var(--green); border-radius: 50%;
+    animation: dot-blink 1.8s ease-in-out infinite;
+  }
+  @keyframes dot-blink {
+    0%,100% { opacity: 1; }
+    50%     { opacity: 0.3; }
+  }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; color: var(--text-muted);
+    text-decoration: none; letter-spacing: 0.4px;
+    position: relative; padding-bottom: 2px;
+    transition: color 0.2s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute; bottom: -2px; left: 0; right: 0;
+    height: 1px; background: var(--accent);
+    transform: scaleX(0); transition: transform 0.2s;
+  }
+  .nav-links a:hover,
+  .nav-links a.active { color: var(--text); }
+  .nav-links a:hover::after,
+  .nav-links a.active::after { transform: scaleX(1); }
+
+  /* LAYOUT */
+  .section-wrap {
+    position: relative; z-index: 1;
+    padding: 100px 52px;
+  }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+
+  .glass-section {
+    position: relative; z-index: 1;
+    background: rgba(10,8,26,0.52);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(124,95,252,0.15);
+    border-bottom: 1px solid rgba(34,211,238,0.1);
+    padding: 100px 52px;
+  }
+
+  .divider {
+    position: relative; z-index: 1;
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(124,95,252,0.35) 35%, rgba(34,211,238,0.22) 65%, transparent);
+  }
+
+  /* SECTION LABELS */
+  .section-label {
+    font-size: 11px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--cyan);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::before {
+    content: ''; display: block;
+    width: 22px; height: 1px; background: var(--cyan);
+  }
+  .section-label.center { justify-content: center; }
+  .section-label.center::before { display: none; }
+
+  h2 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: clamp(28px,4vw,46px);
+    font-weight: 800; color: var(--white);
+    letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px;
+  }
+  .section-intro {
+    font-size: 16px; color: var(--text-muted);
+    max-width: 580px; margin-bottom: 52px; line-height: 1.75;
+  }
+
+  /* HERO */
+  #hero {
+    position: relative; z-index: 1;
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 130px 52px 100px;
+  }
+  .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; }
+  .hero-label {
+    font-size: 11px; letter-spacing: 3.5px;
+    text-transform: uppercase; color: var(--cyan);
+    margin-bottom: 22px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-label::before {
+    content: ''; display: block;
+    width: 32px; height: 1px; background: var(--cyan);
+  }
+  h1 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: clamp(52px,8.5vw,100px);
+    font-weight: 900; color: var(--white);
+    letter-spacing: -3px; line-height: 1; margin-bottom: 28px;
+  }
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, #b8acff 0%, #7c5ffc 40%, #22d3ee 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 18px; color: var(--text-muted);
+    max-width: 520px; line-height: 1.75; margin-bottom: 44px;
+  }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-block; padding: 13px 28px;
+    background: var(--accent); color: var(--white);
+    border-radius: 7px; text-decoration: none;
+    font-size: 14px; font-weight: 600;
+    transition: background 0.2s, transform 0.15s, box-shadow 0.25s;
+  }
+  .btn-primary:hover {
+    background: #6a4fe0; transform: translateY(-2px);
+    box-shadow: 0 8px 36px rgba(124,95,252,0.4);
+  }
+  .btn-ghost {
+    display: inline-block; padding: 13px 28px;
+    border: 1px solid var(--border-bright); color: var(--text-muted);
+    border-radius: 7px; text-decoration: none;
+    font-size: 14px; font-weight: 500;
+    transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+  .btn-ghost:hover {
+    border-color: var(--accent); color: var(--text);
+    box-shadow: 0 0 24px rgba(124,95,252,0.18);
+  }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: start;
+  }
+  .about-text p {
+    color: var(--text-muted); margin-bottom: 16px;
+    line-height: 1.8; font-size: 15px;
+  }
+  .about-text p:last-child { margin-bottom: 0; }
+  .about-text strong { color: var(--text); font-weight: 600; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .stat-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 22px;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .stat-card:hover {
+    border-color: var(--border-bright);
+    box-shadow: 0 0 24px rgba(124,95,252,0.12);
+  }
+  .stat-num {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 28px; font-weight: 800;
+    color: var(--accent-light);
+    letter-spacing: -1px; line-height: 1; margin-bottom: 7px;
+  }
+  .stat-label { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  .skill-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 24px;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .skill-card:hover {
+    border-color: var(--border-bright);
+    box-shadow: 0 0 22px rgba(124,95,252,0.12);
+  }
+  .skill-icon { font-size: 20px; margin-bottom: 12px; }
+  .skill-card h3 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 11px; font-weight: 700; color: var(--white);
+    letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .skill-card ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  .skill-card ul li {
+    font-size: 13px; color: var(--text-muted);
+    padding-left: 14px; position: relative;
+  }
+  .skill-card ul li::before { content: '·'; position: absolute; left: 0; color: var(--accent); }
+
+  /* CASE STUDIES */
+  .case-studies { display: flex; flex-direction: column; gap: 24px; }
+  .case-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden;
+    display: grid; grid-template-columns: 280px 1fr;
+    backdrop-filter: blur(10px);
+    transition: border-color 0.25s, box-shadow 0.25s;
+  }
+  .case-card:hover:not(.coming-soon) {
+    border-color: var(--border-bright);
+    box-shadow: 0 0 44px rgba(124,95,252,0.15);
+  }
+  .case-card.coming-soon { opacity: 0.65; }
+
+  .case-visual {
+    background: rgba(18,12,40,0.85);
+    background-image:
+      linear-gradient(rgba(124,95,252,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,95,252,0.07) 1px, transparent 1px);
+    background-size: 28px 28px;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    padding: 28px; border-right: 1px solid var(--border);
+    min-height: 260px; position: relative; overflow: hidden;
+  }
+  .case-visual::after {
+    content: '';
+    position: absolute; top: 0; right: 0;
+    width: 90px; height: 90px;
+    background: radial-gradient(circle at top right, rgba(124,95,252,0.22), transparent 70%);
+    pointer-events: none;
+  }
+  .coming-soon-sign {
+    position: absolute; top: 12px; left: 12px; z-index: 10;
+    background: var(--green); color: #fff;
+    font-size: 9px; font-weight: 800;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 4px;
+    box-shadow: 0 0 16px rgba(34,197,94,0.6);
+  }
+  .case-num {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 74px; font-weight: 900;
+    line-height: 1.15; letter-spacing: -4px;
+    padding-bottom: 6px;
+    user-select: none;
+    background: linear-gradient(135deg, rgba(168,153,255,0.45) 0%, rgba(34,211,238,0.22) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .case-type-badge {
+    display: inline-block; padding: 4px 10px;
+    background: rgba(124,95,252,0.14);
+    border: 1px solid rgba(124,95,252,0.3);
+    border-radius: 4px; font-size: 10px;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--accent-light); width: fit-content;
+  }
+  .case-body {
+    padding: 30px 36px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .case-context {
+    font-size: 11px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text-dim); margin-bottom: 7px;
+  }
+  .case-body h3 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 19px; font-weight: 700; color: var(--white);
+    letter-spacing: -0.3px; margin-bottom: 10px; line-height: 1.3;
+  }
+  .case-body p {
+    font-size: 13.5px; color: var(--text-muted);
+    line-height: 1.75; margin-bottom: 14px;
+  }
+  .case-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+  .tag {
+    display: inline-block; padding: 3px 9px;
+    background: rgba(18,14,42,0.8); border: 1px solid var(--border);
+    border-radius: 4px; font-size: 11.5px; color: var(--text-muted);
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    display: flex; align-items: flex-start;
+    margin-bottom: 20px; padding-top: 4px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute; top: 11px; left: 11px; right: 11px; height: 1px;
+    background: linear-gradient(90deg, var(--accent), var(--cyan));
+    opacity: 0.38;
+  }
+  .t-step {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 9px;
+    flex: 1; position: relative; z-index: 1;
+  }
+  .t-node {
+    width: 22px; height: 22px; border-radius: 50%;
+    background: rgba(8,6,22,0.95);
+    border: 1.5px solid var(--accent);
+    box-shadow: 0 0 10px rgba(124,95,252,0.45);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .t-step:last-child .t-node {
+    border-color: var(--cyan);
+    box-shadow: 0 0 10px rgba(34,211,238,0.45);
+  }
+  .t-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  .t-step:last-child .t-dot { background: var(--cyan); }
+  .t-label {
+    font-size: 10px; color: var(--text-muted);
+    text-align: center; line-height: 1.3; max-width: 72px;
+  }
+
+  /* DOC LINKS */
+  .doc-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px;
+    background: rgba(34,211,238,0.07);
+    border: 1px solid rgba(34,211,238,0.22);
+    border-radius: 6px; text-decoration: none;
+    color: var(--cyan); font-size: 13px; font-weight: 500;
+    width: fit-content;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .doc-link:hover {
+    background: rgba(34,211,238,0.13);
+    border-color: rgba(34,211,238,0.45);
+  }
+  .nda-note {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; color: var(--text-muted);
+    padding: 7px 12px;
+    background: rgba(250,200,80,0.05);
+    border: 1px solid rgba(250,200,80,0.15);
+    border-radius: 6px; width: fit-content;
+  }
+
+  /* CRITIQUES */
+  .critique-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
+  .critique-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 28px;
+    display: flex; flex-direction: column;
+    backdrop-filter: blur(8px); position: relative;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .critique-card:hover:not(.wip) {
+    border-color: var(--border-bright);
+    box-shadow: 0 0 22px rgba(124,95,252,0.12);
+  }
+  .critique-card.wip { opacity: 0.6; }
+  .wip-badge {
+    position: absolute; top: 14px; right: 14px;
+    background: rgba(124,95,252,0.15);
+    border: 1px solid rgba(124,95,252,0.3);
+    border-radius: 4px; padding: 3px 8px;
+    font-size: 9px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--accent-light);
+  }
+  .critique-game {
+    font-size: 10px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--accent-light); margin-bottom: 6px;
+  }
+  .critique-card h4 {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px; font-weight: 700; color: var(--white);
+    margin-bottom: 10px; line-height: 1.3;
+  }
+  .critique-card p {
+    font-size: 13px; color: var(--text-muted);
+    line-height: 1.65; flex: 1; margin-bottom: 16px;
+  }
+
+  /* RECOGNITION */
+  .rec-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 18px; }
+  .rec-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 22px 24px;
+    display: flex; gap: 14px; align-items: flex-start;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .rec-card:hover {
+    border-color: var(--border-bright);
+    box-shadow: 0 0 22px rgba(124,95,252,0.12);
+  }
+  .rec-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .rec-card h4 { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+  .rec-card p { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
+  .rec-year { font-size: 11px; color: var(--cyan); letter-spacing: 1px; margin-top: 6px; display: block; }
+
+  /* GEN.G CARD */
+  .geng-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 20px 24px;
+    display: flex; align-items: center; gap: 20px;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .geng-card:hover {
+    border-color: var(--border-bright);
+    box-shadow: 0 0 22px rgba(124,95,252,0.12);
+  }
+  .geng-thumb {
+    width: 116px; height: 82px; object-fit: cover;
+    border-radius: 6px; border: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .geng-text h4 { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 5px; }
+  .geng-text p { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
+
+  /* CONTACT */
+  .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 44px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 9px;
+    padding: 14px 22px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; text-decoration: none;
+    color: var(--text-muted); font-size: 14px;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+  .contact-link:hover {
+    border-color: var(--border-bright); color: var(--text);
+    box-shadow: 0 0 22px rgba(124,95,252,0.14);
+  }
+  .contact-link strong { color: var(--text); font-weight: 600; }
+
+  /* FOOTER */
+  footer {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border);
+    padding: 28px 52px; text-align: center;
+    font-size: 12px; color: var(--text-dim);
+  }
+
+  /* BACK TO TOP */
+  .back-top {
+    position: fixed; bottom: 30px; right: 30px; z-index: 150;
+    width: 44px; height: 44px;
+    background: var(--surface); border: 1px solid var(--border-bright);
+    border-radius: 8px; color: var(--text-muted); font-size: 18px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(10px);
+    opacity: 0; transform: translateY(8px); pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+  .back-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .back-top:hover {
+    border-color: var(--accent); color: var(--text);
+    box-shadow: 0 0 16px rgba(124,95,252,0.3);
+  }
+
+  /* CANVAS */
+  #bg-canvas {
+    position: fixed; inset: 0;
+    width: 100%; height: 100%;
+    z-index: 0; pointer-events: none;
+  }
+
+  /* SCROLL REVEAL */
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 960px) {
+    nav { padding: 0 24px; }
+    .section-wrap, .glass-section { padding: 80px 24px; }
+    #hero { padding: 120px 24px 80px; }
+    .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .case-card { grid-template-columns: 1fr; }
+    .case-visual { border-right: none; border-bottom: 1px solid var(--border); min-height: 110px; flex-direction: row; align-items: center; padding: 18px 20px; }
+    .case-num { font-size: 44px; }
+    .rec-grid { grid-template-columns: 1fr 1fr; }
+    .critique-grid { grid-template-columns: 1fr; }
+    .timeline::before { display: none; }
+    .timeline { flex-wrap: wrap; gap: 10px; }
+    .t-step { flex-direction: row; flex: none; gap: 8px; }
+    .t-label { max-width: none; text-align: left; }
+  }
+  @media (max-width: 640px) {
+    h1 { letter-spacing: -1.5px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .nav-links { display: none; }
+    .rec-grid { grid-template-columns: 1fr; }
+    .geng-thumb { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- BACKGROUND -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+<div class="orb orb-4"></div>
+<canvas id="bg-canvas"></canvas>
+<div class="beam beam-1"></div>
+<div class="beam beam-2"></div>
+<div class="beam beam-3"></div>
+<div class="scanline"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <div class="nav-logo">Alfie Bunyan</div>
+    <div class="open-chip"><div class="open-dot"></div>Open to Work</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#work">Research</a></li>
+    <li><a href="#critiques">Critiques</a></li>
+    <li><a href="#recognition">Recognition</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-label reveal">Games User Researcher</div>
+    <h1 class="reveal" style="transition-delay:0.1s">Understanding<br>how players <em>think.</em></h1>
+    <p class="hero-sub reveal" style="transition-delay:0.2s">
+      Postgraduate researcher combining psychology, play, and mixed-methods UX research to help development teams build better player experiences.
+    </p>
+    <div class="hero-cta reveal" style="transition-delay:0.3s">
+      <a href="#work" class="btn-primary">View Research</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<div class="section-wrap" id="about">
+  <div class="section-inner">
+    <div class="section-label reveal">Background</div>
+    <h2 class="reveal">Psychology applied to play.</h2>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I am a postgraduate researcher at the <strong>University of Surrey</strong>, completing an MSc in Psychology, Game Design and Digital Innovation, built on a BSc Psychology foundation that gave me rigorous grounding in research methods, behavioural analysis, and experimental design.</p>
+        <p>I completed an end-to-end research placement with <strong>22cans</strong>, running the full user research lifecycle for their released title Masters of Albion, from ethics documentation through to stakeholder presentation. That experience gave me something most researchers at my level do not have: real studio context, real constraints, and real accountability for the work.</p>
+        <p>My specialist interests sit at the intersection of <strong>player psychology, VR interaction design, and trust in immersive systems</strong>. I use both qualitative and quantitative methods, and I care deeply about translating research into design recommendations that development teams can actually act on.</p>
+        <p>Based in Guildford. Open to hybrid and remote.</p>
+      </div>
+      <div class="about-stats reveal" style="transition-delay:0.1s">
+        <div class="stat-card">
+          <div class="stat-num">MSc</div>
+          <div class="stat-label">Psychology in Game Design and Digital Innovation, predicted 1st</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">1</div>
+          <div class="stat-label">Full industry playtest lifecycle delivered at a live studio</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Research projects across games, VR, and behavioural contexts</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">VR</div>
+          <div class="stat-label">Specialist across two degrees, eye-tracking, Unreal Engine, immersive UX</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<div class="glass-section" id="skills">
+  <div class="section-inner">
+    <div class="section-label reveal">Capabilities</div>
+    <h2 class="reveal">Research Toolkit</h2>
+    <p class="section-intro reveal">Methods, tools, and analytical approaches I bring to user research projects.</p>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon">🎮</div>
+        <h3>Games Research</h3>
+        <ul>
+          <li>Playtesting facilitation</li>
+          <li>Think-aloud protocols</li>
+          <li>Player psychology frameworks</li>
+          <li>Heuristic evaluation</li>
+          <li>Engagement and retention analysis</li>
+          <li>Game feel and UX critique</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal" style="transition-delay:0.08s">
+        <div class="skill-icon">🔬</div>
+        <h3>Research Methods</h3>
+        <ul>
+          <li>Semi-structured interviews</li>
+          <li>Behavioural observation</li>
+          <li>Eye-tracking (VR contexts)</li>
+          <li>Within/between-subjects design</li>
+          <li>Survey and experiment design</li>
+          <li>Ethics and consent management</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal" style="transition-delay:0.16s">
+        <div class="skill-icon">📊</div>
+        <h3>Analysis</h3>
+        <ul>
+          <li>Thematic analysis</li>
+          <li>Qualitative coding</li>
+          <li>Affinity mapping</li>
+          <li>Jamovi (advanced)</li>
+          <li>SPSS</li>
+          <li>Mixed-methods design</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal" style="transition-delay:0.24s">
+        <div class="skill-icon">🥽</div>
+        <h3>VR and Technical</h3>
+        <ul>
+          <li>Unreal Engine (prototyping)</li>
+          <li>VR environment design</li>
+          <li>Immersive UX evaluation</li>
+          <li>Embodied interaction research</li>
+          <li>OBS Studio (session recording)</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal" style="transition-delay:0.32s">
+        <div class="skill-icon">🧠</div>
+        <h3>Behavioural Science</h3>
+        <ul>
+          <li>Motor learning and skill acquisition</li>
+          <li>Cognitive load assessment</li>
+          <li>Trust and mental model research</li>
+          <li>Child-appropriate methodology</li>
+          <li>Implicit vs explicit learning</li>
+        </ul>
+      </div>
+      <div class="skill-card reveal" style="transition-delay:0.4s">
+        <div class="skill-icon">🛠</div>
+        <h3>Tools and Platforms</h3>
+        <ul>
+          <li>Qualtrics</li>
+          <li>Google Forms</li>
+          <li>Zoom (remote facilitation)</li>
+          <li>MS Teams</li>
+          <li>Participant recruitment pipelines</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CASE STUDIES -->
+<div class="section-wrap" id="work">
+  <div class="section-inner">
+    <div class="section-label reveal">Selected Research</div>
+    <h2 class="reveal">Case Studies</h2>
+    <p class="section-intro reveal">A selection of research projects spanning games, VR, and behavioural psychology.</p>
+
+    <div class="case-studies">
+
+      <!-- 22CANS -->
+      <div class="case-card reveal">
+        <div class="case-visual">
+          <div class="case-num">01</div>
+          <div class="case-type-badge">Academic Placement</div>
+        </div>
+        <div class="case-body">
+          <div class="case-context">University of Surrey &nbsp;·&nbsp; 22cans &nbsp;·&nbsp; 2026</div>
+          <h3>End-to-End Playtest Research for a Released Title</h3>
+          <p>A full user research engagement embedded within an active studio, covering the complete research lifecycle from ethics approval through stakeholder delivery. I managed participant recruitment, ran live facilitated playtest sessions, conducted and transcribed post-play interviews, applied thematic analysis, and delivered a prioritised findings report to the development team.</p>
+          <p>Working in a live studio environment meant navigating real constraints: NDA protocols, stakeholder expectations, and production timelines alongside the research itself.</p>
+          <div class="case-tags">
+            <span class="tag">Playtesting Facilitation</span>
+            <span class="tag">Semi-structured Interviews</span>
+            <span class="tag">Thematic Analysis</span>
+            <span class="tag">Ethics Documentation</span>
+            <span class="tag">Stakeholder Presentation</span>
+          </div>
+          <div class="timeline">
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Ethics and Consent</div></div>
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Recruitment</div></div>
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Facilitation</div></div>
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Thematic Analysis</div></div>
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Studio Debrief</div></div>
+          </div>
+          <div class="nda-note">🔒 &nbsp;Full research documentation available on request (NDA-restricted)</div>
+        </div>
+      </div>
+
+      <!-- VR SIMULATION -->
+      <div class="case-card reveal">
+        <div class="case-visual">
+          <div class="case-num">02</div>
+          <div class="case-type-badge">MSc Module Project</div>
+        </div>
+        <div class="case-body">
+          <div class="case-context">University of Surrey &nbsp;·&nbsp; MSc Year 1</div>
+          <h3>VR Cognitive Impairment Simulation</h3>
+          <p>Designed and built a VR environment in Unreal Engine simulating alcohol-like visual impairment to evaluate its effects on cognitive task performance. The prototype introduced measurable perceptual distortions while participants completed structured in-world tasks, with cognitive performance and behavioural responses recorded throughout.</p>
+          <p>Delivered as a full academic presentation covering design rationale, methodology, participant response analysis, and implications for accessibility and safety simulation.</p>
+          <div class="case-tags">
+            <span class="tag">Unreal Engine</span>
+            <span class="tag">VR Prototyping</span>
+            <span class="tag">Cognitive Assessment</span>
+            <span class="tag">Behavioural Observation</span>
+            <span class="tag">Academic Presentation</span>
+          </div>
+          <div class="timeline">
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Prototype Design</div></div>
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">VR Build</div></div>
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">User Sessions</div></div>
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Findings Presentation</div></div>
+          </div>
+          <a href="assets/vr-presentation.pdf" target="_blank" class="doc-link">&#128196; &nbsp;View Full Presentation</a>
+        </div>
+      </div>
+
+      <!-- DCD DISSERTATION -->
+      <div class="case-card reveal">
+        <div class="case-visual">
+          <div class="case-num">03</div>
+          <div class="case-type-badge">BSc Dissertation</div>
+        </div>
+        <div class="case-body">
+          <div class="case-context">University of Surrey &nbsp;·&nbsp; 2025</div>
+          <h3>Motor Learning in DCD: Gamified Research with Children</h3>
+          <p>Investigated motor learning differences in children with Developmental Coordination Disorder using a gamified visuomotor rotation task, presented as an alien-feeding game for participants aged 9 to 11. The study compared implicit and explicit learning strategies across DCD and typically-developing groups.</p>
+          <p>Designing research instruments for a child population required careful attention to ethics, age-appropriate language, and engagement — skills directly transferable to game UX research with diverse player populations.</p>
+          <div class="case-tags">
+            <span class="tag">Child-appropriate Methodology</span>
+            <span class="tag">Gamified Research Design</span>
+            <span class="tag">Between-subjects Design</span>
+            <span class="tag">Jamovi Analysis</span>
+            <span class="tag">Ethics: Child Participants</span>
+          </div>
+          <div class="timeline">
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Study Design</div></div>
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Gamified Task</div></div>
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Data Collection</div></div>
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Statistical Analysis</div></div>
+          </div>
+          <a href="assets/dissertation.pdf" target="_blank" class="doc-link">&#128196; &nbsp;View Dissertation</a>
+        </div>
+      </div>
+
+      <!-- MSC AV TRUST — COMING SOON -->
+      <div class="case-card coming-soon reveal">
+        <div class="case-visual">
+          <div class="coming-soon-sign">Coming Soon</div>
+          <div class="case-num">04</div>
+          <div class="case-type-badge">MSc Dissertation</div>
+        </div>
+        <div class="case-body">
+          <div class="case-context">University of Surrey &nbsp;·&nbsp; In Progress</div>
+          <h3>Trust in Autonomous Vehicles — VR Study</h3>
+          <p>Examining how driving style and explanatory behaviour affect user trust in autonomous systems, using a custom VR environment and a mixed-methods design combining quantitative psychometrics with qualitative self-report analysis.</p>
+          <div class="case-tags">
+            <span class="tag">VR Research Design</span>
+            <span class="tag">Trust Measurement</span>
+            <span class="tag">Mixed-methods</span>
+            <span class="tag">Autonomous Systems UX</span>
+          </div>
+          <p style="font-size:13px;color:var(--green);font-weight:500;margin-bottom:0;">Case study available on completion, 2026</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- GAME CRITIQUES -->
+<div class="glass-section" id="critiques">
+  <div class="section-inner">
+    <div class="section-label reveal">Personal Projects</div>
+    <h2 class="reveal">AAA Title Design Critiques</h2>
+    <p class="section-intro reveal">Critical design analysis of AAA titles through a UX and player psychology lens.</p>
+    <div class="critique-grid">
+      <div class="critique-card reveal">
+        <div class="critique-game">Counter-Strike 2</div>
+        <h4>A Tale of Two Economies</h4>
+        <p>A psychological critique separating CS2's two design systems: a skill-based in-game economy built on prospect theory and cognitive load, and a monetisation economy built on variable reinforcement, the near-miss effect, and classical conditioning. Examines the ethical implications of gambling mechanics in a free-to-access platform, including the CSGOLotto scandal and the gap between regulatory response and psychological evidence.</p>
+        <a href="assets/critique-1.pdf" target="_blank" class="doc-link" style="font-size:12px;padding:7px 12px;">&#128196; &nbsp;View Full Critique</a>
+      </div>
+      <div class="critique-card reveal" style="transition-delay:0.1s">
+        <div class="critique-game">League of Legends</div>
+        <h4>A Critical Psychological Analysis</h4>
+        <p>A three-part critique examining how League of Legends sustains 150 million players through emergent complexity and staged mastery; how the ranked system simultaneously satisfies self-determination theory needs while weaponising loss aversion and the goal gradient effect; and how Hextech monetisation deploys variable ratio reinforcement and engineered FOMO against a predominantly adolescent player base. Argues that toxicity is a structural output of anonymous high-stakes design, not a player character problem — and that Riot built the conditions for it.</p>
+        <a href="assets/critique-2.pdf" target="_blank" class="doc-link" style="font-size:12px;padding:7px 12px;">&#128196; &nbsp;View Full Critique</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- RECOGNITION -->
+<div class="section-wrap" id="recognition">
+  <div class="section-inner">
+    <div class="section-label reveal">Awards and Programmes</div>
+    <h2 class="reveal">Recognition</h2>
+    <p class="section-intro reveal">Selected for competitive games industry programmes and academic distinctions.</p>
+
+    <div class="rec-grid">
+      <div class="rec-card reveal">
+        <div class="rec-icon">🎯</div>
+        <div>
+          <h4>Limit Break Mentorship Programme</h4>
+          <p>Selected applicant for the games industry mentorship programme connecting emerging talent with senior industry professionals.</p>
+          <span class="rec-year">2025 / 26</span>
+        </div>
+      </div>
+      <div class="rec-card reveal" style="transition-delay:0.08s">
+        <div class="rec-icon">📄</div>
+        <div>
+          <h4>PhD Research Proposal</h4>
+          <p>Fully developed doctoral research proposal in games user research and player psychology. Available on request.</p>
+          <span class="rec-year">2026</span>
+        </div>
+      </div>
+      <div class="rec-card reveal" style="transition-delay:0.16s">
+        <div class="rec-icon">🎮</div>
+        <div>
+          <h4>Surrey Video Game Society</h4>
+          <p>Active member, game jam participant, and contributor to AAA title design critique sessions.</p>
+          <span class="rec-year">Jan 2024 – Jan 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- GEN.G FULL-WIDTH CARD -->
+    <div class="geng-card reveal">
+      <img src="assets/geng-award.jpg" class="geng-thumb" alt="Gen.G Foundation Scholarship certificate awarded to Alfie Bunyan">
+      <div class="geng-text">
+        <h4>Gen.G Foundation Scholarship</h4>
+        <p>Competitively awarded scholarship for the Gen.G gaming industry practicum abroad programme, in recognition of achievements in gaming, esports, and leadership.</p>
+        <span class="rec-year">Jun 2024</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<div class="section-wrap" id="contact">
+  <div class="section-inner" style="text-align:center;">
+    <div class="section-label center reveal">Get in Touch</div>
+    <h2 class="reveal">Let's work together.</h2>
+    <p class="section-intro reveal" style="margin:14px auto 0;">
+      Open to junior user research and UX research roles in games and AI. Guildford, London, or remote.
+    </p>
+    <div class="contact-links reveal">
+      <a href="mailto:alfiebunyans@gmail.com" class="contact-link">
+        <span>✉</span><strong>alfiebunyans@gmail.com</strong>
+      </a>
+      <a href="https://www.linkedin.com/in/alfie-bunyan-3314a52b2" target="_blank" class="contact-link">
+        <span>in</span><strong>LinkedIn</strong>
+      </a>
+      <a href="assets/cv.pdf" class="contact-link">
+        <span>↓</span><strong>Download CV</strong>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Alfie Bunyan &nbsp;·&nbsp; Games User Researcher &nbsp;·&nbsp; Guildford, UK
+</footer>
+
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  // Scroll reveal
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  // Nav active state
+  const sections = document.querySelectorAll('[id]');
+  const links = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    links.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+
+    // Back to top
+    document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
+  }, { passive: true });
+</script>
+<script>
+(function () {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx = canvas.getContext('2d');
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize, { passive: true });
+
+  // Mouse
+  const mouse = { x: -9999, y: -9999, vx: 0, vy: 0 };
+  window.addEventListener('mousemove', e => {
+    mouse.vx = e.clientX - mouse.x;
+    mouse.vy = e.clientY - mouse.y;
+    mouse.x  = e.clientX;
+    mouse.y  = e.clientY;
+  }, { passive: true });
+
+  // Colour palette
+  const COLS = ['124,95,252', '34,211,238', '168,153,255'];
+
+  // ── PARTICLES ──────────────────────────────────────────
+  function mkParticle() {
+    return {
+      x:   Math.random() * canvas.width,
+      y:   Math.random() * canvas.height,
+      vx:  (Math.random() - 0.5) * 0.35,
+      vy:  (Math.random() - 0.5) * 0.35,
+      r:   Math.random() * 1.6 + 0.4,
+      a:   Math.random() * 0.4 + 0.12,
+      col: COLS[Math.floor(Math.random() * COLS.length)]
+    };
+  }
+  const particles = Array.from({ length: 75 }, mkParticle);
+
+  // ── STREAKS ────────────────────────────────────────────
+  const streaks = [];
+
+  function fireStreak(x, y, angle, speed, opts = {}) {
+    streaks.push({
+      x, y, angle, speed,
+      len:   opts.len   || 80  + Math.random() * 150,
+      life:  opts.life  || 1,
+      decay: opts.decay || 0.02 + Math.random() * 0.018,
+      w:     opts.w     || 0.7 + Math.random() * 1.4,
+      col:   Math.random() > 0.5 ? '124,95,252' : '34,211,238'
+    });
+  }
+
+  function autoStreak() {
+    const edge = Math.floor(Math.random() * 4);
+    let x, y, angle;
+    const W = canvas.width, H = canvas.height;
+    const spread = 0.7;
+    if      (edge === 0) { x = Math.random()*W; y = -20;  angle =  Math.PI/2 + (Math.random()-0.5)*spread; }
+    else if (edge === 1) { x = W+20; y = Math.random()*H; angle =  Math.PI   + (Math.random()-0.5)*spread; }
+    else if (edge === 2) { x = Math.random()*W; y = H+20; angle = -Math.PI/2 + (Math.random()-0.5)*spread; }
+    else                 { x = -20; y = Math.random()*H;  angle =              (Math.random()-0.5)*spread; }
+    fireStreak(x, y, angle, 8 + Math.random() * 10);
+  }
+
+  // ── RIPPLES ────────────────────────────────────────────
+  const ripples = [];
+
+  window.addEventListener('click', e => {
+    ripples.push({
+      x: e.clientX, y: e.clientY,
+      r: 0, max: 110 + Math.random() * 70,
+      col: Math.random() > 0.5 ? '124,95,252' : '34,211,238'
+    });
+    // Burst outward
+    for (let i = 0; i < 5; i++) {
+      fireStreak(
+        e.clientX, e.clientY,
+        (Math.PI * 2 / 5) * i + Math.random() * 0.3,
+        10 + Math.random() * 8,
+        { len: 60, life: 0.9, decay: 0.03 }
+      );
+    }
+  });
+
+  // ── LOOP ───────────────────────────────────────────────
+  let streakTimer = 0;
+
+  function draw() {
+    requestAnimationFrame(draw);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Particles
+    for (const p of particles) {
+      const dx = p.x - mouse.x, dy = p.y - mouse.y;
+      const d  = Math.sqrt(dx * dx + dy * dy);
+      if (d < 140 && d > 0) {
+        const f = ((140 - d) / 140) * 0.9;
+        p.vx += (dx / d) * f;
+        p.vy += (dy / d) * f;
+      }
+      p.vx *= 0.96; p.vy *= 0.96;
+      p.x  += p.vx;  p.y  += p.vy;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width)  p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+
+      ctx.save();
+      ctx.globalAlpha = p.a;
+      ctx.fillStyle   = `rgb(${p.col})`;
+      ctx.shadowBlur  = 8;
+      ctx.shadowColor = `rgba(${p.col},0.9)`;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // Auto streak timer
+    streakTimer++;
+    if (streakTimer > 50 + Math.random() * 35) {
+      autoStreak();
+      streakTimer = 0;
+    }
+
+    // Draw streaks
+    for (let i = streaks.length - 1; i >= 0; i--) {
+      const s = streaks[i];
+      s.x    += Math.cos(s.angle) * s.speed;
+      s.y    += Math.sin(s.angle) * s.speed;
+      s.life -= s.decay;
+      if (s.life <= 0) { streaks.splice(i, 1); continue; }
+
+      const tx = s.x - Math.cos(s.angle) * s.len;
+      const ty = s.y - Math.sin(s.angle) * s.len;
+      const g  = ctx.createLinearGradient(tx, ty, s.x, s.y);
+      g.addColorStop(0, `rgba(${s.col},0)`);
+      g.addColorStop(1, `rgba(${s.col},${s.life})`);
+
+      ctx.save();
+      ctx.globalAlpha = s.life;
+      ctx.strokeStyle = g;
+      ctx.lineWidth   = s.w;
+      ctx.shadowBlur  = 12;
+      ctx.shadowColor = `rgba(${s.col},0.8)`;
+      ctx.lineCap     = 'round';
+      ctx.beginPath();
+      ctx.moveTo(tx, ty); ctx.lineTo(s.x, s.y);
+      ctx.stroke();
+      // Bright head
+      ctx.fillStyle   = `rgba(255,255,255,${s.life * 0.85})`;
+      ctx.shadowBlur  = 16;
+      ctx.shadowColor = `rgba(${s.col},1)`;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.w * 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    // Ripples
+    for (let i = ripples.length - 1; i >= 0; i--) {
+      const rp = ripples[i];
+      rp.r += 3.5;
+      const op = 1 - rp.r / rp.max;
+      if (op <= 0) { ripples.splice(i, 1); continue; }
+      ctx.save();
+      ctx.globalAlpha = op * 0.65;
+      ctx.strokeStyle = `rgba(${rp.col},1)`;
+      ctx.lineWidth   = 1.5;
+      ctx.shadowBlur  = 14;
+      ctx.shadowColor = `rgba(${rp.col},0.9)`;
+      ctx.beginPath();
+      ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  draw();
+})();
+</script>
+</body>
+</html>
