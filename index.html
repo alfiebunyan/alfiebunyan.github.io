@@ -191,6 +191,18 @@
   .nav-links a:hover::after,
   .nav-links a.active::after { transform: scaleX(1); }
 
+  .nav-avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    object-fit: cover; flex-shrink: 0;
+    border: 1.5px solid var(--border-bright);
+    box-shadow: 0 0 10px rgba(124,95,252,0.3);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .nav-avatar:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 16px rgba(124,95,252,0.55);
+  }
+
   /* LAYOUT */
   .section-wrap {
     position: relative; z-index: 1;
@@ -299,7 +311,7 @@
 
   /* ABOUT */
   .about-grid {
-    display: grid; grid-template-columns: 240px 1fr 1fr;
+    display: grid; grid-template-columns: 1fr 1fr;
     gap: 48px; align-items: start;
   }
   .about-text p {
@@ -759,6 +771,26 @@
     box-shadow: 0 0 8px rgba(200,155,60,0.15);
   }
 
+  /* Game screenshot backgrounds on critique cards */
+  .critique-card.cs2::after {
+    content: '';
+    position: absolute; inset: 0; border-radius: inherit;
+    background: url('assets/cs2-bg.jpg') center / cover no-repeat;
+    opacity: 0.06; pointer-events: none; z-index: 0;
+    transition: opacity 0.3s;
+  }
+  .critique-card.cs2:hover::after { opacity: 0.1; }
+  .critique-card.lol::after {
+    content: '';
+    position: absolute; inset: 0; border-radius: inherit;
+    background: url('assets/lol-bg.jpg') center / cover no-repeat;
+    opacity: 0.06; pointer-events: none; z-index: 0;
+    transition: opacity 0.3s;
+  }
+  .critique-card.lol:hover::after { opacity: 0.1; }
+  /* Keep card content above the background image */
+  .critique-card > * { position: relative; z-index: 1; }
+
   /* CASE STUDY VIDEO */
   .case-video {
     width: 100%; border-radius: 8px;
@@ -833,6 +865,7 @@
     .skills-grid { grid-template-columns: 1fr; }
     .about-stats { grid-template-columns: 1fr 1fr; }
     .nav-links { display: none; }
+    .nav-avatar { display: none; }
     .rec-grid { grid-template-columns: 1fr; }
     .geng-thumb { display: none; }
   }
@@ -866,6 +899,7 @@
     <li><a href="#recognition">Recognition</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <img src="assets/alfie.jpg" alt="Alfie Bunyan" class="nav-avatar">
 </nav>
 
 <!-- HERO -->
@@ -916,11 +950,6 @@
     <div class="section-label reveal">Background</div>
     <h2 class="reveal">Psychology applied to play.</h2>
     <div class="about-grid">
-      <div class="about-photo-wrap reveal">
-        <!-- Save your graduation photo to assets/alfie.jpg -->
-        <img src="assets/alfie.jpg" alt="Alfie Bunyan" class="about-photo">
-        <span class="about-photo-label">Alfie Bunyan</span>
-      </div>
       <div class="about-text reveal">
         <p>I attended the LoL Worlds 2024 Grand Final at The O2 and spent a fair amount of it watching the crowd rather than the stage. Being more interested in the people experiencing something than the thing itself is, roughly, how I ended up in user research.</p>
         <p>My background is <strong>Psychology at the University of Surrey</strong>: BSc first, then an MSc in Psychology, Game Design and Digital Innovation. The research methods grounding matters to me as much as the subject. I want to know exactly what I am doing when I put findings in front of a team.</p>
@@ -928,22 +957,28 @@
         <p>My specialist interests sit at the intersection of <strong>player psychology, VR interaction design, and trust in immersive systems</strong>. I care about translating findings into something a development team can actually do something with.</p>
         <p>Based in Guildford and London. Open to onsite, hybrid, or fully remote.</p>
       </div>
-      <div class="about-stats reveal" style="transition-delay:0.1s">
-        <div class="stat-card">
-          <div class="stat-num">MSc</div>
-          <div class="stat-label">Psychology in Game Design and Digital Innovation, predicted 1st</div>
+      <div class="about-right-col reveal" style="transition-delay:0.1s">
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-num">MSc</div>
+            <div class="stat-label">Psychology in Game Design and Digital Innovation, predicted 1st</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">1</div>
+            <div class="stat-label">Full industry playtest lifecycle delivered at a live studio</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">4+</div>
+            <div class="stat-label">Research projects across games, VR, and behavioural contexts</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">VR</div>
+            <div class="stat-label">Specialist across two degrees, eye-tracking, Unreal Engine, immersive UX</div>
+          </div>
         </div>
-        <div class="stat-card">
-          <div class="stat-num">1</div>
-          <div class="stat-label">Full industry playtest lifecycle delivered at a live studio</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">4+</div>
-          <div class="stat-label">Research projects across games, VR, and behavioural contexts</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">VR</div>
-          <div class="stat-label">Specialist across two degrees, eye-tracking, Unreal Engine, immersive UX</div>
+        <div class="about-photo-wrap" style="margin-top:24px;">
+          <img src="assets/alfie.jpg" alt="Alfie Bunyan" class="about-photo">
+          <span class="about-photo-label">Alfie Bunyan</span>
         </div>
       </div>
     </div>
