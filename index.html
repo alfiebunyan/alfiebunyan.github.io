@@ -298,34 +298,32 @@
     box-shadow: 0 0 24px rgba(124,95,252,0.18);
   }
 
+  /* HERO AVATAR */
+  .hero-heading-row {
+    display: flex; align-items: center; gap: 26px;
+    margin-bottom: 28px;
+  }
+  .hero-heading-row h1 { margin-bottom: 0; }
+  .hero-avatar {
+    width: 84px; height: 84px; border-radius: 50%;
+    object-fit: cover; object-position: top center;
+    flex-shrink: 0;
+    border: 2px solid rgba(124,95,252,0.55);
+    box-shadow: 0 0 0 5px rgba(124,95,252,0.1), 0 8px 28px rgba(0,0,0,0.5);
+  }
+
   /* ABOUT */
   .about-grid {
-    display: grid; grid-template-columns: 1fr 340px;
-    gap: 60px; align-items: start;
-  }
-  .about-left h2 {
-    font-family: 'Exo 2', sans-serif;
-    font-size: clamp(28px,4vw,46px);
-    font-weight: 800; color: var(--white);
-    letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 24px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 52px; align-items: start;
   }
   .about-text p {
     color: var(--text-muted); margin-bottom: 16px;
     line-height: 1.8; font-size: 15px;
   }
-  .about-text p:last-child { margin-bottom: 24px; }
+  .about-text p:last-child { margin-bottom: 0; }
   .about-text strong { color: var(--text); font-weight: 600; }
   .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .about-photo {
-    width: 100%; aspect-ratio: 2/3; object-fit: cover; object-position: top;
-    border-radius: 12px; border: 1px solid var(--border);
-    display: block; background: var(--surface-2);
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .about-photo:hover {
-    border-color: var(--border-bright);
-    box-shadow: 0 0 36px rgba(124,95,252,0.22);
-  }
   .stat-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 10px; padding: 22px;
@@ -843,7 +841,7 @@
     .why-grid { grid-template-columns: 1fr; gap: 36px; }
     .why-images { grid-template-columns: 1fr 1fr; }
     .about-grid { grid-template-columns: 1fr; gap: 36px; }
-    .about-photo-wrap { max-width: 340px; position: static; }
+    .hero-heading-row { flex-direction: column; align-items: flex-start; gap: 18px; }
     .skills-grid { grid-template-columns: 1fr 1fr; }
     .case-card { grid-template-columns: 1fr; }
     .case-visual { border-right: none; border-bottom: 1px solid var(--border); min-height: 110px; flex-direction: row; align-items: center; padding: 18px 20px; }
@@ -900,7 +898,10 @@
 <section id="hero">
   <div class="hero-inner">
     <div class="hero-label reveal">Games User Researcher</div>
-    <h1 class="reveal" style="transition-delay:0.1s">I research the <em>'why'</em><br>behind how people play.</h1>
+    <div class="hero-heading-row reveal" style="transition-delay:0.1s">
+      <img src="assets/alfie.jpg" alt="Alfie Bunyan" class="hero-avatar">
+      <h1>I research the <em>'why'</em><br>behind how people play.</h1>
+    </div>
     <p class="hero-sub reveal" style="transition-delay:0.2s">
       Postgraduate researcher combining psychology, play, and mixed-methods UX research to help development teams build better player experiences. Based in Guildford and London, open to hybrid and remote.
     </p>
@@ -942,38 +943,32 @@
 <div class="section-wrap" id="about">
   <div class="section-inner">
     <div class="section-label reveal">Background</div>
+    <h2 class="reveal">Psychology applied to play.</h2>
     <div class="about-grid">
-      <div class="about-left reveal">
-        <h2>Psychology applied to play.</h2>
-        <div class="about-text">
-          <p>I attended the LoL Worlds 2024 Grand Final at The O2 and spent a fair amount of it watching the crowd rather than the stage. Being more interested in the people experiencing something than the thing itself is, roughly, how I ended up in user research.</p>
-          <p>My background is <strong>Psychology at the University of Surrey</strong>: BSc first, then an MSc in Psychology, Game Design and Digital Innovation. The research methods grounding matters to me as much as the subject. I want to know exactly what I am doing when I put findings in front of a team.</p>
-          <p>My placement at <strong>22cans</strong> on Masters of Albion gave me something most researchers at my level have not had: the full research lifecycle inside a live studio, with real stakeholders waiting on the output. Ethics, recruitment, facilitation, analysis, presentation, and a team that had to act on what I found.</p>
-          <p>My specialist interests sit at the intersection of <strong>player psychology, VR interaction design, and trust in immersive systems</strong>. I care about translating findings into something a development team can actually do something with.</p>
-          <p>Based in Guildford and London. Open to onsite, hybrid, or fully remote.</p>
-        </div>
-        <div class="about-stats">
-          <div class="stat-card">
-            <div class="stat-num">MSc</div>
-            <div class="stat-label">Psychology in Game Design and Digital Innovation, predicted 1st</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">1</div>
-            <div class="stat-label">Full industry playtest lifecycle delivered at a live studio</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">4+</div>
-            <div class="stat-label">Research projects across games, VR, and behavioural contexts</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">VR</div>
-            <div class="stat-label">Specialist across two degrees, eye-tracking, Unreal Engine, immersive UX</div>
-          </div>
-        </div>
+      <div class="about-text reveal">
+        <p>I attended the LoL Worlds 2024 Grand Final at The O2 and spent a fair amount of it watching the crowd rather than the stage. Being more interested in the people experiencing something than the thing itself is, roughly, how I ended up in user research.</p>
+        <p>My background is <strong>Psychology at the University of Surrey</strong>: BSc first, then an MSc in Psychology, Game Design and Digital Innovation. The research methods grounding matters to me as much as the subject. I want to know exactly what I am doing when I put findings in front of a team.</p>
+        <p>My placement at <strong>22cans</strong> on Masters of Albion gave me something most researchers at my level have not had: the full research lifecycle inside a live studio, with real stakeholders waiting on the output. Ethics, recruitment, facilitation, analysis, presentation, and a team that had to act on what I found.</p>
+        <p>My specialist interests sit at the intersection of <strong>player psychology, VR interaction design, and trust in immersive systems</strong>. I care about translating findings into something a development team can actually do something with.</p>
+        <p>Based in Guildford and London. Open to onsite, hybrid, or fully remote.</p>
       </div>
-      <div class="about-photo-wrap reveal" style="transition-delay:0.15s; position: sticky; top: 90px;">
-        <img src="assets/alfie.jpg" alt="Alfie Bunyan" class="about-photo">
-        <span class="about-photo-label">Alfie Bunyan</span>
+      <div class="about-stats reveal" style="transition-delay:0.1s">
+        <div class="stat-card">
+          <div class="stat-num">MSc</div>
+          <div class="stat-label">Psychology in Game Design and Digital Innovation, predicted 1st</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">1</div>
+          <div class="stat-label">Full industry playtest lifecycle delivered at a live studio</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Research projects across games, VR, and behavioural contexts</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">VR</div>
+          <div class="stat-label">Specialist across two degrees, eye-tracking, Unreal Engine, immersive UX</div>
+        </div>
       </div>
     </div>
   </div>
