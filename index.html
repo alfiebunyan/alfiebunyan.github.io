@@ -247,7 +247,19 @@
     display: flex; flex-direction: column; justify-content: center;
     padding: 130px 52px 100px;
   }
-  .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; }
+  .hero-inner {
+    max-width: 1100px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 320px;
+    gap: 60px; align-items: center;
+  }
+  .hero-portrait {
+    width: 100%; aspect-ratio: 3/4;
+    object-fit: cover; object-position: top center;
+    border-radius: 16px; border: 1px solid var(--border);
+    display: block;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 22%);
+    mask-image: linear-gradient(to right, transparent 0%, black 22%);
+  }
   .hero-label {
     font-size: 11px; letter-spacing: 3.5px;
     text-transform: uppercase; color: var(--cyan);
@@ -838,6 +850,8 @@
     nav { padding: 0 24px; }
     .section-wrap, .glass-section { padding: 80px 24px; }
     #hero { padding: 120px 24px 80px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 0; }
+    .hero-portrait { display: none; }
     .why-grid { grid-template-columns: 1fr; gap: 36px; }
     .why-images { grid-template-columns: 1fr 1fr; }
     .about-grid { grid-template-columns: 1fr; gap: 36px; }
@@ -897,18 +911,21 @@
 <!-- HERO -->
 <section id="hero">
   <div class="hero-inner">
-    <div class="hero-label reveal">Games User Researcher</div>
-    <div class="hero-heading-row reveal" style="transition-delay:0.1s">
-      <img src="assets/alfie.jpg" alt="Alfie Bunyan" class="hero-avatar">
-      <h1>I research the <em>'why'</em><br>behind how people play.</h1>
+    <div class="hero-content">
+      <div class="hero-label reveal">Games User Researcher</div>
+      <div class="hero-heading-row reveal" style="transition-delay:0.1s">
+        <img src="assets/alfie.jpg" alt="Alfie Bunyan" class="hero-avatar">
+        <h1>I research the <em>'why'</em><br>behind how people play.</h1>
+      </div>
+      <p class="hero-sub reveal" style="transition-delay:0.2s">
+        Postgraduate researcher combining psychology, play, and mixed-methods UX research to help development teams build better player experiences. Based in Guildford and London, open to hybrid and remote.
+      </p>
+      <div class="hero-cta reveal" style="transition-delay:0.3s">
+        <a href="#work" class="btn-primary">View Research</a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
     </div>
-    <p class="hero-sub reveal" style="transition-delay:0.2s">
-      Postgraduate researcher combining psychology, play, and mixed-methods UX research to help development teams build better player experiences. Based in Guildford and London, open to hybrid and remote.
-    </p>
-    <div class="hero-cta reveal" style="transition-delay:0.3s">
-      <a href="#work" class="btn-primary">View Research</a>
-      <a href="#contact" class="btn-ghost">Get in Touch</a>
-    </div>
+    <img src="assets/alfie-hero.jpg" alt="Alfie Bunyan" class="hero-portrait reveal" style="transition-delay:0.25s">
   </div>
 </section>
 
