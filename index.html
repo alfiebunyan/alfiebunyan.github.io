@@ -396,16 +396,20 @@
 
   /* Case study stats strip */
   .case-stats {
-    display: flex; gap: 20px; flex-wrap: wrap;
+    display: flex; gap: 0; flex-wrap: wrap;
     margin-bottom: 16px; padding-bottom: 16px;
     border-bottom: 1px solid var(--border);
   }
-  .case-stat { display: flex; flex-direction: column; gap: 1px; }
+  .case-stat { display: flex; flex-direction: column; gap: 0; padding-right: 24px; }
+  .case-stat + .case-stat { padding-left: 24px; border-left: 1px solid var(--border); }
   .case-stat-val {
     font-family: 'Exo 2', sans-serif;
-    font-size: 13px; font-weight: 700; color: var(--white);
+    font-size: 19px; font-weight: 900; color: var(--white); line-height: 1;
   }
-  .case-stat-lbl { font-size: 10px; color: var(--text-dim); letter-spacing: 0.5px; text-transform: uppercase; }
+  .case-stat-lbl { font-size: 10px; color: var(--text-dim); letter-spacing: 0.5px; text-transform: uppercase; margin-top: 4px; }
+  .case-card-22cans .case-stat-val { color: #a899ff; }
+  .case-card-vr .case-stat-val { color: #22d3ee; }
+  .case-card-dcd .case-stat-val { color: #22c55e; }
 
   /* Case study outcome callout */
   .case-outcome {
@@ -417,10 +421,48 @@
     font-style: italic; line-height: 1.65;
   }
 
-  /* Per-study left panel tints */
-  .case-card-22cans .case-visual { background-color: rgba(124,95,252,0.1); }
-  .case-card-vr     .case-visual { background-color: rgba(34,211,238,0.08); }
-  .case-card-dcd    .case-visual { background-color: rgba(34,197,94,0.07); }
+  /* Per-study left panel theming */
+  .case-card-22cans .case-visual {
+    background:
+      radial-gradient(ellipse at 120% -20%, rgba(124,95,252,0.32) 0%, transparent 55%),
+      linear-gradient(rgba(124,95,252,0.07) 1px, transparent 1px) 0 0 / 28px 28px,
+      linear-gradient(90deg, rgba(124,95,252,0.07) 1px, transparent 1px) 0 0 / 28px 28px,
+      rgba(14,10,34,0.92);
+  }
+  .case-card-vr .case-visual {
+    background:
+      radial-gradient(ellipse at 120% -20%, rgba(34,211,238,0.26) 0%, transparent 55%),
+      linear-gradient(rgba(34,211,238,0.06) 1px, transparent 1px) 0 0 / 28px 28px,
+      linear-gradient(90deg, rgba(34,211,238,0.06) 1px, transparent 1px) 0 0 / 28px 28px,
+      rgba(6,14,24,0.92);
+  }
+  .case-card-dcd .case-visual {
+    background:
+      radial-gradient(ellipse at 120% -20%, rgba(34,197,94,0.22) 0%, transparent 55%),
+      linear-gradient(rgba(34,197,94,0.06) 1px, transparent 1px) 0 0 / 28px 28px,
+      linear-gradient(90deg, rgba(34,197,94,0.06) 1px, transparent 1px) 0 0 / 28px 28px,
+      rgba(6,14,10,0.92);
+  }
+  .case-card-vr .case-visual::after { background: radial-gradient(circle at top right, rgba(34,211,238,0.22), transparent 70%); }
+  .case-card-dcd .case-visual::after { background: radial-gradient(circle at top right, rgba(34,197,94,0.2), transparent 70%); }
+
+  /* Case study SVG icons */
+  .case-icon { width: 52px; height: 52px; flex-shrink: 0; margin-bottom: 14px; opacity: 0.6; }
+  .case-card-22cans .case-icon { color: #a899ff; }
+  .case-card-vr .case-icon { color: #22d3ee; }
+  .case-card-dcd .case-icon { color: #22c55e; }
+
+  /* VR + DCD: horizontal top-panel layout */
+  .case-card-vr, .case-card-dcd { grid-template-columns: 1fr; }
+  .case-card-vr .case-visual, .case-card-dcd .case-visual {
+    flex-direction: row; align-items: center; gap: 20px;
+    min-height: auto; padding: 20px 28px;
+    border-right: none; border-bottom: 1px solid var(--border);
+  }
+  .case-card-vr .case-icon, .case-card-dcd .case-icon { width: 36px; height: 36px; margin-bottom: 0; opacity: 0.7; }
+  .case-card-vr .case-num, .case-card-dcd .case-num { font-size: 50px; }
+  .case-card-vr .case-type-badge, .case-card-dcd .case-type-badge { margin-left: auto; }
+  .case-card-vr .case-body, .case-card-dcd .case-body { padding: 24px 28px; }
 
   /* Critique reading time + pull quote */
   .critique-meta {
@@ -437,7 +479,8 @@
   .critique-card.lol .critique-pull { border-left-color: #c8aa6e; color: #7a8fa0; }
 
   /* CASE STUDIES */
-  .case-studies { display: flex; flex-direction: column; gap: 24px; }
+  .case-studies { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .case-card-22cans, .case-card.coming-soon { grid-column: 1 / -1; }
   .case-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 14px; overflow: hidden;
@@ -912,9 +955,13 @@
     .about-grid { grid-template-columns: 1fr; gap: 36px; }
 
     .skills-grid { grid-template-columns: 1fr 1fr; }
-    .case-card { grid-template-columns: 1fr; }
-    .case-visual { border-right: none; border-bottom: 1px solid var(--border); min-height: 110px; flex-direction: row; align-items: center; padding: 18px 20px; }
-    .case-num { font-size: 44px; }
+    .case-studies { grid-template-columns: 1fr; }
+    .case-card-22cans, .case-card.coming-soon { grid-column: 1; }
+    .case-card, .case-card-vr, .case-card-dcd { grid-template-columns: 1fr; }
+    .case-visual, .case-card-vr .case-visual, .case-card-dcd .case-visual { border-right: none; border-bottom: 1px solid var(--border); min-height: auto; flex-direction: row; align-items: center; padding: 16px 20px; gap: 16px; }
+    .case-icon, .case-card-vr .case-icon, .case-card-dcd .case-icon { width: 30px; height: 30px; margin-bottom: 0; }
+    .case-num, .case-card-vr .case-num, .case-card-dcd .case-num { font-size: 40px; }
+    .case-card-vr .case-body, .case-card-dcd .case-body { padding: 20px 20px; }
     .rec-grid { grid-template-columns: 1fr 1fr; }
     .critique-grid { grid-template-columns: 1fr; }
     .timeline::before { display: none; }
@@ -1142,6 +1189,14 @@
       <!-- 22CANS -->
       <div class="case-card case-card-22cans reveal">
         <div class="case-visual">
+          <svg class="case-icon" viewBox="0 0 48 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 8C4 8 2 12 2 16L2 20C2 26 6 28 10 25L15 20L33 20L38 25C42 28 46 26 46 20L46 16C46 12 44 8 41 8Z"/>
+            <line x1="15" y1="11" x2="15" y2="18"/><line x1="11.5" y1="14.5" x2="18.5" y2="14.5"/>
+            <circle cx="30" cy="12" r="1.6" fill="currentColor" stroke="none"/>
+            <circle cx="33.5" cy="15.5" r="1.6" fill="currentColor" stroke="none"/>
+            <circle cx="30" cy="19" r="1.6" fill="currentColor" stroke="none"/>
+            <circle cx="26.5" cy="15.5" r="1.6" fill="currentColor" stroke="none"/>
+          </svg>
           <div class="case-num">01</div>
           <div class="case-type-badge">Academic Placement</div>
         </div>
@@ -1149,9 +1204,9 @@
           <div class="case-context">University of Surrey &nbsp;·&nbsp; 22cans &nbsp;·&nbsp; 2026</div>
           <h3>End-to-End Playtest Research for a Released Title</h3>
           <div class="case-stats">
-            <div class="case-stat"><span class="case-stat-val">Live Studio</span><span class="case-stat-lbl">Environment</span></div>
-            <div class="case-stat"><span class="case-stat-val">End-to-End</span><span class="case-stat-lbl">Research Lifecycle</span></div>
-            <div class="case-stat"><span class="case-stat-val">Stakeholder</span><span class="case-stat-lbl">Delivered</span></div>
+            <div class="case-stat"><span class="case-stat-val">Studio</span><span class="case-stat-lbl">Live Placement</span></div>
+            <div class="case-stat"><span class="case-stat-val">End-to-End</span><span class="case-stat-lbl">Full Lifecycle</span></div>
+            <div class="case-stat"><span class="case-stat-val">Delivered</span><span class="case-stat-lbl">Dev Team Report</span></div>
           </div>
           <p>A full user research engagement embedded within an active studio, covering the complete research lifecycle from ethics approval through stakeholder delivery. I managed participant recruitment, ran live facilitated playtest sessions, conducted and transcribed post-play interviews, applied thematic analysis, and delivered a prioritised findings report to the development team.</p>
           <p>Working in a live studio environment meant navigating real constraints: NDA protocols, stakeholder expectations, and production timelines alongside the research itself.</p>
@@ -1178,6 +1233,11 @@
       <!-- VR SIMULATION -->
       <div class="case-card case-card-vr reveal">
         <div class="case-visual">
+          <svg class="case-icon" viewBox="0 0 52 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M2 10C2 6 6 4 10 4L42 4C46 4 50 6 50 10L50 20C50 24 46 26 42 26L38 26C36 26 34 24 32 22C30 20 28 20 26 20C24 20 22 20 20 22C18 24 16 26 14 26L10 26C6 26 2 24 2 20Z"/>
+            <circle cx="16" cy="15" r="5"/><circle cx="36" cy="15" r="5"/>
+            <path d="M21 15L31 15" stroke-width="1.5"/>
+          </svg>
           <div class="case-num">02</div>
           <div class="case-type-badge">MSc Module Project</div>
         </div>
@@ -1185,9 +1245,9 @@
           <div class="case-context">University of Surrey &nbsp;·&nbsp; MSc Year 1</div>
           <h3>VR Cognitive Impairment Simulation</h3>
           <div class="case-stats">
-            <div class="case-stat"><span class="case-stat-val">Unreal Engine 5</span><span class="case-stat-lbl">Custom VR Build</span></div>
-            <div class="case-stat"><span class="case-stat-val">Cognitive Tasks</span><span class="case-stat-lbl">In-world Assessment</span></div>
-            <div class="case-stat"><span class="case-stat-val">Full Presentation</span><span class="case-stat-lbl">Academic Delivery</span></div>
+            <div class="case-stat"><span class="case-stat-val">UE5</span><span class="case-stat-lbl">Custom VR Build</span></div>
+            <div class="case-stat"><span class="case-stat-val">In-World</span><span class="case-stat-lbl">Cognitive Tasks</span></div>
+            <div class="case-stat"><span class="case-stat-val">Presented</span><span class="case-stat-lbl">Full Findings</span></div>
           </div>
           <p>Designed and built a VR environment in Unreal Engine simulating alcohol-like visual impairment to evaluate its effects on cognitive task performance. The prototype introduced measurable perceptual distortions while participants completed structured in-world tasks, with cognitive performance and behavioural responses recorded throughout.</p>
           <p>Delivered as a full academic presentation covering design rationale, methodology, participant response analysis, and implications for accessibility and safety simulation.</p>
@@ -1215,6 +1275,16 @@
       <!-- DCD DISSERTATION -->
       <div class="case-card case-card-dcd reveal">
         <div class="case-visual">
+          <svg class="case-icon" viewBox="0 0 44 42" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="22" cy="5" r="3.5" fill="currentColor" stroke="none"/>
+            <circle cx="7" cy="22" r="3.5" fill="currentColor" stroke="none"/>
+            <circle cx="37" cy="22" r="3.5" fill="currentColor" stroke="none"/>
+            <circle cx="14" cy="37" r="3.5" fill="currentColor" stroke="none"/>
+            <circle cx="30" cy="37" r="3.5" fill="currentColor" stroke="none"/>
+            <line x1="22" y1="8.5" x2="10" y2="18.5"/><line x1="22" y1="8.5" x2="34" y2="18.5"/>
+            <line x1="9" y1="25" x2="13" y2="33.5"/><line x1="35" y1="25" x2="31" y2="33.5"/>
+            <line x1="17.5" y1="37" x2="26.5" y2="37"/>
+          </svg>
           <div class="case-num">03</div>
           <div class="case-type-badge">BSc Dissertation</div>
         </div>
@@ -1222,9 +1292,9 @@
           <div class="case-context">University of Surrey &nbsp;·&nbsp; 2025</div>
           <h3>Motor Learning in DCD: Gamified Research with Children</h3>
           <div class="case-stats">
-            <div class="case-stat"><span class="case-stat-val">Ages 9–11</span><span class="case-stat-lbl">Participant Range</span></div>
-            <div class="case-stat"><span class="case-stat-val">DCD + Control</span><span class="case-stat-lbl">Between-subjects</span></div>
-            <div class="case-stat"><span class="case-stat-val">Gamified Task</span><span class="case-stat-lbl">Visuomotor Rotation</span></div>
+            <div class="case-stat"><span class="case-stat-val">9–11 yrs</span><span class="case-stat-lbl">Participant Age</span></div>
+            <div class="case-stat"><span class="case-stat-val">2 Groups</span><span class="case-stat-lbl">Between-Subjects</span></div>
+            <div class="case-stat"><span class="case-stat-val">Gamified</span><span class="case-stat-lbl">Study Design</span></div>
           </div>
           <p>Investigated motor learning differences in children with Developmental Coordination Disorder using a gamified visuomotor rotation task, presented as an alien-feeding game for participants aged 9 to 11. The study compared implicit and explicit learning strategies across DCD and typically-developing groups.</p>
           <p>Designing research instruments for a child population required careful attention to ethics, age-appropriate language, and engagement, skills directly transferable to game UX research with diverse player populations.</p>
