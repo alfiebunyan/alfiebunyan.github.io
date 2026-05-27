@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alfie Bunyan | Games User Researcher</title>
+<meta name="description" content="Alfie Bunyan — Games User Researcher. Combining psychology, play, and mixed-methods UX research. Playtest research at 22cans, Gen.G Scholar, Limit Break Mentee.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://alfiebunyan.github.io">
+<meta property="og:title" content="Alfie Bunyan | Games User Researcher">
+<meta property="og:description" content="Junior UX researcher specialising in games, VR, and player psychology. Hands-on playtest experience at 22cans. Open to roles across the UK.">
+<meta property="og:image" content="https://alfiebunyan.github.io/assets/alfie.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Alfie Bunyan | Games User Researcher">
+<meta name="twitter:description" content="Junior UX researcher specialising in games, VR, and player psychology.">
+<meta name="twitter:image" content="https://alfiebunyan.github.io/assets/alfie.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -410,6 +420,24 @@
   .case-card-22cans .case-stat-val { color: #a899ff; }
   .case-card-vr .case-stat-val { color: #22d3ee; }
   .case-card-dcd .case-stat-val { color: #22c55e; }
+
+  /* Stat counter reveal animation */
+  .case-stat.stat-hidden { opacity: 0; transform: translateY(12px); }
+  .case-stat { transition: opacity 0.45s ease, transform 0.45s ease; }
+  .case-stat.stat-visible { opacity: 1; transform: translateY(0); }
+
+  /* Coming soon progress bar */
+  .cs-progress { margin: 16px 0 4px; }
+  .cs-progress-bar { display: flex; gap: 5px; margin-bottom: 8px; }
+  .cs-progress-seg { flex: 1; height: 3px; border-radius: 2px; background: var(--border); }
+  .cs-progress-seg.done { background: var(--green); }
+  .cs-progress-seg.active {
+    background: linear-gradient(90deg, var(--green) 55%, rgba(34,197,94,0.2) 55%);
+  }
+  .cs-progress-label {
+    font-size: 11px; color: var(--green); font-weight: 600;
+    letter-spacing: 0.5px; opacity: 0.85;
+  }
 
   /* Case study outcome callout */
   .case-outcome {
@@ -1033,6 +1061,7 @@
       <div class="hero-cta reveal" style="transition-delay:0.3s">
         <a href="#work" class="btn-primary">View Research</a>
         <a href="#contact" class="btn-ghost">Get in Touch</a>
+        <button onclick="openPDF('assets/cv.pdf','Alfie Bunyan — CV')" class="btn-ghost">View CV</button>
       </div>
     </div>
     <img src="assets/alfie.jpg" alt="Alfie Bunyan" class="hero-avatar reveal" style="transition-delay:0.2s">
@@ -1337,7 +1366,7 @@
           <div class="case-type-badge">MSc Dissertation</div>
         </div>
         <div class="case-body">
-          <div class="case-context">University of Surrey &nbsp;·&nbsp; In Progress</div>
+          <div class="case-context">University of Surrey &nbsp;·&nbsp; MSc Dissertation &nbsp;·&nbsp; 2026</div>
           <h3>Trust in Autonomous Vehicles: VR Study</h3>
           <p>Examining how driving style and explanatory behaviour affect user trust in autonomous systems, using a custom VR environment and a mixed-methods design combining quantitative psychometrics with qualitative self-report analysis.</p>
           <div class="case-tags">
@@ -1345,8 +1374,17 @@
             <span class="tag">Trust Measurement</span>
             <span class="tag">Mixed-methods</span>
             <span class="tag">Autonomous Systems UX</span>
+            <span class="tag">Psychometrics</span>
           </div>
-          <p style="font-size:13px;color:var(--green);font-weight:500;margin-bottom:0;">Case study available on completion, 2026</p>
+          <div class="cs-progress">
+            <div class="cs-progress-bar">
+              <div class="cs-progress-seg done"></div>
+              <div class="cs-progress-seg done"></div>
+              <div class="cs-progress-seg done"></div>
+              <div class="cs-progress-seg active"></div>
+            </div>
+            <div class="cs-progress-label">Writing up &nbsp;·&nbsp; Est. completion: Summer 2026</div>
+          </div>
         </div>
       </div>
 
@@ -1477,6 +1515,23 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+
+  // Stat reveal animation
+  document.querySelectorAll('.case-stat').forEach(s => s.classList.add('stat-hidden'));
+  const statObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.case-stat').forEach((s, i) => {
+          setTimeout(() => {
+            s.classList.remove('stat-hidden');
+            s.classList.add('stat-visible');
+          }, i * 110);
+        });
+        statObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.35 });
+  document.querySelectorAll('.case-stats').forEach(el => statObs.observe(el));
 
   // Nav active state
   const sections = document.querySelectorAll('[id]');
