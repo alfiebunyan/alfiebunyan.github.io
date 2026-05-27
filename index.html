@@ -624,11 +624,52 @@
   }
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
+  /* WHY I DO THIS */
+  .why-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: start;
+  }
+  .why-text p {
+    color: var(--text-muted); margin-bottom: 16px;
+    line-height: 1.8; font-size: 15px;
+  }
+  .why-text p:last-child { margin-bottom: 0; }
+  .why-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 8px;
+  }
+  .why-img {
+    width: 100%; object-fit: cover;
+    border-radius: 8px; border: 1px solid var(--border);
+    display: block; background: var(--surface-2);
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+  }
+  .why-img:hover {
+    border-color: var(--border-bright);
+    box-shadow: 0 0 28px rgba(124,95,252,0.22);
+    transform: scale(1.012);
+    z-index: 2; position: relative;
+  }
+  .why-img-wide {
+    grid-column: span 2;
+    aspect-ratio: 16/7;
+  }
+  .why-img-tall {
+    aspect-ratio: 3/4;
+  }
+  .why-img-sq {
+    aspect-ratio: 4/3;
+  }
+
   /* RESPONSIVE */
   @media (max-width: 960px) {
     nav { padding: 0 24px; }
     .section-wrap, .glass-section { padding: 80px 24px; }
     #hero { padding: 120px 24px 80px; }
+    .why-grid { grid-template-columns: 1fr; gap: 36px; }
+    .why-images { grid-template-columns: 1fr 1fr; }
     .about-grid { grid-template-columns: 1fr; gap: 36px; }
     .skills-grid { grid-template-columns: 1fr 1fr; }
     .case-card { grid-template-columns: 1fr; }
@@ -671,6 +712,7 @@
     <div class="open-chip"><div class="open-dot"></div>Open to Work</div>
   </div>
   <ul class="nav-links">
+    <li><a href="#why">Why</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#work">Research</a></li>
@@ -684,9 +726,9 @@
 <section id="hero">
   <div class="hero-inner">
     <div class="hero-label reveal">Games User Researcher</div>
-    <h1 class="reveal" style="transition-delay:0.1s">Understanding<br>how players <em>think.</em></h1>
+    <h1 class="reveal" style="transition-delay:0.1s">I research the <em>'why'</em><br>behind how people play.</h1>
     <p class="hero-sub reveal" style="transition-delay:0.2s">
-      Postgraduate researcher combining psychology, play, and mixed-methods UX research to help development teams build better player experiences.
+      Postgraduate researcher combining psychology, play, and mixed-methods UX research to help development teams build better player experiences. Based in Guildford and London, open to hybrid and remote.
     </p>
     <div class="hero-cta reveal" style="transition-delay:0.3s">
       <a href="#work" class="btn-primary">View Research</a>
@@ -694,6 +736,31 @@
     </div>
   </div>
 </section>
+
+<div class="divider"></div>
+
+<!-- WHY I DO THIS -->
+<div class="glass-section" id="why">
+  <div class="section-inner">
+    <div class="section-label reveal">Motivation</div>
+    <h2 class="reveal">Why I do this.</h2>
+    <div class="why-grid">
+      <div class="why-text reveal">
+        <p>I have had two obsessions my whole life: gaming and psychology.</p>
+        <p>Most people think of psychology as therapy, understanding what's broken. I'm more interested in the everyday stuff. Why does a game's UI make you feel anxious without knowing why? Why do players behave worse online than they ever would in person? Why does a toxic matchmaking pool persist even when people say they hate it?</p>
+        <p>The answers are almost never obvious. Most of human behaviour runs on autopilot. We're architects of our own habits without realising it. My job is to make the invisible visible: find the patterns in what people do, explain the gap between what they say and what they mean, and give teams something they can actually act on.</p>
+        <p>That's what drew me to games research specifically. It's one of the few fields where you can study real, high-stakes emotional behaviour, frustration, trust, flow, social dynamics, in a controlled environment. The stakes feel low to the participant. The insight is anything but.</p>
+        <p>That interest has taken me further than the lab. I've attended major esports events and experienced how gaming communities behave at scale. That shapes how I think about player psychology, not just as data points, but as something I've felt firsthand.</p>
+      </div>
+      <div class="why-images reveal" style="transition-delay:0.1s">
+        <!-- Save images from the chat to assets/ with these exact filenames -->
+        <img src="assets/worlds-arena.jpg"   alt="LoL Worlds 2024 Grand Final arena at The O2 London, packed crowd under blue light" class="why-img why-img-wide">
+        <img src="assets/worlds-banners.jpg" alt="LoL Worlds 2024 Grand Final BLG vs T1 banners inside The O2" class="why-img why-img-tall">
+        <img src="assets/worlds-stage.jpg"   alt="LoL Worlds 2024 stage, player on main screen, crowd lights" class="why-img why-img-sq">
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="divider"></div>
 
@@ -707,7 +774,7 @@
         <p>I am a postgraduate researcher at the <strong>University of Surrey</strong>, completing an MSc in Psychology, Game Design and Digital Innovation, built on a BSc Psychology foundation that gave me rigorous grounding in research methods, behavioural analysis, and experimental design.</p>
         <p>I completed an end-to-end research placement with <strong>22cans</strong>, running the full user research lifecycle for their released title Masters of Albion, from ethics documentation through to stakeholder presentation. That experience gave me something most researchers at my level do not have: real studio context, real constraints, and real accountability for the work.</p>
         <p>My specialist interests sit at the intersection of <strong>player psychology, VR interaction design, and trust in immersive systems</strong>. I use both qualitative and quantitative methods, and I care deeply about translating research into design recommendations that development teams can actually act on.</p>
-        <p>Based in Guildford. Open to hybrid and remote.</p>
+        <p>Based in Guildford and London. Open to hybrid and remote.</p>
       </div>
       <div class="about-stats reveal" style="transition-delay:0.1s">
         <div class="stat-card">
@@ -891,7 +958,7 @@
           <div class="case-context">University of Surrey &nbsp;·&nbsp; 2025</div>
           <h3>Motor Learning in DCD: Gamified Research with Children</h3>
           <p>Investigated motor learning differences in children with Developmental Coordination Disorder using a gamified visuomotor rotation task, presented as an alien-feeding game for participants aged 9 to 11. The study compared implicit and explicit learning strategies across DCD and typically-developing groups.</p>
-          <p>Designing research instruments for a child population required careful attention to ethics, age-appropriate language, and engagement — skills directly transferable to game UX research with diverse player populations.</p>
+          <p>Designing research instruments for a child population required careful attention to ethics, age-appropriate language, and engagement, skills directly transferable to game UX research with diverse player populations.</p>
           <div class="case-tags">
             <span class="tag">Child-appropriate Methodology</span>
             <span class="tag">Gamified Research Design</span>
@@ -918,7 +985,7 @@
         </div>
         <div class="case-body">
           <div class="case-context">University of Surrey &nbsp;·&nbsp; In Progress</div>
-          <h3>Trust in Autonomous Vehicles — VR Study</h3>
+          <h3>Trust in Autonomous Vehicles: VR Study</h3>
           <p>Examining how driving style and explanatory behaviour affect user trust in autonomous systems, using a custom VR environment and a mixed-methods design combining quantitative psychometrics with qualitative self-report analysis.</p>
           <div class="case-tags">
             <span class="tag">VR Research Design</span>
@@ -952,7 +1019,7 @@
       <div class="critique-card reveal" style="transition-delay:0.1s">
         <div class="critique-game">League of Legends</div>
         <h4>Mastery, Monetisation, and Manufactured Toxicity</h4>
-        <p>A three-part critique examining how League of Legends sustains 150 million players through emergent complexity and staged mastery; how the ranked system simultaneously satisfies self-determination theory needs while weaponising loss aversion and the goal gradient effect; and how Hextech monetisation deploys variable ratio reinforcement and engineered FOMO against a predominantly adolescent player base. Argues that toxicity is a structural output of anonymous high-stakes design, not a player character problem — and that Riot built the conditions for it.</p>
+        <p>A three-part critique examining how League of Legends sustains 150 million players through emergent complexity and staged mastery; how the ranked system simultaneously satisfies self-determination theory needs while weaponising loss aversion and the goal gradient effect; and how Hextech monetisation deploys variable ratio reinforcement and engineered FOMO against a predominantly adolescent player base. Argues that toxicity is a structural output of anonymous high-stakes design, not a player character problem, and that Riot built the conditions for it.</p>
         <a href="assets/critique-2.pdf" target="_blank" class="doc-link" style="font-size:12px;padding:7px 12px;">&#128196; &nbsp;View Full Critique</a>
       </div>
     </div>
