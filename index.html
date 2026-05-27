@@ -299,8 +299,8 @@
 
   /* ABOUT */
   .about-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 60px; align-items: start;
+    display: grid; grid-template-columns: 240px 1fr 1fr;
+    gap: 48px; align-items: start;
   }
   .about-text p {
     color: var(--text-muted); margin-bottom: 16px;
@@ -759,6 +759,38 @@
     box-shadow: 0 0 8px rgba(200,155,60,0.15);
   }
 
+  /* CASE STUDY VIDEO */
+  .case-video {
+    width: 100%; border-radius: 8px;
+    border: 1px solid var(--border);
+    display: block; background: #000;
+    max-height: 260px; object-fit: cover;
+    margin-top: 16px;
+  }
+
+  /* ABOUT PHOTO */
+  .about-photo {
+    width: 100%; aspect-ratio: 3/4; object-fit: cover;
+    border-radius: 10px; border: 1px solid var(--border);
+    display: block; background: var(--surface-2);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .about-photo:hover {
+    border-color: var(--border-bright);
+    box-shadow: 0 0 28px rgba(124,95,252,0.2);
+  }
+  .about-photo-wrap {
+    position: relative;
+  }
+  .about-photo-label {
+    position: absolute; bottom: 12px; left: 12px;
+    font-size: 11px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--text-muted);
+    background: rgba(6,6,15,0.78); backdrop-filter: blur(8px);
+    padding: 5px 10px; border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
   /* DOC-LINK BUTTON */
   button.doc-link {
     cursor: pointer; font-family: inherit;
@@ -784,6 +816,7 @@
     .why-grid { grid-template-columns: 1fr; gap: 36px; }
     .why-images { grid-template-columns: 1fr 1fr; }
     .about-grid { grid-template-columns: 1fr; gap: 36px; }
+    .about-photo-wrap { max-width: 280px; }
     .skills-grid { grid-template-columns: 1fr 1fr; }
     .case-card { grid-template-columns: 1fr; }
     .case-visual { border-right: none; border-bottom: 1px solid var(--border); min-height: 110px; flex-direction: row; align-items: center; padding: 18px 20px; }
@@ -861,7 +894,7 @@
       <div class="why-text reveal">
         <p>I have had two obsessions my whole life: gaming and psychology.</p>
         <p>Most people think of psychology as therapy, understanding what drives clinical behaviour. I'm more interested in the everyday stuff nobody thinks to question. Why does removing a feature players said they hated make them angrier than having it? Why does a game that should feel unfair become the thing people love most about it? Why does the anticipation of a reward activate the same response as the reward itself, but feel completely different?</p>
-        <p>The answers are almost never obvious. Most of human behaviour runs on autopilot. We're architects of our own habits without realising it. My interest is in making the <span class="highlight-text">invisible visible</span>: finding the patterns in what people do, explaining the gap between what they say and what they mean, and giving teams something they can actually act on.</p>
+        <p>The answers are almost never obvious. Most of human behaviour runs on autopilot. We're architects of our own habits without realising it. My interest is in making the <strong>invisible, visible</strong>: finding the patterns in what people do, explaining the gap between what they say and what they mean, and giving teams something they can actually act on.</p>
         <p>That's what drew me to games research specifically. It's one of the few fields where you can study real, high-stakes emotional behaviour, frustration, trust, flow, social dynamics, in a controlled environment. The stakes feel low to the participant. The insight is anything but.</p>
         <p>That interest has taken me further than the lab. I've attended major esports events and experienced how gaming communities behave at scale. That shapes how I think about player psychology, not just as data points, but as something I've felt firsthand.</p>
       </div>
@@ -883,6 +916,11 @@
     <div class="section-label reveal">Background</div>
     <h2 class="reveal">Psychology applied to play.</h2>
     <div class="about-grid">
+      <div class="about-photo-wrap reveal">
+        <!-- Save your graduation photo to assets/alfie.jpg -->
+        <img src="assets/alfie.jpg" alt="Alfie Bunyan" class="about-photo">
+        <span class="about-photo-label">Alfie Bunyan</span>
+      </div>
       <div class="about-text reveal">
         <p>I attended the LoL Worlds 2024 Grand Final at The O2 and spent a fair amount of it watching the crowd rather than the stage. Being more interested in the people experiencing something than the thing itself is, roughly, how I ended up in user research.</p>
         <p>My background is <strong>Psychology at the University of Surrey</strong>: BSc first, then an MSc in Psychology, Game Design and Digital Innovation. The research methods grounding matters to me as much as the subject. I want to know exactly what I am doing when I put findings in front of a team.</p>
@@ -1007,9 +1045,10 @@
 
       <!-- 22CANS -->
       <div class="case-card reveal">
-        <div class="case-visual">
-          <div class="case-num">01</div>
-          <div class="case-type-badge">Academic Placement</div>
+        <div class="case-visual" style="padding:0; overflow:hidden; position:relative;">
+          <img src="assets/giz-screens.jpg" alt="Playtesting setup with dual screens at the GIZ" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.7;">
+          <div style="position:absolute;bottom:16px;left:16px;"><div class="case-type-badge">Academic Placement</div></div>
+          <div style="position:absolute;top:16px;left:16px;font-family:'Exo 2',sans-serif;font-size:64px;font-weight:900;letter-spacing:-3px;line-height:1;background:linear-gradient(135deg,rgba(168,153,255,0.6),rgba(34,211,238,0.3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">01</div>
         </div>
         <div class="case-body">
           <div class="case-context">University of Surrey &nbsp;·&nbsp; 22cans &nbsp;·&nbsp; 2026</div>
@@ -1058,7 +1097,10 @@
             <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">User Sessions</div></div>
             <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Findings Presentation</div></div>
           </div>
-          <button onclick="openPDF('assets/vr-presentation.pdf','VR Cognitive Impairment Simulation — Full Presentation')" class="doc-link">&#128196; &nbsp;Read Presentation</button>
+          <video class="case-video" controls muted playsinline preload="metadata">
+            <source src="assets/vr-participant.mp4" type="video/mp4">
+          </video>
+          <button onclick="openPDF('assets/vr-presentation.pdf','VR Cognitive Impairment Simulation — Full Presentation')" class="doc-link" style="margin-top:12px;">&#128196; &nbsp;Read Presentation</button>
         </div>
       </div>
 
@@ -1197,7 +1239,7 @@
     <div class="section-label center reveal">Get in Touch</div>
     <h2 class="reveal">Let's work together.</h2>
     <p class="section-intro reveal" style="margin:14px auto 0;">
-      Open to junior user research and UX research roles in games and AI. Onsite, hybrid, or fully remote — Guildford, London, and across the UK.
+      Open to junior user research and UX research roles in games and AI. Onsite, hybrid, or fully remote. Guildford, London, and across the UK.
     </p>
     <div class="contact-links reveal">
       <a href="mailto:alfiebunyans@gmail.com" class="contact-link">
