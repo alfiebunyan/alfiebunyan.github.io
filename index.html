@@ -452,6 +452,19 @@
   .case-card-vr .case-icon { color: #22d3ee; }
   .case-card-dcd .case-icon { color: #22c55e; }
 
+  /* Case study distinction badge */
+  .case-distinction {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; margin-bottom: 14px;
+  }
+  .case-distinction::before {
+    content: ''; display: inline-block;
+    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+  }
+  .case-card-dcd .case-distinction { color: #22c55e; }
+  .case-card-dcd .case-distinction::before { background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,0.7); }
+
   /* 22cans flagship treatment */
   .case-card-22cans {
     border-top: 2px solid rgba(124,95,252,0.6);
@@ -1288,8 +1301,9 @@
           <div class="case-type-badge">BSc Dissertation</div>
         </div>
         <div class="case-body">
-          <div class="case-context">University of Surrey &nbsp;·&nbsp; 2025</div>
+          <div class="case-context">University of Surrey &nbsp;·&nbsp; BSc Psychology &nbsp;·&nbsp; 2025</div>
           <h3>Motor Learning in DCD: Gamified Research with Children</h3>
+          <div class="case-distinction">First Class Honours</div>
           <div class="case-stats">
             <div class="case-stat"><span class="case-stat-val">9–11 yrs</span><span class="case-stat-lbl">Participant Age</span></div>
             <div class="case-stat"><span class="case-stat-val">2 Groups</span><span class="case-stat-lbl">Between-Subjects</span></div>
