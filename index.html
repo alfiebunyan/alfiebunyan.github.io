@@ -452,17 +452,19 @@
   .case-card-vr .case-icon { color: #22d3ee; }
   .case-card-dcd .case-icon { color: #22c55e; }
 
-  /* VR + DCD: horizontal top-panel layout */
-  .case-card-vr, .case-card-dcd { grid-template-columns: 1fr; }
-  .case-card-vr .case-visual, .case-card-dcd .case-visual {
-    flex-direction: row; align-items: center; gap: 20px;
-    min-height: auto; padding: 20px 28px;
-    border-right: none; border-bottom: 1px solid var(--border);
+  /* 22cans flagship treatment */
+  .case-card-22cans {
+    border-top: 2px solid rgba(124,95,252,0.6);
+    box-shadow: 0 0 36px rgba(124,95,252,0.12);
   }
-  .case-card-vr .case-icon, .case-card-dcd .case-icon { width: 36px; height: 36px; margin-bottom: 0; opacity: 0.7; }
-  .case-card-vr .case-num, .case-card-dcd .case-num { font-size: 50px; }
-  .case-card-vr .case-type-badge, .case-card-dcd .case-type-badge { margin-left: auto; }
-  .case-card-vr .case-body, .case-card-dcd .case-body { padding: 24px 28px; }
+  .case-card-22cans:hover { box-shadow: 0 0 56px rgba(124,95,252,0.22); }
+  .featured-badge {
+    position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+    background: rgba(124,95,252,0.16); border: 1px solid rgba(124,95,252,0.38);
+    border-radius: 4px; font-size: 9px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light);
+    padding: 4px 12px; white-space: nowrap;
+  }
 
   /* Critique reading time + pull quote */
   .critique-meta {
@@ -479,8 +481,7 @@
   .critique-card.lol .critique-pull { border-left-color: #c8aa6e; color: #7a8fa0; }
 
   /* CASE STUDIES */
-  .case-studies { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .case-card-22cans, .case-card.coming-soon { grid-column: 1 / -1; }
+  .case-studies { display: flex; flex-direction: column; gap: 24px; }
   .case-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 14px; overflow: hidden;
@@ -955,13 +956,10 @@
     .about-grid { grid-template-columns: 1fr; gap: 36px; }
 
     .skills-grid { grid-template-columns: 1fr 1fr; }
-    .case-studies { grid-template-columns: 1fr; }
-    .case-card-22cans, .case-card.coming-soon { grid-column: 1; }
-    .case-card, .case-card-vr, .case-card-dcd { grid-template-columns: 1fr; }
-    .case-visual, .case-card-vr .case-visual, .case-card-dcd .case-visual { border-right: none; border-bottom: 1px solid var(--border); min-height: auto; flex-direction: row; align-items: center; padding: 16px 20px; gap: 16px; }
-    .case-icon, .case-card-vr .case-icon, .case-card-dcd .case-icon { width: 30px; height: 30px; margin-bottom: 0; }
-    .case-num, .case-card-vr .case-num, .case-card-dcd .case-num { font-size: 40px; }
-    .case-card-vr .case-body, .case-card-dcd .case-body { padding: 20px 20px; }
+    .case-card { grid-template-columns: 1fr; }
+    .case-visual { border-right: none; border-bottom: 1px solid var(--border); min-height: auto; flex-direction: row; align-items: center; padding: 16px 20px; gap: 14px; }
+    .case-icon { width: 30px; height: 30px; margin-bottom: 0; }
+    .case-num { font-size: 40px; }
     .rec-grid { grid-template-columns: 1fr 1fr; }
     .critique-grid { grid-template-columns: 1fr; }
     .timeline::before { display: none; }
@@ -1199,6 +1197,7 @@
           </svg>
           <div class="case-num">01</div>
           <div class="case-type-badge">Academic Placement</div>
+          <div class="featured-badge">Featured Study</div>
         </div>
         <div class="case-body">
           <div class="case-context">University of Surrey &nbsp;·&nbsp; 22cans &nbsp;·&nbsp; 2026</div>
