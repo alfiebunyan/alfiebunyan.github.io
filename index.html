@@ -255,10 +255,11 @@
   .hero-portrait {
     width: 100%; aspect-ratio: 3/4;
     object-fit: cover; object-position: top center;
-    border-radius: 16px; border: 1px solid var(--border);
+    border-radius: 16px; border: 1px solid var(--border-bright);
     display: block;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 22%);
-    mask-image: linear-gradient(to right, transparent 0%, black 22%);
+    box-shadow: -24px 0 60px rgba(6,6,15,0.7);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%);
+    mask-image: linear-gradient(to right, transparent 0%, black 10%);
   }
   .hero-label {
     font-size: 11px; letter-spacing: 3.5px;
@@ -310,18 +311,17 @@
     box-shadow: 0 0 24px rgba(124,95,252,0.18);
   }
 
-  /* HERO AVATAR */
-  .hero-heading-row {
-    display: flex; align-items: center; gap: 26px;
-    margin-bottom: 28px;
-  }
-  .hero-heading-row h1 { margin-bottom: 0; }
-  .hero-avatar {
-    width: 84px; height: 84px; border-radius: 50%;
+  /* ABOUT CANDID PHOTO */
+  .about-candid {
+    width: 100%; aspect-ratio: 4/5;
     object-fit: cover; object-position: top center;
-    flex-shrink: 0;
-    border: 2px solid rgba(124,95,252,0.55);
-    box-shadow: 0 0 0 5px rgba(124,95,252,0.1), 0 8px 28px rgba(0,0,0,0.5);
+    border-radius: 10px; border: 1px solid var(--border);
+    display: block; margin-bottom: 16px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .about-candid:hover {
+    border-color: var(--border-bright);
+    box-shadow: 0 0 24px rgba(124,95,252,0.18);
   }
 
   /* ABOUT */
@@ -855,7 +855,7 @@
     .why-grid { grid-template-columns: 1fr; gap: 36px; }
     .why-images { grid-template-columns: 1fr 1fr; }
     .about-grid { grid-template-columns: 1fr; gap: 36px; }
-    .hero-heading-row { flex-direction: column; align-items: flex-start; gap: 18px; }
+
     .skills-grid { grid-template-columns: 1fr 1fr; }
     .case-card { grid-template-columns: 1fr; }
     .case-visual { border-right: none; border-bottom: 1px solid var(--border); min-height: 110px; flex-direction: row; align-items: center; padding: 18px 20px; }
@@ -913,10 +913,7 @@
   <div class="hero-inner">
     <div class="hero-content">
       <div class="hero-label reveal">Games User Researcher</div>
-      <div class="hero-heading-row reveal" style="transition-delay:0.1s">
-        <img src="assets/alfie.jpg" alt="Alfie Bunyan" class="hero-avatar">
-        <h1>I research the <em>'why'</em><br>behind how people play.</h1>
-      </div>
+      <h1 class="reveal" style="transition-delay:0.1s">I research the <em>'why'</em><br>behind how people play.</h1>
       <p class="hero-sub reveal" style="transition-delay:0.2s">
         Postgraduate researcher combining psychology, play, and mixed-methods UX research to help development teams build better player experiences. Based in Guildford and London, open to hybrid and remote.
       </p>
@@ -925,7 +922,7 @@
         <a href="#contact" class="btn-ghost">Get in Touch</a>
       </div>
     </div>
-    <img src="assets/alfie-hero.jpg" alt="Alfie Bunyan" class="hero-portrait reveal" style="transition-delay:0.25s">
+    <img src="assets/alfie.jpg" alt="Alfie Bunyan" class="hero-portrait reveal" style="transition-delay:0.25s">
   </div>
 </section>
 
@@ -969,22 +966,25 @@
         <p>My specialist interests sit at the intersection of <strong>player psychology, VR interaction design, and trust in immersive systems</strong>. I care about translating findings into something a development team can actually do something with.</p>
         <p>Based in Guildford and London. Open to onsite, hybrid, or fully remote.</p>
       </div>
-      <div class="about-stats reveal" style="transition-delay:0.1s">
-        <div class="stat-card">
-          <div class="stat-num">MSc</div>
-          <div class="stat-label">Psychology in Game Design and Digital Innovation, predicted 1st</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">1</div>
-          <div class="stat-label">Full industry playtest lifecycle delivered at a live studio</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">4+</div>
-          <div class="stat-label">Research projects across games, VR, and behavioural contexts</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">VR</div>
-          <div class="stat-label">Specialist across two degrees, eye-tracking, Unreal Engine, immersive UX</div>
+      <div class="reveal" style="transition-delay:0.1s">
+        <img src="assets/alfie-hero.jpg" alt="Alfie Bunyan at graduation" class="about-candid">
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-num">MSc</div>
+            <div class="stat-label">Psychology in Game Design and Digital Innovation, predicted 1st</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">1</div>
+            <div class="stat-label">Full industry playtest lifecycle delivered at a live studio</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">4+</div>
+            <div class="stat-label">Research projects across games, VR, and behavioural contexts</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">VR</div>
+            <div class="stat-label">Specialist across two degrees, eye-tracking, Unreal Engine, immersive UX</div>
+          </div>
         </div>
       </div>
     </div>
