@@ -668,6 +668,114 @@
     aspect-ratio: 4/3;
   }
 
+  /* PDF MODAL */
+  .pdf-modal-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(4,3,12,0.9);
+    backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .pdf-modal-overlay.open { opacity: 1; pointer-events: auto; }
+  .pdf-modal-box {
+    width: min(880px, 94vw); height: min(88vh, 920px);
+    background: var(--surface-2);
+    border: 1px solid var(--border-bright);
+    border-radius: 12px; overflow: hidden;
+    display: flex; flex-direction: column;
+    transform: translateY(20px);
+    transition: transform 0.28s cubic-bezier(0.22,1,0.36,1);
+    box-shadow: 0 32px 80px rgba(0,0,0,0.7);
+  }
+  .pdf-modal-overlay.open .pdf-modal-box { transform: translateY(0); }
+  .pdf-modal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 20px;
+    background: rgba(10,8,26,0.95);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .pdf-modal-title {
+    font-size: 13px; font-weight: 600; color: var(--text);
+    letter-spacing: 0.2px;
+  }
+  .pdf-modal-close {
+    background: none; border: 1px solid var(--border);
+    cursor: pointer; color: var(--text-muted);
+    font-size: 16px; line-height: 1; padding: 5px 10px;
+    border-radius: 5px; transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .pdf-modal-close:hover {
+    color: var(--text); border-color: var(--accent);
+    background: rgba(124,95,252,0.1);
+  }
+  #pdf-modal-frame { flex: 1; border: none; width: 100%; background: #fff; }
+
+  /* GAME-THEMED CRITIQUE CARDS */
+  .critique-card.cs2 {
+    background:
+      radial-gradient(ellipse at 96% 6%, rgba(228,196,43,0.08) 0%, transparent 44%),
+      radial-gradient(ellipse at 4% 94%, rgba(228,196,43,0.04) 0%, transparent 40%),
+      linear-gradient(155deg, #0d1117 0%, #12191f 100%);
+    border-color: rgba(228,196,43,0.16);
+  }
+  .critique-card.cs2:hover:not(.wip) {
+    border-color: rgba(228,196,43,0.4);
+    box-shadow: 0 0 32px rgba(228,196,43,0.1);
+  }
+  .critique-card.cs2 .critique-game { color: #d4b830; letter-spacing: 2.5px; }
+  .critique-card.cs2 h4 { color: #e8e0c4; }
+  .critique-card.cs2 p { color: #8c9aaa; }
+  .critique-card.cs2::before {
+    content: '';
+    position: absolute; top: 18px; right: 18px;
+    width: 22px; height: 22px; pointer-events: none; opacity: 0.9;
+    background:
+      linear-gradient(to right, rgba(212,184,48,0.35) 0%, rgba(212,184,48,0.35) 36%, transparent 36%, transparent 64%, rgba(212,184,48,0.35) 64%),
+      linear-gradient(to bottom, rgba(212,184,48,0.35) 0%, rgba(212,184,48,0.35) 36%, transparent 36%, transparent 64%, rgba(212,184,48,0.35) 64%);
+  }
+
+  .critique-card.lol {
+    background:
+      radial-gradient(ellipse at 6% 94%, rgba(200,155,60,0.1) 0%, transparent 48%),
+      radial-gradient(ellipse at 94% 6%, rgba(200,155,60,0.04) 0%, transparent 38%),
+      linear-gradient(155deg, #010a13 0%, #0c1829 100%);
+    border-color: rgba(200,155,60,0.2);
+  }
+  .critique-card.lol:hover:not(.wip) {
+    border-color: rgba(200,155,60,0.48);
+    box-shadow: 0 0 32px rgba(200,155,60,0.12);
+  }
+  .critique-card.lol .critique-game { color: #c8aa6e; letter-spacing: 2.5px; }
+  .critique-card.lol h4 { color: #f0e6d3; }
+  .critique-card.lol p { color: #7a8fa0; }
+  .critique-card.lol::before {
+    content: '';
+    position: absolute; top: 16px; right: 16px;
+    width: 20px; height: 20px;
+    border: 1.5px solid rgba(200,155,60,0.35);
+    border-radius: 50%; pointer-events: none;
+    box-shadow: 0 0 8px rgba(200,155,60,0.15);
+  }
+
+  /* DOC-LINK BUTTON */
+  button.doc-link {
+    cursor: pointer; font-family: inherit;
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px;
+    background: rgba(34,211,238,0.07);
+    border: 1px solid rgba(34,211,238,0.22);
+    border-radius: 6px; color: var(--cyan);
+    font-size: 13px; font-weight: 500; width: fit-content;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  button.doc-link:hover {
+    background: rgba(34,211,238,0.14);
+    border-color: rgba(34,211,238,0.48);
+  }
+  button.doc-link.sm { font-size: 12px; padding: 7px 12px; }
+
   /* RESPONSIVE */
   @media (max-width: 960px) {
     nav { padding: 0 24px; }
@@ -776,10 +884,11 @@
     <h2 class="reveal">Psychology applied to play.</h2>
     <div class="about-grid">
       <div class="about-text reveal">
-        <p>I am a postgraduate researcher at the <strong>University of Surrey</strong>, completing an MSc in Psychology, Game Design and Digital Innovation, built on a BSc Psychology foundation that gave me rigorous grounding in research methods, behavioural analysis, and experimental design.</p>
-        <p>I completed an end-to-end research placement with <strong>22cans</strong>, running the full user research lifecycle for their released title Masters of Albion, from ethics documentation through to stakeholder presentation. That experience gave me something most researchers at my level do not have: real studio context, real constraints, and real accountability for the work.</p>
-        <p>My specialist interests sit at the intersection of <strong>player psychology, VR interaction design, and trust in immersive systems</strong>. I use both qualitative and quantitative methods, and I care deeply about translating research into design recommendations that development teams can actually act on.</p>
-        <p>Based in Guildford and London. Open to hybrid and remote.</p>
+        <p>I attended the LoL Worlds 2024 Grand Final at The O2 and spent a fair amount of it watching the crowd rather than the stage. Being more interested in the people experiencing something than the thing itself is, roughly, how I ended up in user research.</p>
+        <p>My background is <strong>Psychology at the University of Surrey</strong>: BSc first, then an MSc in Psychology, Game Design and Digital Innovation. The research methods grounding matters to me as much as the subject. I want to know exactly what I am doing when I put findings in front of a team.</p>
+        <p>My placement at <strong>22cans</strong> on Masters of Albion gave me something most researchers at my level have not had: the full research lifecycle inside a live studio, with real stakeholders waiting on the output. Ethics, recruitment, facilitation, analysis, presentation, and a team that had to act on what I found.</p>
+        <p>My specialist interests sit at the intersection of <strong>player psychology, VR interaction design, and trust in immersive systems</strong>. I care about translating findings into something a development team can actually do something with.</p>
+        <p>Based in Guildford and London. Open to onsite, hybrid, or fully remote.</p>
       </div>
       <div class="about-stats reveal" style="transition-delay:0.1s">
         <div class="stat-card">
@@ -949,7 +1058,7 @@
             <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">User Sessions</div></div>
             <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Findings Presentation</div></div>
           </div>
-          <a href="assets/vr-presentation.pdf" target="_blank" class="doc-link">&#128196; &nbsp;View Full Presentation</a>
+          <button onclick="openPDF('assets/vr-presentation.pdf','VR Cognitive Impairment Simulation — Full Presentation')" class="doc-link">&#128196; &nbsp;Read Presentation</button>
         </div>
       </div>
 
@@ -977,7 +1086,7 @@
             <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Data Collection</div></div>
             <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Statistical Analysis</div></div>
           </div>
-          <a href="assets/dissertation.pdf" target="_blank" class="doc-link">&#128196; &nbsp;View Dissertation</a>
+          <button onclick="openPDF('assets/dissertation.pdf','Motor Learning in DCD — BSc Dissertation')" class="doc-link">&#128196; &nbsp;Read Dissertation</button>
         </div>
       </div>
 
@@ -1015,17 +1124,17 @@
     <h2 class="reveal">AAA Title Design Critiques</h2>
     <p class="section-intro reveal">Critical design analysis of AAA titles through a UX and player psychology lens.</p>
     <div class="critique-grid">
-      <div class="critique-card reveal">
+      <div class="critique-card cs2 reveal">
         <div class="critique-game">Counter-Strike 2</div>
         <h4>A Tale of Two Economies</h4>
         <p>A psychological critique separating CS2's two design systems: a skill-based in-game economy built on prospect theory and cognitive load, and a monetisation economy built on variable reinforcement, the near-miss effect, and classical conditioning. Examines the ethical implications of gambling mechanics in a free-to-access platform, including the CSGOLotto scandal and the gap between regulatory response and psychological evidence.</p>
-        <a href="assets/critique-1.pdf" target="_blank" class="doc-link" style="font-size:12px;padding:7px 12px;">&#128196; &nbsp;View Full Critique</a>
+        <button onclick="openPDF('assets/critique-1.pdf','CS2 — A Tale of Two Economies')" class="doc-link sm">&#128196; &nbsp;Read Critique</button>
       </div>
-      <div class="critique-card reveal" style="transition-delay:0.1s">
+      <div class="critique-card lol reveal" style="transition-delay:0.1s">
         <div class="critique-game">League of Legends</div>
         <h4>Mastery, Monetisation, and Manufactured Toxicity</h4>
-        <p>A three-part critique examining how League of Legends sustains 150 million players through emergent complexity and staged mastery; how the ranked system simultaneously satisfies self-determination theory needs while weaponising loss aversion and the goal gradient effect; and how Hextech monetisation deploys variable ratio reinforcement and engineered FOMO against a predominantly adolescent player base. Argues that toxicity is a structural output of anonymous high-stakes design, not a player character problem, and that Riot built the conditions for it.</p>
-        <a href="assets/critique-2.pdf" target="_blank" class="doc-link" style="font-size:12px;padding:7px 12px;">&#128196; &nbsp;View Full Critique</a>
+        <p>A three-part critique examining how League of Legends sustains 150 million players through emergent complexity and staged mastery; how the ranked system satisfies self-determination theory needs while weaponising loss aversion and the goal gradient effect; and how Hextech monetisation deploys variable ratio reinforcement and engineered FOMO against a predominantly adolescent player base. Argues that toxicity is a structural output of anonymous high-stakes design, not a player character problem, and that Riot built the conditions for it.</p>
+        <button onclick="openPDF('assets/critique-2.pdf','LoL — Mastery, Monetisation, and Manufactured Toxicity')" class="doc-link sm">&#128196; &nbsp;Read Critique</button>
       </div>
     </div>
   </div>
@@ -1101,6 +1210,17 @@
         <span>↓</span><strong>Download CV</strong>
       </a>
     </div>
+  </div>
+</div>
+
+<!-- PDF MODAL -->
+<div id="pdf-modal" class="pdf-modal-overlay" onclick="closePDFModal(event)">
+  <div class="pdf-modal-box">
+    <div class="pdf-modal-header">
+      <span class="pdf-modal-title" id="pdf-modal-title">Document</span>
+      <button class="pdf-modal-close" onclick="closePDF()">✕</button>
+    </div>
+    <iframe id="pdf-modal-frame" src="" title="Document viewer"></iframe>
   </div>
 </div>
 
@@ -1313,6 +1433,23 @@
 
   draw();
 })();
+</script>
+<script>
+  function openPDF(src, title) {
+    document.getElementById('pdf-modal-frame').src = src;
+    document.getElementById('pdf-modal-title').textContent = title;
+    document.getElementById('pdf-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closePDF() {
+    document.getElementById('pdf-modal').classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => { document.getElementById('pdf-modal-frame').src = ''; }, 300);
+  }
+  function closePDFModal(e) {
+    if (e.target === document.getElementById('pdf-modal')) closePDF();
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePDF(); });
 </script>
 </body>
 </html>
