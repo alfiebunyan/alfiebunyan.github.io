@@ -371,12 +371,70 @@
     font-size: 11px; font-weight: 700; color: var(--white);
     letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 12px;
   }
-  .skill-card ul { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  /* Skill card left border accents */
+  .skill-card.sk-games    { border-left: 3px solid #7c5ffc; }
+  .skill-card.sk-methods  { border-left: 3px solid #22d3ee; }
+  .skill-card.sk-analysis { border-left: 3px solid #22c55e; }
+  .skill-card.sk-vr       { border-left: 3px solid #3b82f6; }
+  .skill-card.sk-behaviour{ border-left: 3px solid #ec4899; }
+  .skill-card.sk-tools    { border-left: 3px solid #f97316; }
+
+  .skill-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
   .skill-card ul li {
     font-size: 13px; color: var(--text-muted);
     padding-left: 14px; position: relative;
+    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
   }
   .skill-card ul li::before { content: '·'; position: absolute; left: 0; color: var(--accent); }
+  .skill-applied {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.8px;
+    text-transform: uppercase; color: var(--accent-light);
+    background: rgba(124,95,252,0.12); border: 1px solid rgba(124,95,252,0.25);
+    border-radius: 3px; padding: 1px 5px; line-height: 1.6;
+    flex-shrink: 0;
+  }
+
+  /* Case study stats strip */
+  .case-stats {
+    display: flex; gap: 20px; flex-wrap: wrap;
+    margin-bottom: 16px; padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .case-stat { display: flex; flex-direction: column; gap: 1px; }
+  .case-stat-val {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 13px; font-weight: 700; color: var(--white);
+  }
+  .case-stat-lbl { font-size: 10px; color: var(--text-dim); letter-spacing: 0.5px; text-transform: uppercase; }
+
+  /* Case study outcome callout */
+  .case-outcome {
+    margin-top: 16px; padding: 12px 16px;
+    background: rgba(124,95,252,0.06);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 6px 6px 0;
+    font-size: 13px; color: var(--text-muted);
+    font-style: italic; line-height: 1.65;
+  }
+
+  /* Per-study left panel tints */
+  .case-card-22cans .case-visual { background-color: rgba(124,95,252,0.1); }
+  .case-card-vr     .case-visual { background-color: rgba(34,211,238,0.08); }
+  .case-card-dcd    .case-visual { background-color: rgba(34,197,94,0.07); }
+
+  /* Critique reading time + pull quote */
+  .critique-meta {
+    font-size: 11px; color: var(--text-dim);
+    letter-spacing: 0.5px; margin-bottom: 10px;
+  }
+  .critique-pull {
+    font-size: 13px; font-style: italic;
+    color: var(--text-muted); line-height: 1.7;
+    border-left: 2px solid var(--accent);
+    padding-left: 12px; margin: 14px 0 16px;
+  }
+  .critique-card.cs2 .critique-pull { border-left-color: #d4b830; color: #8c9aaa; }
+  .critique-card.lol .critique-pull { border-left-color: #c8aa6e; color: #7a8fa0; }
 
   /* CASE STUDIES */
   .case-studies { display: flex; flex-direction: column; gap: 24px; }
@@ -1000,73 +1058,73 @@
     <h2 class="reveal">Research Toolkit</h2>
     <p class="section-intro reveal">Methods, tools, and analytical approaches I bring to user research projects.</p>
     <div class="skills-grid">
-      <div class="skill-card reveal">
+      <div class="skill-card sk-games reveal">
         <div class="skill-icon">🎮</div>
         <h3>Games Research</h3>
         <ul>
-          <li>Playtesting facilitation</li>
-          <li>Think-aloud protocols</li>
+          <li>Playtesting facilitation <span class="skill-applied">applied</span></li>
+          <li>Think-aloud protocols <span class="skill-applied">applied</span></li>
           <li>Player psychology frameworks</li>
           <li>Heuristic evaluation</li>
           <li>Engagement and retention analysis</li>
-          <li>Game feel and UX critique</li>
+          <li>Game feel and UX critique <span class="skill-applied">applied</span></li>
         </ul>
       </div>
-      <div class="skill-card reveal" style="transition-delay:0.08s">
+      <div class="skill-card sk-methods reveal" style="transition-delay:0.08s">
         <div class="skill-icon">🔬</div>
         <h3>Research Methods</h3>
         <ul>
-          <li>Semi-structured interviews</li>
-          <li>Behavioural observation</li>
-          <li>Eye-tracking (VR contexts)</li>
-          <li>Within/between-subjects design</li>
+          <li>Semi-structured interviews <span class="skill-applied">applied</span></li>
+          <li>Behavioural observation <span class="skill-applied">applied</span></li>
+          <li>Eye-tracking (VR contexts) <span class="skill-applied">applied</span></li>
+          <li>Within/between-subjects design <span class="skill-applied">applied</span></li>
           <li>Survey and experiment design</li>
-          <li>Ethics and consent management</li>
+          <li>Ethics and consent management <span class="skill-applied">applied</span></li>
         </ul>
       </div>
-      <div class="skill-card reveal" style="transition-delay:0.16s">
+      <div class="skill-card sk-analysis reveal" style="transition-delay:0.16s">
         <div class="skill-icon">📊</div>
         <h3>Analysis</h3>
         <ul>
-          <li>Thematic analysis</li>
-          <li>Qualitative coding</li>
+          <li>Thematic analysis <span class="skill-applied">applied</span></li>
+          <li>Qualitative coding <span class="skill-applied">applied</span></li>
           <li>Affinity mapping</li>
-          <li>Jamovi (advanced)</li>
+          <li>Jamovi (advanced) <span class="skill-applied">applied</span></li>
           <li>SPSS</li>
-          <li>Mixed-methods design</li>
+          <li>Mixed-methods design <span class="skill-applied">applied</span></li>
         </ul>
       </div>
-      <div class="skill-card reveal" style="transition-delay:0.24s">
+      <div class="skill-card sk-vr reveal" style="transition-delay:0.24s">
         <div class="skill-icon">🥽</div>
         <h3>VR and Technical</h3>
         <ul>
-          <li>Unreal Engine (prototyping)</li>
-          <li>VR environment design</li>
-          <li>Immersive UX evaluation</li>
-          <li>Embodied interaction research</li>
-          <li>OBS Studio (session recording)</li>
+          <li>Unreal Engine (prototyping) <span class="skill-applied">applied</span></li>
+          <li>VR environment design <span class="skill-applied">applied</span></li>
+          <li>Immersive UX evaluation <span class="skill-applied">applied</span></li>
+          <li>Embodied interaction research <span class="skill-applied">applied</span></li>
+          <li>OBS Studio (session recording) <span class="skill-applied">applied</span></li>
         </ul>
       </div>
-      <div class="skill-card reveal" style="transition-delay:0.32s">
+      <div class="skill-card sk-behaviour reveal" style="transition-delay:0.32s">
         <div class="skill-icon">🧠</div>
         <h3>Behavioural Science</h3>
         <ul>
-          <li>Motor learning and skill acquisition</li>
-          <li>Cognitive load assessment</li>
+          <li>Motor learning and skill acquisition <span class="skill-applied">applied</span></li>
+          <li>Cognitive load assessment <span class="skill-applied">applied</span></li>
           <li>Trust and mental model research</li>
-          <li>Child-appropriate methodology</li>
-          <li>Implicit vs explicit learning</li>
+          <li>Child-appropriate methodology <span class="skill-applied">applied</span></li>
+          <li>Implicit vs explicit learning <span class="skill-applied">applied</span></li>
         </ul>
       </div>
-      <div class="skill-card reveal" style="transition-delay:0.4s">
+      <div class="skill-card sk-tools reveal" style="transition-delay:0.4s">
         <div class="skill-icon">🛠</div>
         <h3>Tools and Platforms</h3>
         <ul>
-          <li>Qualtrics</li>
+          <li>Qualtrics <span class="skill-applied">applied</span></li>
           <li>Google Forms</li>
-          <li>Zoom (remote facilitation)</li>
+          <li>Zoom (remote facilitation) <span class="skill-applied">applied</span></li>
           <li>MS Teams</li>
-          <li>Participant recruitment pipelines</li>
+          <li>Participant recruitment pipelines <span class="skill-applied">applied</span></li>
         </ul>
       </div>
     </div>
@@ -1085,7 +1143,7 @@
     <div class="case-studies">
 
       <!-- 22CANS -->
-      <div class="case-card reveal">
+      <div class="case-card case-card-22cans reveal">
         <div class="case-visual">
           <div class="case-num">01</div>
           <div class="case-type-badge">Academic Placement</div>
@@ -1093,6 +1151,11 @@
         <div class="case-body">
           <div class="case-context">University of Surrey &nbsp;·&nbsp; 22cans &nbsp;·&nbsp; 2026</div>
           <h3>End-to-End Playtest Research for a Released Title</h3>
+          <div class="case-stats">
+            <div class="case-stat"><span class="case-stat-val">Live Studio</span><span class="case-stat-lbl">Environment</span></div>
+            <div class="case-stat"><span class="case-stat-val">End-to-End</span><span class="case-stat-lbl">Research Lifecycle</span></div>
+            <div class="case-stat"><span class="case-stat-val">Stakeholder</span><span class="case-stat-lbl">Delivered</span></div>
+          </div>
           <p>A full user research engagement embedded within an active studio, covering the complete research lifecycle from ethics approval through stakeholder delivery. I managed participant recruitment, ran live facilitated playtest sessions, conducted and transcribed post-play interviews, applied thematic analysis, and delivered a prioritised findings report to the development team.</p>
           <p>Working in a live studio environment meant navigating real constraints: NDA protocols, stakeholder expectations, and production timelines alongside the research itself.</p>
           <div class="case-tags">
@@ -1110,12 +1173,13 @@
             <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Studio Debrief</div></div>
           </div>
           <img src="assets/giz-screens.jpg" alt="Dual-screen playtesting setup at the GIZ" class="case-video" style="object-fit:cover; object-position:center; max-height:400px;">
+          <div class="case-outcome">Findings were prioritised and delivered directly to the 22cans development team, navigating NDA protocols throughout the full research engagement.</div>
           <div class="nda-note" style="margin-top:12px;">🔒 &nbsp;Full research documentation available on request (NDA-restricted)</div>
         </div>
       </div>
 
       <!-- VR SIMULATION -->
-      <div class="case-card reveal">
+      <div class="case-card case-card-vr reveal">
         <div class="case-visual">
           <div class="case-num">02</div>
           <div class="case-type-badge">MSc Module Project</div>
@@ -1123,6 +1187,11 @@
         <div class="case-body">
           <div class="case-context">University of Surrey &nbsp;·&nbsp; MSc Year 1</div>
           <h3>VR Cognitive Impairment Simulation</h3>
+          <div class="case-stats">
+            <div class="case-stat"><span class="case-stat-val">Unreal Engine 5</span><span class="case-stat-lbl">Custom VR Build</span></div>
+            <div class="case-stat"><span class="case-stat-val">Cognitive Tasks</span><span class="case-stat-lbl">In-world Assessment</span></div>
+            <div class="case-stat"><span class="case-stat-val">Full Presentation</span><span class="case-stat-lbl">Academic Delivery</span></div>
+          </div>
           <p>Designed and built a VR environment in Unreal Engine simulating alcohol-like visual impairment to evaluate its effects on cognitive task performance. The prototype introduced measurable perceptual distortions while participants completed structured in-world tasks, with cognitive performance and behavioural responses recorded throughout.</p>
           <p>Delivered as a full academic presentation covering design rationale, methodology, participant response analysis, and implications for accessibility and safety simulation.</p>
           <div class="case-tags">
@@ -1138,7 +1207,8 @@
             <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">User Sessions</div></div>
             <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Findings Presentation</div></div>
           </div>
-          <video class="case-video" controls muted playsinline preload="metadata">
+          <div class="case-outcome">The simulation successfully induced measurable perceptual distortion effects, validating the custom VR environment as a reproducible research instrument for accessibility and impairment research.</div>
+          <video class="case-video" controls muted playsinline preload="metadata" style="margin-top:14px;">
             <source src="assets/vr-participant.mp4" type="video/mp4">
           </video>
           <button onclick="openPDF('assets/vr-presentation.pdf','VR Cognitive Impairment Simulation — Full Presentation')" class="doc-link" style="margin-top:12px;">&#128196; &nbsp;Read Presentation</button>
@@ -1146,7 +1216,7 @@
       </div>
 
       <!-- DCD DISSERTATION -->
-      <div class="case-card reveal">
+      <div class="case-card case-card-dcd reveal">
         <div class="case-visual">
           <div class="case-num">03</div>
           <div class="case-type-badge">BSc Dissertation</div>
@@ -1154,6 +1224,11 @@
         <div class="case-body">
           <div class="case-context">University of Surrey &nbsp;·&nbsp; 2025</div>
           <h3>Motor Learning in DCD: Gamified Research with Children</h3>
+          <div class="case-stats">
+            <div class="case-stat"><span class="case-stat-val">Ages 9–11</span><span class="case-stat-lbl">Participant Range</span></div>
+            <div class="case-stat"><span class="case-stat-val">DCD + Control</span><span class="case-stat-lbl">Between-subjects</span></div>
+            <div class="case-stat"><span class="case-stat-val">Gamified Task</span><span class="case-stat-lbl">Visuomotor Rotation</span></div>
+          </div>
           <p>Investigated motor learning differences in children with Developmental Coordination Disorder using a gamified visuomotor rotation task, presented as an alien-feeding game for participants aged 9 to 11. The study compared implicit and explicit learning strategies across DCD and typically-developing groups.</p>
           <p>Designing research instruments for a child population required careful attention to ethics, age-appropriate language, and engagement, skills directly transferable to game UX research with diverse player populations.</p>
           <div class="case-tags">
@@ -1169,7 +1244,8 @@
             <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Data Collection</div></div>
             <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Statistical Analysis</div></div>
           </div>
-          <button onclick="openPDF('assets/dissertation.pdf','Motor Learning in DCD — BSc Dissertation')" class="doc-link">&#128196; &nbsp;Read Dissertation</button>
+          <div class="case-outcome">Findings were analysed using Jamovi and presented as a full dissertation exploring group differences in learning trajectories, with implications for inclusive research design and child-appropriate UX methodology.</div>
+          <button onclick="openPDF('assets/dissertation.pdf','Motor Learning in DCD — BSc Dissertation')" class="doc-link" style="margin-top:14px;">&#128196; &nbsp;Read Dissertation</button>
         </div>
       </div>
 
@@ -1210,13 +1286,17 @@
       <div class="critique-card cs2 reveal">
         <div class="critique-game">Counter-Strike 2</div>
         <h4>A Tale of Two Economies</h4>
+        <div class="critique-meta">~14 min read</div>
         <p>A psychological critique separating CS2's two design systems: a skill-based in-game economy built on prospect theory and cognitive load, and a monetisation economy built on variable reinforcement, the near-miss effect, and classical conditioning. Examines the ethical implications of gambling mechanics in a free-to-access platform, including the CSGOLotto scandal and the gap between regulatory response and psychological evidence.</p>
+        <p class="critique-pull">"The skin economy isn't cosmetic. It's a second game built on variable reinforcement, running parallel to the first."</p>
         <button onclick="openPDF('assets/critique-1.pdf','CS2 — A Tale of Two Economies')" class="doc-link sm">&#128196; &nbsp;Read Critique</button>
       </div>
       <div class="critique-card lol reveal" style="transition-delay:0.1s">
         <div class="critique-game">League of Legends</div>
         <h4>Mastery, Monetisation, and Manufactured Toxicity</h4>
+        <div class="critique-meta">~20 min read</div>
         <p>A three-part critique examining how League of Legends sustains 150 million players through emergent complexity and staged mastery; how the ranked system satisfies self-determination theory needs while weaponising loss aversion and the goal gradient effect; and how Hextech monetisation deploys variable ratio reinforcement and engineered FOMO against a predominantly adolescent player base. Argues that toxicity is a structural output of anonymous high-stakes design, not a player character problem, and that Riot built the conditions for it.</p>
+        <p class="critique-pull">"Toxicity isn't a player character problem. Riot built the conditions for it."</p>
         <button onclick="openPDF('assets/critique-2.pdf','LoL — Mastery, Monetisation, and Manufactured Toxicity')" class="doc-link sm">&#128196; &nbsp;Read Critique</button>
       </div>
     </div>
