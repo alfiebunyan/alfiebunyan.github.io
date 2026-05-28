@@ -1746,7 +1746,8 @@
 </script>
 <script>
   function openPDF(src, title) {
-    document.getElementById('pdf-modal-frame').src = src;
+    const frameSrc = src.toLowerCase().endsWith('.pdf') ? src + '#toolbar=0&navpanes=0' : src;
+    document.getElementById('pdf-modal-frame').src = frameSrc;
     document.getElementById('pdf-modal-title').textContent = title;
     document.getElementById('pdf-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
