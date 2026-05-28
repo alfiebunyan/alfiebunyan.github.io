@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CS2: A Tale of Two Economies | Alfie Bunyan</title>
-<meta name="description" content="A psychological critique of Counter-Strike 2 — examining dual economy systems, behavioural reinforcement, and ethical implications of skin markets.">
+<meta name="description" content="A psychological critique of Counter-Strike 2, examining dual economy systems, behavioural reinforcement, and ethical implications of skin markets.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%237c5ffc'/><text y='72' x='50' font-size='62' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='900' fill='white'>A</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,9 +28,7 @@
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
-
   body {
     font-family: 'Exo 2', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background: var(--bg);
@@ -39,7 +37,7 @@
     font-size: 16px;
   }
 
-  /* ── Back nav ── */
+  /* Back nav */
   .back-nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     padding: 14px 32px;
@@ -52,7 +50,7 @@
     display: inline-flex; align-items: center; gap: 8px;
     color: var(--text-dim); text-decoration: none;
     font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
-    transition: color 0.2s;
+    transition: color 0.2s; cursor: pointer; background: none; border: none;
   }
   .back-link:hover { color: var(--accent); }
   .back-link svg { width: 14px; height: 14px; }
@@ -61,14 +59,14 @@
     text-transform: uppercase; color: var(--accent); opacity: 0.8;
   }
 
-  /* ── Layout ── */
+  /* Layout */
   .page-wrap {
     max-width: 780px;
     margin: 0 auto;
     padding: 96px 32px 80px;
   }
 
-  /* ── Hero ── */
+  /* Hero */
   .critique-tag {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
@@ -79,27 +77,22 @@
     content: ''; display: inline-block;
     width: 22px; height: 2px; background: var(--accent);
   }
-
   h1 {
     font-size: clamp(28px, 5vw, 42px);
-    font-weight: 900;
-    color: var(--white);
-    line-height: 1.12;
-    letter-spacing: -0.5px;
-    margin-bottom: 10px;
+    font-weight: 900; color: var(--white);
+    line-height: 1.12; letter-spacing: -0.5px; margin-bottom: 10px;
   }
   .hero-sub {
     font-size: 16px; color: var(--text-dim);
     margin-bottom: 32px; max-width: 600px;
   }
 
+  /* Stats strip */
   .stats-strip {
     display: flex; flex-wrap: wrap; gap: 0;
     border: 1px solid var(--border-bright);
-    border-radius: 10px;
-    overflow: hidden;
-    margin-bottom: 48px;
-    background: var(--accent-glow);
+    border-radius: 10px; overflow: hidden;
+    margin-bottom: 48px; background: var(--accent-glow);
   }
   .stat-item {
     flex: 1; min-width: 140px;
@@ -117,7 +110,7 @@
     text-transform: uppercase; letter-spacing: 0.8px; margin-top: 4px;
   }
 
-  /* ── Table of contents ── */
+  /* TOC */
   .toc {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -128,8 +121,7 @@
   }
   .toc-title {
     font-size: 10px; font-weight: 700; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: 14px;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
   }
   .toc ol {
     list-style: none; padding: 0;
@@ -148,9 +140,8 @@
     font-weight: 700; min-width: 16px;
   }
 
-  /* ── Sections ── */
+  /* Sections */
   .section { margin-bottom: 52px; scroll-margin-top: 80px; }
-
   .section-label {
     font-size: 10px; font-weight: 700; letter-spacing: 2.5px;
     text-transform: uppercase; color: var(--accent);
@@ -159,33 +150,24 @@
   .section-label::after {
     content: ''; flex: 1; height: 1px; background: var(--border-bright);
   }
-
   h2 {
     font-size: clamp(20px, 3vw, 26px);
     font-weight: 800; color: var(--white);
-    margin-bottom: 16px; line-height: 1.2;
-    letter-spacing: -0.2px;
+    margin-bottom: 16px; line-height: 1.2; letter-spacing: -0.2px;
   }
-  h3 {
-    font-size: 17px; font-weight: 700; color: var(--white);
-    margin: 28px 0 10px;
-  }
-
+  h3 { font-size: 17px; font-weight: 700; color: var(--white); margin: 28px 0 10px; }
   p { color: var(--text); margin-bottom: 16px; }
   p:last-child { margin-bottom: 0; }
-
   strong { color: var(--white); font-weight: 700; }
   em { font-style: italic; color: var(--accent); }
 
-  /* ── Pull quote ── */
+  /* Pull quote */
   .pull-quote {
     border-left: 3px solid var(--accent);
-    padding: 16px 22px;
-    margin: 28px 0;
+    padding: 16px 22px; margin: 28px 0;
     background: var(--accent-glow);
     border-radius: 0 8px 8px 0;
-    font-size: 15px; font-style: italic;
-    color: var(--text);
+    font-size: 15px; font-style: italic; color: var(--text);
   }
   .pull-quote cite {
     display: block; margin-top: 10px;
@@ -193,49 +175,40 @@
     color: var(--text-muted); letter-spacing: 0.5px;
   }
 
-  /* ── Callout box ── */
+  /* Callout */
   .callout {
     background: var(--surface-2);
     border: 1px solid var(--border-bright);
-    border-radius: 8px;
-    padding: 20px 24px;
-    margin: 24px 0;
+    border-radius: 8px; padding: 20px 24px; margin: 24px 0;
   }
   .callout-label {
     font-size: 10px; font-weight: 700; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: 10px;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 10px;
   }
   .callout p { margin-bottom: 8px; font-size: 14px; color: var(--text-dim); }
   .callout p:last-child { margin-bottom: 0; }
 
-  /* ── Theory grid ── */
+  /* Theory grid */
   .theory-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 14px;
-    margin: 20px 0;
+    gap: 14px; margin: 20px 0;
   }
   .theory-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 16px 18px;
-    transition: border-color 0.2s;
+    border-radius: 8px; padding: 16px 18px; transition: border-color 0.2s;
   }
   .theory-card:hover { border-color: var(--border-bright); }
   .theory-card-title {
     font-size: 12px; font-weight: 700; color: var(--accent);
     letter-spacing: 0.5px; margin-bottom: 6px;
   }
-  .theory-card p {
-    font-size: 12px; color: var(--text-dim); margin-bottom: 0; line-height: 1.5;
-  }
+  .theory-card p { font-size: 12px; color: var(--text-dim); margin-bottom: 0; line-height: 1.5; }
 
-  /* ── Economy table ── */
+  /* Economy table */
   .econ-table {
-    width: 100%; border-collapse: collapse; margin: 20px 0;
-    font-size: 13px;
+    width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 13px;
   }
   .econ-table th {
     background: var(--accent-dim); color: var(--accent);
@@ -250,53 +223,39 @@
   .econ-table td:first-child { color: var(--white); font-weight: 600; }
   .econ-table tr:hover td { background: var(--accent-glow); }
 
-  /* ── Price highlight ── */
+  /* Price split */
   .price-split {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-    margin: 24px 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0;
   }
   @media (max-width: 480px) { .price-split { grid-template-columns: 1fr; } }
   .price-box {
-    border: 1px solid var(--border);
-    border-radius: 8px; padding: 20px;
-    text-align: center;
-    background: var(--surface);
-    transition: border-color 0.2s;
+    border: 1px solid var(--border); border-radius: 8px; padding: 20px;
+    text-align: center; background: var(--surface); transition: border-color 0.2s;
   }
   .price-box:hover { border-color: var(--border-bright); }
   .price-box.highlight { border-color: var(--accent); background: var(--accent-glow); }
   .price-amount {
     font-size: 28px; font-weight: 900; color: var(--accent);
-    font-family: 'Exo 2', sans-serif; line-height: 1;
-    margin-bottom: 6px;
+    font-family: 'Exo 2', sans-serif; line-height: 1; margin-bottom: 6px;
   }
   .price-item { font-size: 12px; color: var(--text-dim); margin-bottom: 4px; }
   .price-note { font-size: 11px; color: var(--text-muted); }
 
-  /* ── Warning callout ── */
-  .callout.warning {
-    border-color: rgba(239, 68, 68, 0.35);
-    background: rgba(239, 68, 68, 0.05);
-  }
+  /* Warning callout */
+  .callout.warning { border-color: rgba(239, 68, 68, 0.35); background: rgba(239, 68, 68, 0.05); }
   .callout.warning .callout-label { color: #f87171; }
 
-  /* ── References ── */
+  /* References */
   .references { margin-top: 60px; padding-top: 32px; border-top: 1px solid var(--border); }
   .references h2 { font-size: 18px; margin-bottom: 20px; }
-  .ref-list {
-    list-style: none; padding: 0;
-    display: flex; flex-direction: column; gap: 10px;
-  }
+  .ref-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; }
   .ref-list li {
     font-size: 13px; color: var(--text-dim);
-    padding: 10px 14px;
-    background: var(--surface);
-    border-radius: 6px;
-    border-left: 2px solid var(--border-bright);
-    line-height: 1.5;
+    padding: 10px 14px; background: var(--surface);
+    border-radius: 6px; border-left: 2px solid var(--border-bright); line-height: 1.5;
   }
 
-  /* ── Footer ── */
+  /* Footer */
   .page-footer {
     margin-top: 60px; padding-top: 28px;
     border-top: 1px solid var(--border);
@@ -308,32 +267,29 @@
     display: inline-flex; align-items: center; gap: 6px;
     color: var(--accent); text-decoration: none;
     font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
-    transition: opacity 0.2s;
+    transition: opacity 0.2s; cursor: pointer; background: none; border: none;
   }
   .footer-back:hover { opacity: 0.75; }
 </style>
 </head>
 <body>
 
-<!-- Back nav -->
 <nav class="back-nav">
-  <a href="index.html" class="back-link">
+  <button class="back-link" onclick="history.back()">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M9 2L4 7l5 5"/>
     </svg>
     Back to Portfolio
-  </a>
+  </button>
   <span class="nav-label">AAA Critique</span>
 </nav>
 
 <main class="page-wrap">
 
-  <!-- Hero -->
-  <div class="critique-tag">AAA Game Critique &nbsp;·&nbsp; Behavioural Psychology</div>
+  <div class="critique-tag">AAA Game Critique &nbsp;&middot;&nbsp; Behavioural Psychology</div>
   <h1>A Tale of Two Economies</h1>
-  <p class="hero-sub">A psychological analysis of Counter-Strike 2 -- examining its dual economy systems, reinforcement mechanics, and the ethical implications of a multi-billion dollar skin marketplace.</p>
+  <p class="hero-sub">A psychological analysis of Counter-Strike 2, examining its dual economy systems, reinforcement mechanics, and the ethical implications of a multi-billion dollar skin marketplace.</p>
 
-  <!-- Stats strip -->
   <div class="stats-strip">
     <div class="stat-item">
       <div class="stat-val">1.86M</div>
@@ -353,7 +309,6 @@
     </div>
   </div>
 
-  <!-- Table of contents -->
   <div class="toc">
     <div class="toc-title">Contents</div>
     <ol>
@@ -364,7 +319,7 @@
       <li><a href="#ingame-economy"><span class="toc-num">05</span> In-Game Economy</a></li>
       <li><a href="#economic-psychology"><span class="toc-num">06</span> Economic Psychology</a></li>
       <li><a href="#skin-economy"><span class="toc-num">07</span> The Skin Economy</a></li>
-      <li><a href="#price-comparison"><span class="toc-num">08</span> £1.99 vs $1M+</a></li>
+      <li><a href="#price-comparison"><span class="toc-num">08</span> &pound;1.99 vs $1M+</a></li>
       <li><a href="#marketplace"><span class="toc-num">09</span> Skin Marketplace</a></li>
       <li><a href="#ethics"><span class="toc-num">10</span> Ethical Implications</a></li>
       <li><a href="#regulatory"><span class="toc-num">11</span> Regulatory Response</a></li>
@@ -372,75 +327,65 @@
     </ol>
   </div>
 
-  <!-- 01 Overview -->
   <div class="section" id="overview">
     <div class="section-label">01</div>
     <h2>Overview</h2>
-    <p>Counter-Strike 2 (CS2) represents one of the most psychologically rich environments in competitive gaming. With over 27 years of franchise history, it has evolved from a simple terrorist-versus-counter-terrorist shooter into a layered ecosystem that operates two parallel economies simultaneously: the tactical in-game economy that governs round-by-round decision-making, and the cosmetic skin economy -- a real-money marketplace that has generated over $3.8 billion in trade volume.</p>
+    <p>Counter-Strike 2 (CS2) represents one of the most psychologically rich environments in competitive gaming. With over 27 years of franchise history, it has evolved from a simple terrorist-versus-counter-terrorist shooter into a layered ecosystem that operates two parallel economies simultaneously: the tactical in-game economy that governs round-by-round decision-making, and the cosmetic skin economy, a real-money marketplace that has generated over $3.8 billion in trade volume.</p>
     <p>This critique examines both systems through the lens of behavioural psychology, cognitive science, and ethics. It explores how CS2 engineers decision-making under uncertainty, manufactures perceived value, and operates in regulatory grey zones that have attracted the attention of governments worldwide.</p>
-    <p>Understanding CS2 is not just relevant to game design -- it is relevant to anyone studying how digital environments shape human behaviour at scale.</p>
+    <p>Understanding CS2 is not just relevant to game design. It is relevant to anyone studying how digital environments shape human behaviour at scale.</p>
   </div>
 
-  <!-- 02 Core Gameplay Loop -->
   <div class="section" id="core-loop">
     <div class="section-label">02</div>
     <h2>Core Gameplay Loop</h2>
     <p>At its most fundamental level, CS2 is structured around a best-of-30 format divided into two halves. Teams alternate between Terrorist and Counter-Terrorist roles, with the objective of either planting or defusing a bomb at designated sites. First team to 16 wins.</p>
-    <p>This structure creates a defined arc with clear progression -- but what makes it psychologically compelling is the <strong>round economy</strong>. Every action has monetary consequences. Killing an opponent earns cash. Planting the bomb earns cash. Losing a round earns cash -- but less than winning. This feedback loop transforms every round into a set of cascading financial decisions that persist across subsequent rounds.</p>
+    <p>This structure creates a defined arc with clear progression, but what makes it psychologically compelling is the <strong>round economy</strong>. Every action has monetary consequences. Killing an opponent earns cash. Planting the bomb earns cash. Losing a round earns cash, but less than winning. This feedback loop transforms every round into a set of cascading financial decisions that persist across subsequent rounds.</p>
     <p>The game never lets you forget your economic state. The HUD surfaces your current funds, your team's funds, and implicitly communicates the collective buying power of both sides. Players must constantly reason about not just what to do <em>now</em>, but what the downstream financial consequences will be three rounds from now.</p>
   </div>
 
-  <!-- 03 Map Design -->
   <div class="section" id="map-design">
     <div class="section-label">03</div>
     <h2>Map Design &amp; Spatial Cognition</h2>
     <p>CS2's maps are not designed arbitrarily. They are engineered environments that exploit predictable patterns in human spatial cognition. Two frameworks are particularly relevant here.</p>
-
     <div class="theory-grid">
       <div class="theory-card">
-        <div class="theory-card-title">Endsley (1985) -- Situation Awareness</div>
+        <div class="theory-card-title">Endsley (1985) — Situation Awareness</div>
         <p>Three-level model: perception of current state, comprehension of meaning, and projection of future states. CS2 maps are designed so that expert players build all three levels simultaneously.</p>
       </div>
       <div class="theory-card">
-        <div class="theory-card-title">Norman (1988) -- Affordances</div>
-        <p>Environmental cues that signal available actions. CS2 maps use consistent visual language -- yellow highlights on climbable ledges, standardised door widths -- so players immediately understand what spaces afford.</p>
+        <div class="theory-card-title">Norman (1988) — Affordances</div>
+        <p>Environmental cues that signal available actions. CS2 maps use consistent visual language, with yellow highlights on climbable ledges and standardised door widths, so players immediately understand what spaces afford.</p>
       </div>
     </div>
-
     <p>Classic maps like Dust2, Mirage, and Inferno have been refined across nearly three decades of play. Choke points are placed so that attackers and defenders face opposing psychological pressures. Defenders can hold angles from positions of cover; attackers must move through open space to contest. This asymmetry creates tension that no amount of individual skill fully neutralises.</p>
-    <p>The three-lane structure present in most CS2 maps is also no accident. It provides multiple viable routes that require coordination to cover -- an implicit social pressure that punishes solo play and rewards communication. Maps become communication tools as much as physical environments.</p>
+    <p>The three-lane structure present in most CS2 maps is also no accident. It provides multiple viable routes that require coordination to cover, an implicit social pressure that punishes solo play and rewards communication. Maps become communication tools as much as physical environments.</p>
   </div>
 
-  <!-- 04 Sound & Gunplay -->
   <div class="section" id="sound-gunplay">
     <div class="section-label">04</div>
     <h2>Sound Design &amp; Gunplay Psychology</h2>
-    <p>CS2 has one of the most information-dense audio environments in competitive gaming. Footstep volume varies with surface type and movement speed. Reload sounds differ between weapon classes. The directional audio system is precise enough that experienced players routinely derive exact positional information from sound alone -- a form of auditory situation awareness that takes hundreds of hours to develop.</p>
-
+    <p>CS2 has one of the most information-dense audio environments in competitive gaming. Footstep volume varies with surface type and movement speed. Reload sounds differ between weapon classes. The directional audio system is precise enough that experienced players routinely derive exact positional information from sound alone, a form of auditory situation awareness that takes hundreds of hours to develop.</p>
     <div class="theory-grid">
       <div class="theory-card">
-        <div class="theory-card-title">Green &amp; Swets (1966) -- Signal Detection</div>
+        <div class="theory-card-title">Green &amp; Swets (1966) — Signal Detection</div>
         <p>Distinguishing meaningful signals from noise. CS2 trains players to extract high-fidelity positional data from audio, constantly operating at the limits of perceptual discrimination.</p>
       </div>
       <div class="theory-card">
-        <div class="theory-card-title">Ericsson (1993) -- Deliberate Practice</div>
-        <p>Skill acquisition through feedback-rich practice targeting specific sub-skills. Aim mechanics in CS2 reward this exact approach -- spray patterns are deterministic and learnable.</p>
+        <div class="theory-card-title">Ericsson (1993) — Deliberate Practice</div>
+        <p>Skill acquisition through feedback-rich practice targeting specific sub-skills. Aim mechanics in CS2 reward this exact approach, as spray patterns are deterministic and learnable.</p>
       </div>
       <div class="theory-card">
-        <div class="theory-card-title">Ryan &amp; Deci (2000) -- Self-Determination Theory</div>
+        <div class="theory-card-title">Ryan &amp; Deci (2000) — Self-Determination Theory</div>
         <p>Competence, autonomy, and relatedness. Mastering recoil patterns satisfies competence needs; weapon choice satisfies autonomy; team coordination satisfies relatedness.</p>
       </div>
     </div>
-
-    <p>Weapon recoil patterns in CS2 are <strong>fixed and deterministic</strong> -- the same weapon fired continuously always follows the same spray pattern. This is a deliberate design decision that transforms recoil control from a random challenge into a learnable skill. Players can and do spend hours in practice servers training their muscle memory to counter each pattern precisely. The satisfaction of mastering this system is a powerful competence reward (Ryan &amp; Deci, 2000) that sustains engagement over thousands of hours.</p>
+    <p>Weapon recoil patterns in CS2 are <strong>fixed and deterministic</strong>. The same weapon fired continuously always follows the same spray pattern. This is a deliberate design decision that transforms recoil control from a random challenge into a learnable skill. Players can and do spend hours in practice servers training their muscle memory to counter each pattern precisely. The satisfaction of mastering this system is a powerful competence reward (Ryan &amp; Deci, 2000) that sustains engagement over thousands of hours.</p>
   </div>
 
-  <!-- 05 In-Game Economy -->
   <div class="section" id="ingame-economy">
     <div class="section-label">05</div>
     <h2>The First Economy: Round-by-Round Finance</h2>
     <p>The in-game economy operates through four tactical states that teams cycle between depending on their financial position. Each state carries distinct psychological and strategic implications.</p>
-
     <table class="econ-table">
       <thead>
         <tr>
@@ -477,24 +422,20 @@
         </tr>
       </tbody>
     </table>
-
     <div class="pull-quote">
       The most psychologically demanding moment in CS2 is not the clutch 1v4. It is the team meeting at the buy phase where five players must agree, without full information, whether to spend everything now or save for a better round later.
     </div>
-
-    <p>The "loss bonus" system -- where teams receive increasing cash bonuses for consecutive round losses -- is a deliberate catch-up mechanic that prevents matches from becoming unrecoverable. Psychologically, it functions as a frustration management system: even when losing, you can reason that each loss is building toward a viable economic state. The design frames inevitable defeat as progress.</p>
+    <p>The "loss bonus" system, where teams receive increasing cash bonuses for consecutive round losses, is a deliberate catch-up mechanic that prevents matches from becoming unrecoverable. Psychologically, it functions as a frustration management system: even when losing, you can reason that each loss is building toward a viable economic state. The design frames inevitable defeat as progress.</p>
   </div>
 
-  <!-- 06 Economic Psychology -->
   <div class="section" id="economic-psychology">
     <div class="section-label">06</div>
     <h2>Economic Psychology in Action</h2>
     <p>The CS2 economy is a live behavioural laboratory. Every buy phase is a demonstration of multiple psychological biases operating under time pressure.</p>
-
     <div class="theory-grid">
       <div class="theory-card">
         <div class="theory-card-title">Prospect Theory (Kahneman &amp; Tversky)</div>
-        <p>Losses loom larger than equivalent gains. Eco rounds feel worse than the maths justifies -- because losing $3,000 of equipment feels worse than the $3,000 reward for winning with it.</p>
+        <p>Losses loom larger than equivalent gains. Eco rounds feel worse than the maths justifies, because losing $3,000 of equipment feels worse than the $3,000 reward for winning with it.</p>
       </div>
       <div class="theory-card">
         <div class="theory-card-title">Framing Effects</div>
@@ -502,33 +443,29 @@
       </div>
       <div class="theory-card">
         <div class="theory-card-title">Cognitive Load Theory</div>
-        <p>The buy phase combines equipment selection, team communication, and tactical planning under a tight timer -- operating at the limits of working memory capacity.</p>
+        <p>The buy phase combines equipment selection, team communication, and tactical planning under a tight timer, operating at the limits of working memory capacity.</p>
       </div>
       <div class="theory-card">
         <div class="theory-card-title">Social Dilemmas</div>
         <p>Individual and collective interests sometimes conflict. A player with $5,000 who sees teammates with $1,500 faces a dilemma: buy for himself, or share money and take weaker equipment collectively.</p>
       </div>
     </div>
-
-    <p>These mechanics are not accidental. They produce exactly the kind of strategic depth that makes CS2 endlessly discussable -- and endlessly replayable. The optimal buy decision is genuinely contested even at the highest level of professional play, which validates every player's experience of the decision as genuinely difficult.</p>
+    <p>These mechanics are not accidental. They produce exactly the kind of strategic depth that makes CS2 endlessly discussable and endlessly replayable. The optimal buy decision is genuinely contested even at the highest level of professional play, which validates every player's experience of the decision as genuinely difficult.</p>
   </div>
 
-  <!-- 07 The Skin Economy -->
   <div class="section" id="skin-economy">
     <div class="section-label">07</div>
     <h2>The Second Economy: Cosmetic Skins</h2>
-    <p>CS2's cosmetic economy operates on entirely different psychological mechanisms than its gameplay economy. Weapon skins have no functional impact whatsoever -- they do not affect damage, accuracy, movement speed, or any gameplay variable. And yet they command prices ranging from £1.99 to over $1,000,000.</p>
-
+    <p>CS2's cosmetic economy operates on entirely different psychological mechanisms than its gameplay economy. Weapon skins have no functional impact whatsoever. They do not affect damage, accuracy, movement speed, or any gameplay variable. And yet they command prices ranging from &pound;1.99 to over $1,000,000.</p>
     <div class="callout">
-      <div class="callout-label">Key Mechanism -- Case Opening</div>
-      <p>Players purchase cases for a fixed price (~£2.30). Opening the case requires a separate key purchase (~£2.16). The contents are determined by a drop table with tiered probabilities: most items are common "Consumer Grade" skins worth less than the key cost. Rare items at the top of the drop table are statistically unlikely to appear -- roughly 1 in 400 cases yields a "Covert" item, and rarer still are "Extraordinarily Rare" knife skins.</p>
-      <p>This is a variable ratio reinforcement schedule (Skinner, 1938), the same mechanism that underlies slot machine design. The unpredictability of reward -- not its magnitude -- is what sustains engagement.</p>
+      <div class="callout-label">Key Mechanism — Case Opening</div>
+      <p>Players purchase cases for a fixed price (~&pound;2.30). Opening the case requires a separate key purchase (~&pound;2.16). The contents are determined by a drop table with tiered probabilities: most items are common "Consumer Grade" skins worth less than the key cost. Rare items at the top of the drop table are statistically unlikely to appear, roughly 1 in 400 cases yields a "Covert" item, and rarer still are "Extraordinarily Rare" knife skins.</p>
+      <p>This is a variable ratio reinforcement schedule (Skinner, 1938), the same mechanism that underlies slot machine design. The unpredictability of reward, not its magnitude, is what sustains engagement.</p>
     </div>
-
     <div class="theory-grid">
       <div class="theory-card">
         <div class="theory-card-title">Variable Ratio Reinforcement</div>
-        <p>Rewards delivered at unpredictable intervals produce the highest rates of sustained behaviour and greatest resistance to extinction -- the foundation of case opening psychology.</p>
+        <p>Rewards delivered at unpredictable intervals produce the highest rates of sustained behaviour and greatest resistance to extinction, the foundation of case opening psychology.</p>
       </div>
       <div class="theory-card">
         <div class="theory-card-title">Near-Miss Effect</div>
@@ -540,75 +477,64 @@
       </div>
       <div class="theory-card">
         <div class="theory-card-title">Anchoring Bias</div>
-        <p>Displaying "possible drops" including $1,000 knives before opening a £2 case anchors upward expectations, making the decision to open feel more reasonable than the expected value justifies.</p>
+        <p>Displaying "possible drops" including $1,000 knives before opening a &pound;2 case anchors upward expectations, making the decision to open feel more reasonable than the expected value justifies.</p>
       </div>
     </div>
   </div>
 
-  <!-- 08 Price comparison -->
   <div class="section" id="price-comparison">
     <div class="section-label">08</div>
-    <h2>£1.99 vs $1,000,000+</h2>
-    <p>The sheer price range of CS2 skins is one of the most psychologically interesting features of the system. The same category of object -- a weapon skin -- spans eight orders of magnitude in value. Understanding why requires examining multiple layers of perceived value.</p>
-
+    <h2>&pound;1.99 vs $1,000,000+</h2>
+    <p>The sheer price range of CS2 skins is one of the most psychologically interesting features of the system. The same category of object, a weapon skin, spans eight orders of magnitude in value. Understanding why requires examining multiple layers of perceived value.</p>
     <div class="price-split">
       <div class="price-box">
-        <div class="price-amount">£1.99</div>
+        <div class="price-amount">&pound;1.99</div>
         <div class="price-item">Consumer Grade Skin</div>
-        <div class="price-note">Common drop · No visual distinction · Available in bulk · Market flooded</div>
+        <div class="price-note">Common drop &middot; No visual distinction &middot; Available in bulk &middot; Market flooded</div>
       </div>
       <div class="price-box highlight">
         <div class="price-amount">$1M+</div>
         <div class="price-item">Case Hardened AK-47 (Blue Gem)</div>
-        <div class="price-note">Pattern #661 · Statistically near-unique · Authenticated rarity · Status signalling</div>
+        <div class="price-note">Pattern #661 &middot; Statistically near-unique &middot; Authenticated rarity &middot; Status signalling</div>
       </div>
     </div>
-
     <p>The <strong>Float Value</strong> system adds a layer of continuous variation to skin condition, expressed as a decimal from 0.00 (Factory New) to 1.00 (Battle-Scarred). Each skin category has acceptable float ranges, and within those ranges, micro-differences in float create micro-differences in visual quality and price. This creates a <strong>continuous scarcity gradient</strong> rather than discrete tiers.</p>
-    <p>The <strong>Pattern Index</strong> system applies a further dimension of variation to pattern-based skins, where the same base skin can appear with visually distinct arrangements. The rarest pattern configurations on high-demand skins become collector items in their own right -- with prices validated by public trade histories and third-party authentication.</p>
-
+    <p>The <strong>Pattern Index</strong> system applies a further dimension of variation to pattern-based skins, where the same base skin can appear with visually distinct arrangements. The rarest pattern configurations on high-demand skins become collector items in their own right, with prices validated by public trade histories and third-party authentication.</p>
     <div class="callout">
       <div class="callout-label">Endowment Effect &amp; Sunk Cost</div>
-      <p>Once a player owns a valuable skin, its perceived worth typically exceeds its objective market value. The item is "mine" -- and that ownership relationship inflates valuation (Kahneman et al., 1990). This effect compounds over time: players who have invested money in skins are reluctant to "cash out" at a loss, even when market prices decline. The sunk cost fallacy sustains engagement with the marketplace long after rational analysis would counsel exit.</p>
+      <p>Once a player owns a valuable skin, its perceived worth typically exceeds its objective market value. The item is "mine", and that ownership relationship inflates valuation (Kahneman et al., 1990). This effect compounds over time: players who have invested money in skins are reluctant to "cash out" at a loss, even when market prices decline. The sunk cost fallacy sustains engagement with the marketplace long after rational analysis would counsel exit.</p>
     </div>
   </div>
 
-  <!-- 09 Marketplace -->
   <div class="section" id="marketplace">
     <div class="section-label">09</div>
     <h2>The Skin Marketplace: $3.8B and Counting</h2>
     <p>The Steam Community Market and third-party platforms have turned CS2 skins into a genuine financial asset class. With over $3.8 billion in documented trade volume, skins are bought, sold, traded, and speculated upon in ways that closely mirror traditional financial markets.</p>
-    <p>Several market dynamics emerge from this ecosystem:</p>
     <h3>Liquidity and Price Discovery</h3>
-    <p>Common skins have high trade volumes and tight bid-ask spreads. Rare items have illiquid markets where a single large transaction can move prices significantly. This creates sophisticated market behaviour that rewards information asymmetry -- knowing when a skin is "underpriced" relative to its true collector value.</p>
+    <p>Common skins have high trade volumes and tight bid-ask spreads. Rare items have illiquid markets where a single large transaction can move prices significantly. This creates sophisticated market behaviour that rewards information asymmetry, knowing when a skin is "underpriced" relative to its true collector value.</p>
     <h3>Speculation and Investment</h3>
     <p>Case prices historically increase after cases leave the active drop pool. Knowing when a case is about to be retired creates a legitimate arbitrage opportunity. Third-party tracking sites publish real-time price data, and communities have developed sophisticated strategies for timing these transitions. Some individuals treat CS2 trading as a primary income stream.</p>
     <h3>Status Signalling</h3>
-    <p>A $5,000 knife skin is visible to every player in a match. In a game where visual distinguishability between player accounts is otherwise minimal, expensive skins function as Veblen goods -- their value partly <em>is</em> their visible cost. They broadcast investment, commitment, and social status within the CS2 community.</p>
+    <p>A $5,000 knife skin is visible to every player in a match. In a game where visual distinguishability between player accounts is otherwise minimal, expensive skins function as Veblen goods, their value partly <em>is</em> their visible cost. They broadcast investment, commitment, and social status within the CS2 community.</p>
   </div>
 
-  <!-- 10 Ethical Implications -->
   <div class="section" id="ethics">
     <div class="section-label">10</div>
     <h2>Ethical Implications</h2>
     <p>The combination of variable ratio reinforcement, real monetary value, and adolescent accessibility raises serious ethical questions that have not been resolved by the industry.</p>
-
     <div class="callout warning">
       <div class="callout-label">CSGOLotto Scandal (2016)</div>
-      <p>Two prominent YouTube influencers were found to secretly own CSGOLotto -- a gambling site they promoted to their audiences as independent reviewers. The site allowed users to wager real-value CS:GO skins, effectively constituting unregulated gambling accessible to minors.</p>
+      <p>Two prominent YouTube influencers were found to secretly own CSGOLotto, a gambling site they promoted to their audiences as independent reviewers. The site allowed users to wager real-value CS:GO skins, effectively constituting unregulated gambling accessible to minors.</p>
       <p>The scandal exposed a broader ecosystem of skin gambling sites operating outside regulatory frameworks, using the tradable nature of skins to facilitate real-money gambling without gambling licences. The UK Gambling Commission investigated multiple operators.</p>
     </div>
-
-    <p>The core ethical tension is this: CS2's case opening system exhibits the structural characteristics of gambling -- random reward, real monetary value, escalating engagement designed to extract continued spending -- but is classified as a game cosmetic system. The distinction is primarily legal and definitional rather than psychological.</p>
+    <p>The core ethical tension is this: CS2's case opening system exhibits the structural characteristics of gambling, including random reward, real monetary value, and escalating engagement designed to extract continued spending, but is classified as a game cosmetic system. The distinction is primarily legal and definitional rather than psychological.</p>
     <p>Children and adolescents are not categorically excluded from these systems. While Valve requires payment through adult-controlled Steam Wallet accounts, children routinely access parental payment methods. The persuasive architecture that works on adults is at minimum equally effective on developing brains with less developed impulse control and risk assessment capability.</p>
   </div>
 
-  <!-- 11 Regulatory Response -->
   <div class="section" id="regulatory">
     <div class="section-label">11</div>
     <h2>Regulatory Response</h2>
     <p>Governments have responded to loot box and skin economy mechanics with varying degrees of intervention, creating a fragmented global regulatory landscape.</p>
-
     <div class="theory-grid">
       <div class="theory-card">
         <div class="theory-card-title">Belgium</div>
@@ -627,47 +553,39 @@
         <p>House of Lords Digital, Culture, Media and Sport Committee recommended treating paid loot boxes as gambling. The UK Gambling Act review has been slow to produce legislation despite strong parliamentary consensus.</p>
       </div>
     </div>
-
-    <p>The regulatory challenge is definitional: most existing gambling law was written before tradable digital cosmetics existed. Whether a skin constitutes "money or money's worth" depends on jurisdiction and interpretation. Valve maintains that Steam Wallet funds cannot be withdrawn as cash -- a position that creates a technical barrier to gambling classification in some jurisdictions, even as third-party platforms trivially circumvent this by acting as cash-out intermediaries.</p>
+    <p>The regulatory challenge is definitional: most existing gambling law was written before tradable digital cosmetics existed. Whether a skin constitutes "money or money's worth" depends on jurisdiction and interpretation. Valve maintains that Steam Wallet funds cannot be withdrawn as cash, a position that creates a technical barrier to gambling classification in some jurisdictions, even as third-party platforms trivially circumvent this by acting as cash-out intermediaries.</p>
   </div>
 
-  <!-- 12 Conclusion -->
   <div class="section" id="conclusion">
     <div class="section-label">12</div>
     <h2>Conclusion</h2>
-    <p>CS2 is two games occupying the same executable. The first is a masterclass in competitive game design: an economy of uncertainty, skill expression, and collective decision-making that has sustained a 27-year franchise and defined the tactical shooter genre. The second is a monetisation system that applies decades of behavioural psychology research -- some of it drawn from gambling, some from advertising, some from behavioural economics -- to extract real money from players through architecturally engineered desire.</p>
-    <p>These two systems are not independent. The legitimacy and prestige of the competitive game provides the context in which the cosmetic economy operates. Skins are valuable partly because CS2 is a game people care about deeply. The emotional investment in the competitive experience is converted -- not always with the player's full awareness -- into willingness to spend on cosmetics that carry status within that valued community.</p>
-
+    <p>CS2 is two games occupying the same executable. The first is a masterclass in competitive game design: an economy of uncertainty, skill expression, and collective decision-making that has sustained a 27-year franchise and defined the tactical shooter genre. The second is a monetisation system that applies decades of behavioural psychology research, some of it drawn from gambling, some from advertising, some from behavioural economics, to extract real money from players through architecturally engineered desire.</p>
+    <p>These two systems are not independent. The legitimacy and prestige of the competitive game provides the context in which the cosmetic economy operates. Skins are valuable partly because CS2 is a game people care about deeply. The emotional investment in the competitive experience is converted, not always with the player's full awareness, into willingness to spend on cosmetics that carry status within that valued community.</p>
     <div class="pull-quote">
-      CS2 does not deceive players about what it is. The mechanics are documented, the probabilities are disclosed (in most jurisdictions), and the market operates with a high degree of transparency. What it does do is engineer an environment in which spending feels reasonable, incremental, and socially reinforced -- and then do so at scale across millions of players worldwide.
+      CS2 does not deceive players about what it is. The mechanics are documented, the probabilities are disclosed (in most jurisdictions), and the market operates with a high degree of transparency. What it does do is engineer an environment in which spending feels reasonable, incremental, and socially reinforced, and then does so at scale across millions of players worldwide.
     </div>
-
     <p>Whether that constitutes exploitation or simply excellent product design is the central ethical question. The answer almost certainly depends on who is doing the spending, and whether the architecture is optimised for the minority who can afford it or the majority who cannot.</p>
   </div>
 
-  <!-- References -->
   <div class="references" id="references">
     <h2>References</h2>
     <ul class="ref-list">
       <li>Csikszentmihalyi, M. (1990). <em>Flow: The Psychology of Optimal Experience.</em> Harper &amp; Row.</li>
-      <li>Endsley, M. R. (1985). Toward a theory of situation awareness in dynamic systems. <em>Human Factors, 37</em>(1), 32--64.</li>
-      <li>Ericsson, K. A., Krampe, R. T., &amp; Tesch-Romer, C. (1993). The role of deliberate practice in the acquisition of expert performance. <em>Psychological Review, 100</em>(3), 363--406.</li>
+      <li>Endsley, M. R. (1985). Toward a theory of situation awareness in dynamic systems. <em>Human Factors, 37</em>(1), 32&ndash;64.</li>
+      <li>Ericsson, K. A., Krampe, R. T., &amp; Tesch-Romer, C. (1993). The role of deliberate practice in the acquisition of expert performance. <em>Psychological Review, 100</em>(3), 363&ndash;406.</li>
       <li>Green, D. M., &amp; Swets, J. A. (1966). <em>Signal Detection Theory and Psychophysics.</em> Wiley.</li>
-      <li>Kahneman, D., Knetsch, J. L., &amp; Thaler, R. H. (1990). Experimental tests of the endowment effect and the Coase theorem. <em>Journal of Political Economy, 98</em>(6), 1325--1348.</li>
-      <li>Kahneman, D., &amp; Tversky, A. (1979). Prospect theory: An analysis of decision under risk. <em>Econometrica, 47</em>(2), 263--291.</li>
+      <li>Kahneman, D., Knetsch, J. L., &amp; Thaler, R. H. (1990). Experimental tests of the endowment effect and the Coase theorem. <em>Journal of Political Economy, 98</em>(6), 1325&ndash;1348.</li>
+      <li>Kahneman, D., &amp; Tversky, A. (1979). Prospect theory: An analysis of decision under risk. <em>Econometrica, 47</em>(2), 263&ndash;291.</li>
       <li>Norman, D. A. (1988). <em>The Psychology of Everyday Things.</em> Basic Books.</li>
-      <li>Ryan, R. M., &amp; Deci, E. L. (2000). Self-determination theory and the facilitation of intrinsic motivation, social development, and well-being. <em>American Psychologist, 55</em>(1), 68--78.</li>
+      <li>Ryan, R. M., &amp; Deci, E. L. (2000). Self-determination theory and the facilitation of intrinsic motivation, social development, and well-being. <em>American Psychologist, 55</em>(1), 68&ndash;78.</li>
       <li>Skinner, B. F. (1938). <em>The Behavior of Organisms: An Experimental Analysis.</em> Appleton-Century-Crofts.</li>
       <li>Valve Corporation. (2023). <em>Counter-Strike 2 case drop probabilities.</em> Retrieved from store.steampowered.com.</li>
     </ul>
   </div>
 
-  <!-- Footer -->
   <footer class="page-footer">
-    <p>Alfie Bunyan &nbsp;·&nbsp; Games User Researcher &nbsp;·&nbsp; 2024</p>
-    <a href="index.html" class="footer-back">
-      Back to Portfolio &rarr;
-    </a>
+    <p>Alfie Bunyan &nbsp;&middot;&nbsp; Games User Researcher &nbsp;&middot;&nbsp; 2024</p>
+    <button class="footer-back" onclick="history.back()">Back to Portfolio &rarr;</button>
   </footer>
 
 </main>
