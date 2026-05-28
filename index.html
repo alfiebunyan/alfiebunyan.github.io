@@ -842,6 +842,35 @@
     aspect-ratio: 4/3;
   }
 
+  /* IMAGE LIGHTBOX */
+  .img-lightbox {
+    position: fixed; inset: 0; z-index: 1001;
+    background: rgba(4,3,12,0.93);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s;
+    cursor: zoom-out;
+  }
+  .img-lightbox.open { opacity: 1; pointer-events: auto; }
+  .img-lightbox img {
+    max-width: 92vw; max-height: 90vh;
+    border-radius: 10px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.7);
+    object-fit: contain;
+    transform: scale(0.94);
+    transition: transform 0.25s;
+  }
+  .img-lightbox.open img { transform: scale(1); }
+  .img-lightbox-close {
+    position: absolute; top: 18px; right: 22px;
+    background: none; border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.6); font-size: 18px;
+    width: 36px; height: 36px; border-radius: 6px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .img-lightbox-close:hover { color: #fff; border-color: rgba(255,255,255,0.5); }
+
   /* PDF MODAL */
   .pdf-modal-overlay {
     position: fixed; inset: 0; z-index: 1000;
@@ -1468,7 +1497,7 @@
 
     <!-- GEN.G FULL-WIDTH CARD -->
     <div class="geng-card reveal">
-      <a href="assets/geng-award.jpg" target="_blank"><img src="assets/geng-award.jpg" class="geng-thumb" alt="Gen.G Foundation Scholarship certificate awarded to Alfie Bunyan" loading="lazy"></a>
+      <a href="assets/geng-award.jpg" onclick="event.preventDefault(); openImg('assets/geng-award.jpg')" style="cursor:zoom-in"><img src="assets/geng-award.jpg" class="geng-thumb" alt="Gen.G Foundation Scholarship certificate awarded to Alfie Bunyan" loading="lazy"></a>
       <div class="geng-text">
         <h4>Gen.G Foundation Scholarship</h4>
         <p>Competitively awarded scholarship for the Gen.G gaming industry practicum abroad programme, in recognition of achievements in gaming, esports, and leadership.</p>
@@ -1501,6 +1530,12 @@
       </a>
     </div>
   </div>
+</div>
+
+<!-- IMAGE LIGHTBOX -->
+<div id="img-lightbox" class="img-lightbox" onclick="closeImg()">
+  <button class="img-lightbox-close" onclick="closeImg()">&#x2715;</button>
+  <img id="img-lightbox-src" src="" alt="Award certificate">
 </div>
 
 <!-- PDF MODAL -->
@@ -1760,7 +1795,18 @@
   function closePDFModal(e) {
     if (e.target === document.getElementById('pdf-modal')) closePDF();
   }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closePDF(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closePDF(); closeImg(); } });
+
+  function openImg(src) {
+    document.getElementById('img-lightbox-src').src = src;
+    document.getElementById('img-lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeImg() {
+    document.getElementById('img-lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => { document.getElementById('img-lightbox-src').src = ''; }, 300);
+  }
 </script>
 </body>
 </html>
