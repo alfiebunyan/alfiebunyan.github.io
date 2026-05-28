@@ -742,8 +742,53 @@
   .geng-text h4 { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 5px; }
   .geng-text p { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
 
+  /* CONTACT FORM */
+  .contact-form-wrap {
+    max-width: 520px; margin: 36px auto 0;
+  }
+  .contact-form {
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .contact-form input,
+  .contact-form textarea {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 13px 16px;
+    color: var(--text);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 14px;
+    width: 100%;
+    transition: border-color 0.2s;
+    outline: none;
+    resize: vertical;
+  }
+  .contact-form input:focus,
+  .contact-form textarea:focus { border-color: var(--border-bright); }
+  .contact-form input::placeholder,
+  .contact-form textarea::placeholder { color: var(--text-muted); }
+  .contact-form textarea { min-height: 120px; }
+  .contact-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 520px) { .contact-form-row { grid-template-columns: 1fr; } }
+  .contact-submit {
+    background: var(--accent); color: #06060f;
+    border: none; border-radius: 8px;
+    padding: 13px 28px; font-size: 14px; font-weight: 700;
+    font-family: 'Exo 2', sans-serif; letter-spacing: 0.5px;
+    cursor: pointer; transition: opacity 0.2s, transform 0.15s;
+    align-self: flex-end;
+  }
+  .contact-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+  .contact-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .contact-status {
+    font-size: 13px; text-align: center; padding: 10px;
+    border-radius: 6px; display: none;
+  }
+  .contact-status.success { background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+  .contact-status.error { background: rgba(239,68,68,0.08); color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+
   /* CONTACT */
-  .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 44px; }
+  .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
   .contact-link {
     display: flex; align-items: center; gap: 9px;
     padding: 14px 22px;
@@ -1518,10 +1563,22 @@
     <p class="section-intro reveal" style="margin:14px auto 0;">
       Open to junior user research and UX research roles in games and AI. Onsite, hybrid, or fully remote. Guildford, London, and across the UK.
     </p>
+    <div class="contact-form-wrap reveal">
+      <form class="contact-form" id="contact-form">
+        <input type="hidden" name="access_key" value="b9b9b9b9-0000-0000-0000-alfie-portfolio">
+        <input type="hidden" name="subject" value="Portfolio Enquiry - Alfie Bunyan">
+        <input type="hidden" name="from_name" value="Alfie Bunyan Portfolio">
+        <div class="contact-form-row">
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="email" name="email" placeholder="Your email" required>
+        </div>
+        <input type="text" name="organisation" placeholder="Organisation (optional)">
+        <textarea name="message" placeholder="Your message..." required></textarea>
+        <div class="contact-status" id="contact-status"></div>
+        <button type="submit" class="contact-submit">Send Message</button>
+      </form>
+    </div>
     <div class="contact-links reveal">
-      <a href="mailto:alfiebunyans@gmail.com" class="contact-link">
-        <span>✉</span><strong>alfiebunyans@gmail.com</strong>
-      </a>
       <a href="https://www.linkedin.com/in/alfie-bunyan-3314a52b2" target="_blank" class="contact-link">
         <span>in</span><strong>LinkedIn</strong>
       </a>
@@ -1796,6 +1853,38 @@
     if (e.target === document.getElementById('pdf-modal')) closePDF();
   }
   document.addEventListener('keydown', e => { if (e.key === 'Escape') { closePDF(); closeImg(); } });
+
+  // Contact form
+  document.getElementById('contact-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('.contact-submit');
+    const status = document.getElementById('contact-status');
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    status.style.display = 'none';
+    const data = Object.fromEntries(new FormData(this));
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const json = await res.json();
+      if (json.success) {
+        status.textContent = 'Message sent! I\'ll get back to you soon.';
+        status.className = 'contact-status success';
+        this.reset();
+      } else {
+        throw new Error(json.message);
+      }
+    } catch(err) {
+      status.textContent = 'Something went wrong. Try emailing alfiebunyans@gmail.com directly.';
+      status.className = 'contact-status error';
+    }
+    status.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Send Message';
+  });
 
   function openImg(src) {
     document.getElementById('img-lightbox-src').src = src;
