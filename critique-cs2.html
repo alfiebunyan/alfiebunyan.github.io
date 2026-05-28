@@ -275,7 +275,7 @@
 <body>
 
 <nav class="back-nav">
-  <button class="back-link" onclick="history.back()">
+  <button class="back-link" onclick="window.self !== window.top ? window.parent.closePDF() : history.back()">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M9 2L4 7l5 5"/>
     </svg>
@@ -585,7 +585,7 @@
 
   <footer class="page-footer">
     <p>Alfie Bunyan &nbsp;&middot;&nbsp; Games User Researcher &nbsp;&middot;&nbsp; 2024</p>
-    <button class="footer-back" onclick="history.back()">Back to Portfolio &rarr;</button>
+    <button class="footer-back" onclick="window.self !== window.top ? window.parent.closePDF() : history.back()">Back to Portfolio &rarr;</button>
   </footer>
 
 </main>
