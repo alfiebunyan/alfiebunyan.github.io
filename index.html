@@ -1521,6 +1521,9 @@
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
+  // Clean up /index.html in URL bar
+  if (location.pathname === '/index.html') history.replaceState(null, '', '/');
+
   // Scroll reveal
   const ro = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
