@@ -4,15 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Alfie Bunyan | Games &amp; UX Researcher</title>
-<meta name="description" content="Alfie Bunyan — Games User Researcher. Combining psychology, play, and mixed-methods UX research. Playtest research at 22cans, Gen.G Scholar, Limit Break Mentee.">
+<meta name="description" content="Alfie Bunyan, Games User Researcher. Combining psychology, play, and mixed-methods UX research. Playtest research at 22cans, Gen.G Scholar, Limit Break Mentee.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://alfiebunyan.github.io">
 <meta property="og:title" content="Alfie Bunyan | Games &amp; UX Researcher">
-<meta property="og:description" content="Junior UX researcher specialising in games, VR, and player psychology. Hands-on playtest experience at 22cans. Open to roles across the UK.">
+<meta property="og:description" content="Junior UX researcher specialising in games and AI. Hands-on playtest experience at 22cans. Open to roles across the UK.">
 <meta property="og:image" content="https://alfiebunyan.github.io/assets/alfie.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Alfie Bunyan | Games &amp; UX Researcher">
-<meta name="twitter:description" content="Junior UX researcher specialising in games, VR, and player psychology.">
+<meta name="twitter:description" content="Junior UX researcher specialising in games and AI.">
 <meta name="twitter:image" content="https://alfiebunyan.github.io/assets/alfie.jpg">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%237c5ffc'/><text y='72' x='50' font-size='62' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='900' fill='white'>A</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -212,18 +212,19 @@
 
   .glass-section {
     position: relative; z-index: 1;
-    background: rgba(10,8,26,0.52);
+    background: rgba(10,8,26,0.4);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    border-top: 1px solid rgba(124,95,252,0.15);
-    border-bottom: 1px solid rgba(34,211,238,0.1);
     padding: 100px 52px;
   }
 
+  /* Soft blurred glow instead of a hard rule, so sections bleed together */
   .divider {
-    position: relative; z-index: 1;
-    width: 100%; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(124,95,252,0.35) 35%, rgba(34,211,238,0.22) 65%, transparent);
+    position: relative; z-index: 0;
+    width: 100%; height: 56px; margin: -28px 0;
+    background: radial-gradient(ellipse 65% 100% at 50% 50%, rgba(124,95,252,0.14) 0%, rgba(34,211,238,0.08) 55%, transparent 80%);
+    filter: blur(22px);
+    pointer-events: none;
   }
 
   /* SECTION LABELS */
@@ -294,8 +295,16 @@
   }
   .hero-sub {
     font-size: 18px; color: var(--text-muted);
-    max-width: 520px; line-height: 1.75; margin-bottom: 44px;
+    max-width: 520px; line-height: 1.75; margin-bottom: 24px;
   }
+  .current-status {
+    display: inline-flex; align-items: flex-start; gap: 10px;
+    padding: 9px 16px; margin-bottom: 32px; max-width: 520px;
+    background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.22);
+    border-radius: 10px; font-size: 13px; color: var(--text-muted); line-height: 1.6;
+  }
+  .current-status .open-dot { margin-top: 5px; flex-shrink: 0; }
+  .current-status strong { color: var(--green); font-weight: 600; }
   .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
   .btn-primary {
     display: inline-block; padding: 13px 28px;
@@ -514,6 +523,12 @@
     letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light);
     padding: 4px 12px; white-space: nowrap;
   }
+  .case-live-note {
+    padding: 10px 13px;
+    background: rgba(34,197,94,0.07); border: 1px solid rgba(34,197,94,0.22);
+    border-radius: 7px; font-size: 11.5px; color: var(--text-muted);
+    line-height: 1.55;
+  }
 
   /* Critique reading time + pull quote */
   .critique-meta {
@@ -547,6 +562,20 @@
     box-shadow: 0 0 44px rgba(124,95,252,0.15);
   }
   .case-card.coming-soon { opacity: 0.65; }
+
+  /* Break the left-right-left monotony: 22cans runs wider with an
+     overlapping badge, VR mirrors the layout instead of repeating it */
+  .case-card-22cans { grid-template-columns: 350px 1fr; }
+  .case-card-22cans .case-visual { overflow: visible; }
+  .case-card-22cans .featured-badge {
+    right: -32px; transform: rotate(-4deg);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    z-index: 2;
+  }
+  .case-card-vr { grid-template-columns: 1fr 280px; }
+  .case-card-vr .case-visual { order: 2; border-right: none; border-left: 1px solid var(--border); }
+  .case-card-vr .case-body { order: 1; }
+  .case-card-vr .case-visual::after { left: 0; right: auto; background: radial-gradient(circle at top left, rgba(34,211,238,0.22), transparent 70%); }
 
   .case-visual {
     background: rgba(18,12,40,0.85);
@@ -676,14 +705,25 @@
   }
 
   /* CRITIQUES */
-  .critique-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; }
+  .critique-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; position: relative; }
+  .critique-grid::before {
+    content: '';
+    position: absolute; top: -50px; left: 5%; right: 5%; height: calc(100% + 100px);
+    background:
+      radial-gradient(ellipse 42% 55% at 22% 35%, rgba(228,196,43,0.11) 0%, transparent 72%),
+      radial-gradient(ellipse 42% 55% at 78% 65%, rgba(88,155,220,0.13) 0%, transparent 72%);
+    filter: blur(30px);
+    pointer-events: none; z-index: 0;
+  }
   .critique-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 10px; padding: 28px;
     display: flex; flex-direction: column;
-    backdrop-filter: blur(8px); position: relative;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    backdrop-filter: blur(8px); position: relative; z-index: 1;
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
   }
+  .critique-grid .critique-card:nth-child(2) { transform: translateY(26px); }
+  .critique-grid .critique-card:nth-child(2).reveal.visible { transform: translateY(26px); }
   .critique-card:hover:not(.wip) {
     border-color: var(--border-bright);
     box-shadow: 0 0 22px rgba(124,95,252,0.12);
@@ -712,7 +752,7 @@
   }
 
   /* RECOGNITION */
-  .rec-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 18px; }
+  .rec-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-bottom: 18px; }
   .rec-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 10px; padding: 22px 24px;
@@ -1045,6 +1085,10 @@
   .critique-card > * { position: relative; z-index: 1; }
 
   /* CASE STUDY VIDEO */
+  .video-label {
+    font-size: 11.5px; color: var(--text-dim); letter-spacing: 0.3px;
+    margin-top: 16px;
+  }
   .case-video {
     width: 100%; border-radius: 8px;
     border: 1px solid var(--border);
@@ -1097,11 +1141,15 @@
 
     .skills-grid { grid-template-columns: 1fr 1fr; }
     .case-card { grid-template-columns: 1fr; }
-    .case-visual { border-right: none; border-bottom: 1px solid var(--border); min-height: auto; flex-direction: row; align-items: center; padding: 16px 20px; gap: 14px; }
+    .case-visual { border-right: none; border-bottom: 1px solid var(--border); min-height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; padding: 16px 20px; gap: 14px; }
+    .case-live-note { flex-basis: 100%; }
+    .case-card-vr .case-visual, .case-card-vr .case-body { order: 0; border-left: none; }
     .case-icon { width: 30px; height: 30px; margin-bottom: 0; }
     .case-num { font-size: 40px; }
     .rec-grid { grid-template-columns: 1fr 1fr; }
     .critique-grid { grid-template-columns: 1fr; }
+    .critique-grid .critique-card:nth-child(2),
+    .critique-grid .critique-card:nth-child(2).reveal.visible { transform: none; }
     .timeline::before { display: none; }
     .timeline { flex-wrap: wrap; gap: 10px; }
     .t-step { flex-direction: row; flex: none; gap: 8px; }
@@ -1141,7 +1189,7 @@
     <li><a href="#why">Why</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
-    <li><a href="#work">Research</a></li>
+    <li><a href="#work">Case Studies</a></li>
     <li><a href="#critiques">Critiques</a></li>
     <li><a href="#recognition">Recognition</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -1155,12 +1203,16 @@
       <div class="hero-label reveal">Games User Researcher</div>
       <h1 class="reveal" style="transition-delay:0.1s">I research the <em>'why'</em><br>behind how people think, play, and interact.</h1>
       <p class="hero-sub reveal" style="transition-delay:0.2s">
-        Postgraduate researcher combining psychology, play, and mixed-methods UX research to help teams build better player and user experiences. Based in Guildford and London, open to hybrid and remote.
+        Postgraduate researcher combining psychology, play, and mixed-methods UX research, from VR to mobile playtesting, to help teams build better player experiences in an AI-shaped industry. Based in Guildford and London, open to hybrid and remote.
       </p>
+      <div class="current-status reveal" style="transition-delay:0.25s">
+        <div class="open-dot"></div>
+        <span><strong>Right now:</strong> piloting mobile playtests on PlaytestCloud, mentored by senior games researcher Joe Kulik through the Limit Break Mentorship Programme.</span>
+      </div>
       <div class="hero-cta reveal" style="transition-delay:0.3s">
-        <a href="#work" class="btn-primary">View Research</a>
+        <a href="#work" class="btn-primary">View Case Studies</a>
         <a href="#contact" class="btn-ghost">Get in Touch</a>
-        <button onclick="openPDF('assets/Alfie_Bunyan_CV.pdf','Alfie Bunyan — CV')" class="btn-ghost">View CV</button>
+        <a href="assets/Alfie_Bunyan_CV.pdf" download="Alfie_Bunyan_CV.pdf" class="btn-ghost">Download CV</a>
       </div>
     </div>
     <img src="assets/alfie.jpg" alt="Alfie Bunyan" class="hero-avatar reveal" style="transition-delay:0.2s">
@@ -1178,10 +1230,10 @@
       <div class="why-text reveal">
         <p>I have had two obsessions my whole life: <strong>gaming and psychology</strong>. This is what happens when you combine them.</p>
         <ul class="why-list">
-          <li><strong>I study the gap between what people say and what they do.</strong> Most human behaviour runs on autopilot. My interest is in making the invisible visible — finding the patterns in what people do and giving teams something they can actually act on.</li>
+          <li><strong>I study the gap between what people say and what they do.</strong> Most human behaviour runs on autopilot. My interest is in making the invisible visible: finding the patterns in what people do and giving teams something they can actually act on.</li>
           <li><strong>The counterintuitive questions are the interesting ones.</strong> Why does removing a feature players hated make them angrier? Why does anticipating a reward feel different from receiving it, even when the brain responds the same way?</li>
-          <li><strong>Games are a unique research environment.</strong> High-stakes emotional behaviour — frustration, trust, flow, social dynamics — in a controlled setting. The stakes feel low to the participant. The insight is anything but.</li>
-          <li><strong>I've experienced gaming communities at scale.</strong> Attending major esports events shapes how I think about player psychology — not just as data points, but as something felt firsthand.</li>
+          <li><strong>Games are a unique research environment.</strong> High-stakes emotional behaviour (frustration, trust, flow, social dynamics) in a controlled setting. The stakes feel low to the participant. The insight is anything but.</li>
+          <li><strong>I've experienced gaming communities at scale.</strong> Attending major esports events shapes how I think about player psychology, not just as data points, but as something felt firsthand.</li>
         </ul>
       </div>
       <div class="why-images reveal" style="transition-delay:0.1s">
@@ -1204,9 +1256,9 @@
     <div class="about-grid">
       <div class="about-text reveal">
         <ul class="about-list">
-          <li><strong>Psychology at the University of Surrey</strong> — BSc (2:1), then MSc in Psychology, Game Design and Digital Innovation (predicted 1st). The research methods grounding matters as much as the subject.</li>
-          <li><strong>Live studio placement at 22cans</strong> on Masters of Albion — the full research lifecycle with real stakeholders: ethics, recruitment, facilitation, analysis, and a prioritised findings report delivered to the development team.</li>
-          <li><strong>Specialist interests</strong> in player psychology, VR interaction design, and trust in immersive systems. Focused on translating findings into something a development team can actually use.</li>
+          <li><strong>Psychology at the University of Surrey:</strong> BSc (2:1), then MSc in Psychology, Game Design and Digital Innovation (predicted Distinction). The research methods grounding matters as much as the subject.</li>
+          <li><strong>Live studio placement at 22cans</strong> (a games studio) on Masters of Albion: the full research lifecycle with real stakeholders, recruitment, facilitation, analysis, and a prioritised findings report delivered to the development team.</li>
+          <li><strong>Specialist interests</strong> in player psychology and AI's growing role in game design, with PC and mobile playtesting, VR interaction design, and trust in immersive systems all part of the toolkit. Focused on translating findings into something a development team can actually use.</li>
           <li><strong>Based in Guildford and London.</strong> Open to onsite, hybrid, or fully remote.</li>
         </ul>
       </div>
@@ -1215,7 +1267,7 @@
         <div class="about-stats">
           <div class="stat-card">
             <div class="stat-num">MSc</div>
-            <div class="stat-label">Psychology in Game Design and Digital Innovation, predicted 1st</div>
+            <div class="stat-label">Psychology in Game Design and Digital Innovation, predicted Distinction</div>
           </div>
           <div class="stat-card">
             <div class="stat-num">1</div>
@@ -1241,7 +1293,7 @@
 <div class="glass-section" id="skills">
   <div class="section-inner">
     <div class="section-label reveal">Capabilities</div>
-    <h2 class="reveal">Research Toolkit</h2>
+    <h2 class="reveal">How I Work</h2>
     <p class="section-intro reveal">Methods, tools, and analytical approaches I bring to user research projects.</p>
     <div class="skills-grid">
       <div class="skill-card sk-games reveal">
@@ -1275,9 +1327,10 @@
           <li>Thematic analysis <span class="skill-applied">22cans</span></li>
           <li>Qualitative coding <span class="skill-applied">22cans</span></li>
           <li>Affinity mapping <span class="skill-applied">22cans</span></li>
-          <li>Jamovi (advanced) <span class="skill-applied">VR study</span></li>
           <li>SPSS <span class="skill-applied">MSc</span></li>
           <li>Mixed-methods design <span class="skill-applied">VR study</span></li>
+          <li>Prompt engineering for research workflows <span class="skill-applied">portfolio</span></li>
+          <li>AI/ML-aware research design <span class="skill-applied">portfolio</span></li>
         </ul>
       </div>
       <div class="skill-card sk-vr reveal" style="transition-delay:0.24s">
@@ -1331,34 +1384,35 @@
       <!-- 22CANS -->
       <div class="case-card case-card-22cans reveal">
         <div class="case-visual">
-          <svg class="case-icon" viewBox="0 0 48 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M7 8C4 8 2 12 2 16L2 20C2 26 6 28 10 25L15 20L33 20L38 25C42 28 46 26 46 20L46 16C46 12 44 8 41 8Z"/>
-            <line x1="15" y1="11" x2="15" y2="18"/><line x1="11.5" y1="14.5" x2="18.5" y2="14.5"/>
-            <circle cx="30" cy="12" r="1.6" fill="currentColor" stroke="none"/>
-            <circle cx="33.5" cy="15.5" r="1.6" fill="currentColor" stroke="none"/>
+          <svg class="case-icon" viewBox="0 0 48 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M14 8h20a10 10 0 0 1 10 10v2a6 6 0 0 1-11 3.4L29 19H19l-4 4.4A6 6 0 0 1 4 20v-2A10 10 0 0 1 14 8Z"/>
+            <path d="M13 14v6M10 17h6"/>
+            <circle cx="34" cy="15" r="1.6" fill="currentColor" stroke="none"/>
+            <circle cx="38" cy="19" r="1.6" fill="currentColor" stroke="none"/>
+            <circle cx="34" cy="23" r="1.6" fill="currentColor" stroke="none"/>
             <circle cx="30" cy="19" r="1.6" fill="currentColor" stroke="none"/>
-            <circle cx="26.5" cy="15.5" r="1.6" fill="currentColor" stroke="none"/>
           </svg>
           <div class="case-num">01</div>
-          <div class="case-type-badge">Academic Placement</div>
+          <div class="case-type-badge">User Research Consultant</div>
+          <div class="case-live-note">22cans is an active, live games studio, this placement ran alongside a real release, not a simulated exercise.</div>
           <div class="featured-badge">Featured Study</div>
         </div>
         <div class="case-body">
-          <div class="case-context">University of Surrey &nbsp;·&nbsp; 22cans &nbsp;·&nbsp; 2026</div>
+          <div class="case-context">University of Surrey &nbsp;·&nbsp; 22cans (Games Studio) &nbsp;·&nbsp; 2026</div>
           <h3>End-to-End Playtest Research for a Released Title</h3>
           <div class="case-stats">
             <div class="case-stat"><span class="case-stat-val">Studio</span><span class="case-stat-lbl">Live Placement</span></div>
             <div class="case-stat"><span class="case-stat-val">End-to-End</span><span class="case-stat-lbl">Full Lifecycle</span></div>
             <div class="case-stat"><span class="case-stat-val">Delivered</span><span class="case-stat-lbl">Dev Team Report</span></div>
           </div>
-          <p>A full user research engagement embedded within an active studio, covering the complete research lifecycle from ethics approval through stakeholder delivery. I managed participant recruitment, ran live facilitated playtest sessions, conducted and transcribed post-play interviews, applied thematic analysis, and delivered a prioritised findings report to the development team.</p>
+          <p>A full user research engagement embedded within 22cans, a live games studio, covering the complete research lifecycle from participant recruitment through stakeholder delivery. I ran live facilitated playtest sessions, conducted and transcribed post-play interviews, applied thematic analysis, and delivered a prioritised findings report to the development team.</p>
           <p>Working in a live studio environment meant navigating real constraints: NDA protocols, stakeholder expectations, and production timelines alongside the research itself.</p>
           <div class="case-tags">
             <span class="tag">Playtesting Facilitation</span>
             <span class="tag">Semi-structured Interviews</span>
             <span class="tag">Thematic Analysis</span>
             <span class="tag">Ethics Documentation</span>
-            <span class="tag">Stakeholder Presentation</span>
+            <span class="tag">Stakeholder Expectation Management</span>
           </div>
           <div class="timeline">
             <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Ethics and Consent</div></div>
@@ -1408,10 +1462,11 @@
             <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Findings Presentation</div></div>
           </div>
           <div class="case-outcome">The simulation successfully induced measurable perceptual distortion effects, validating the custom VR environment as a reproducible research instrument for accessibility and impairment research.</div>
-          <video class="case-video" controls muted playsinline preload="none" style="margin-top:14px;">
+          <div class="video-label">&#9654;&nbsp; Participant session recording, click to play</div>
+          <video class="case-video" controls muted playsinline preload="none" style="margin-top:8px;">
             <source src="assets/vr-participant.mp4" type="video/mp4">
           </video>
-          <button onclick="openPDF('assets/vr-presentation.pdf','VR Cognitive Impairment Simulation — Full Presentation')" class="doc-link" style="margin-top:12px;">&#128196; &nbsp;Read Presentation</button>
+          <button onclick="openPDF('assets/vr-presentation.pdf','VR Cognitive Impairment Simulation: Full Presentation')" class="doc-link" style="margin-top:12px;">&#128196; &nbsp;Read Presentation</button>
         </div>
       </div>
 
@@ -1435,13 +1490,19 @@
           <div class="case-context">University of Surrey &nbsp;·&nbsp; BSc Psychology &nbsp;·&nbsp; 2025</div>
           <h3>Motor Learning in DCD: Gamified Research with Children</h3>
           <div class="case-distinction">First Class Honours</div>
+          <div class="case-outcome" style="margin-top:0;">Designing for a 9 to 11 year old participant group meant the research instrument had to work as a game first and a study second, an alien-feeding task standing in for a visuomotor rotation test, with findings analysed in Jamovi and written up with implications for inclusive, child-appropriate UX methodology.</div>
           <div class="case-stats">
             <div class="case-stat"><span class="case-stat-val">9-11 yrs</span><span class="case-stat-lbl">Participant Age</span></div>
             <div class="case-stat"><span class="case-stat-val">2 Groups</span><span class="case-stat-lbl">Between-Subjects</span></div>
             <div class="case-stat"><span class="case-stat-val">Gamified</span><span class="case-stat-lbl">Study Design</span></div>
           </div>
-          <p>Investigated motor learning differences in children with Developmental Coordination Disorder using a gamified visuomotor rotation task, presented as an alien-feeding game for participants aged 9 to 11. The study compared implicit and explicit learning strategies across DCD and typically-developing groups.</p>
-          <p>Designing research instruments for a child population required careful attention to ethics, age-appropriate language, and engagement, skills directly transferable to game UX research with diverse player populations.</p>
+          <p>Investigated motor learning differences in children with Developmental Coordination Disorder, comparing implicit and explicit learning strategies across DCD and typically-developing groups.</p>
+          <div class="timeline">
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Study Design</div></div>
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Gamified Task</div></div>
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Data Collection</div></div>
+            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Statistical Analysis</div></div>
+          </div>
           <div class="case-tags">
             <span class="tag">Child-appropriate Methodology</span>
             <span class="tag">Gamified Research Design</span>
@@ -1449,18 +1510,11 @@
             <span class="tag">Jamovi Analysis</span>
             <span class="tag">Ethics: Child Participants</span>
           </div>
-          <div class="timeline">
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Study Design</div></div>
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Gamified Task</div></div>
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Data Collection</div></div>
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Statistical Analysis</div></div>
-          </div>
-          <div class="case-outcome">Findings were analysed using Jamovi and presented as a full dissertation exploring group differences in learning trajectories, with implications for inclusive research design and child-appropriate UX methodology.</div>
-          <button onclick="openPDF('assets/dissertation.pdf','Motor Learning in DCD — BSc Dissertation')" class="doc-link" style="margin-top:14px;">&#128196; &nbsp;Read Dissertation</button>
+          <button onclick="openPDF('assets/dissertation.pdf','Motor Learning in DCD: BSc Dissertation')" class="doc-link" style="margin-top:14px;">&#128196; &nbsp;Read Dissertation</button>
         </div>
       </div>
 
-      <!-- MSC AV TRUST — COMING SOON -->
+      <!-- MSC AV TRUST: COMING SOON -->
       <div class="case-card coming-soon reveal">
         <div class="case-visual">
           <div class="coming-soon-sign">Coming Soon</div>
@@ -1501,7 +1555,7 @@
   <div class="section-inner">
     <div class="section-label reveal">UX Analysis</div>
     <h2 class="reveal">Game Design Critiques</h2>
-    <p class="section-intro reveal">Independent UX and player psychology analysis of AAA titles — applying behavioural frameworks to real game design decisions. These sit alongside the case studies as evidence of how I think, not just what I have done.</p>
+    <p class="section-intro reveal">Independent UX and player psychology analysis of AAA titles, applying behavioural frameworks to real game design decisions. These sit alongside the case studies as evidence of how I think, not just what I have done.</p>
     <div class="critique-grid">
       <div class="critique-card cs2 reveal">
         <div class="critique-game">Counter-Strike 2</div>
@@ -1509,7 +1563,7 @@
         <p>A psychological critique separating CS2's two design systems: a skill-based in-game economy built on prospect theory and cognitive load, and a monetisation economy built on variable reinforcement, the near-miss effect, and classical conditioning. Examines the ethical implications of gambling mechanics in a free-to-access platform, including the CSGOLotto scandal and the gap between regulatory response and psychological evidence.</p>
         <p class="critique-pull">"The skin economy isn't cosmetic. It's a second game built on variable reinforcement, running parallel to the first."</p>
         <div class="critique-links">
-          <a href="critique-cs2.html" onclick="event.preventDefault(); openPDF('critique-cs2.html','CS2 — A Tale of Two Economies')" class="doc-link sm">&#128196; &nbsp;Read Critique</a>
+          <a href="critique-cs2.html" onclick="event.preventDefault(); openPDF('critique-cs2.html','CS2: A Tale of Two Economies')" class="doc-link sm">&#128196; &nbsp;Read Critique</a>
           <a href="assets/critique-1.pdf" target="_blank" class="doc-link sm">&#128202; &nbsp;View Slides</a>
         </div>
       </div>
@@ -1519,7 +1573,7 @@
         <p>A three-part critique examining how League of Legends sustains 180 million players through emergent complexity and staged mastery; how the ranked system satisfies self-determination theory needs while weaponising loss aversion and the goal gradient effect; and how Hextech monetisation deploys variable ratio reinforcement and engineered FOMO against a predominantly adolescent player base. Argues that toxicity is a structural output of anonymous high-stakes design, not a player personality problem, and that Riot built the conditions for it.</p>
         <p class="critique-pull">"Toxicity isn't a player personality problem. Riot built the conditions for it."</p>
         <div class="critique-links">
-          <a href="critique-lol.html" onclick="event.preventDefault(); openPDF('critique-lol.html','LoL — Mastery, Monetisation, and Manufactured Toxicity')" class="doc-link sm">&#128196; &nbsp;Read Critique</a>
+          <a href="critique-lol.html" onclick="event.preventDefault(); openPDF('critique-lol.html','LoL: Mastery, Monetisation, and Manufactured Toxicity')" class="doc-link sm">&#128196; &nbsp;Read Critique</a>
           <a href="assets/critique-2.pdf" target="_blank" class="doc-link sm">&#128202; &nbsp;View Slides</a>
         </div>
       </div>
@@ -1546,18 +1600,10 @@
         </div>
       </div>
       <div class="rec-card reveal" style="transition-delay:0.08s">
-        <div class="rec-icon">📄</div>
-        <div>
-          <h4>PhD Research Proposal</h4>
-          <p>Fully developed doctoral research proposal in games user research and player psychology. Available on request.</p>
-          <span class="rec-year">2026</span>
-        </div>
-      </div>
-      <div class="rec-card reveal" style="transition-delay:0.16s">
         <div class="rec-icon">🎮</div>
         <div>
-          <h4>Surrey Video Game Society</h4>
-          <p>Active member and game jam participant. Independently produced AAA design critiques as part of ongoing personal research practice.</p>
+          <h4>Active Game Jam Participant</h4>
+          <p>Surrey Video Game Society member. Independently produced AAA design critiques as part of ongoing personal research practice.</p>
           <span class="rec-year">Jan 2024 - Jan 2026</span>
         </div>
       </div>
@@ -1568,7 +1614,7 @@
       <a href="assets/geng-award.jpg" onclick="event.preventDefault(); openImg('assets/geng-award.jpg')" style="cursor:zoom-in"><img src="assets/geng-award.jpg" class="geng-thumb" alt="Gen.G Foundation Scholarship certificate awarded to Alfie Bunyan" loading="lazy"></a>
       <div class="geng-text">
         <h4>Gen.G Foundation Scholarship</h4>
-        <p>Competitively awarded scholarship for the Gen.G gaming industry practicum abroad programme, in recognition of achievements in gaming, esports, and leadership.</p>
+        <p>Recipient of the Gen.G Foundation Scholarship, competitively awarded for the Gen.G gaming industry practicum abroad programme, in recognition of achievements in gaming, esports, and leadership.</p>
         <span class="rec-year">Jun 2024</span>
       </div>
     </div>
@@ -1602,10 +1648,10 @@
       </form>
     </div>
     <div class="contact-links reveal">
-      <a href="https://www.linkedin.com/in/alfie-bunyan-3314a52b2" target="_blank" class="contact-link">
+      <a href="https://www.linkedin.com/in/alfie-bunyan" target="_blank" class="contact-link">
         <span>in</span><strong>LinkedIn</strong>
       </a>
-      <a href="assets/Alfie_Bunyan_CV.pdf" target="_blank" class="contact-link">
+      <a href="assets/Alfie_Bunyan_CV.pdf" download="Alfie_Bunyan_CV.pdf" class="contact-link">
         <span>↓</span><strong>Download CV</strong>
       </a>
     </div>
