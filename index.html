@@ -216,6 +216,7 @@
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     padding: 100px 52px;
+    clip-path: polygon(0 30px, 100% 0, 100% calc(100% - 30px), 0 100%);
   }
 
   /* Soft blurred glow instead of a hard rule, so sections bleed together */
@@ -373,13 +374,16 @@
   }
   .stat-label { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
 
-  /* SKILLS */
-  .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  /* SKILLS: masonry columns so card heights vary naturally instead of
+     a uniform, identically-sized grid */
+  .skills-grid { columns: 3; column-gap: 14px; }
   .skill-card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: 10px; padding: 24px;
     backdrop-filter: blur(8px);
     transition: border-color 0.2s, box-shadow 0.2s;
+    display: block; width: 100%;
+    break-inside: avoid; margin-bottom: 14px;
   }
   .skill-card:hover {
     border-color: var(--border-bright);
@@ -563,15 +567,11 @@
   }
   .case-card.coming-soon { opacity: 0.65; }
 
-  /* Break the left-right-left monotony: 22cans runs wider with an
-     overlapping badge, VR mirrors the layout instead of repeating it */
+  /* Break the left-right-left monotony: 22cans runs wider, VR mirrors
+     the layout instead of repeating it */
   .case-card-22cans { grid-template-columns: 350px 1fr; }
-  .case-card-22cans .case-visual { overflow: visible; }
-  .case-card-22cans .featured-badge {
-    right: -32px; transform: rotate(-4deg);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
-    z-index: 2;
-  }
+  .case-card-22cans .case-visual { justify-content: flex-start; }
+  .case-card-22cans .case-type-badge { margin-top: auto; margin-bottom: 10px; }
   .case-card-vr { grid-template-columns: 1fr 280px; }
   .case-card-vr .case-visual { order: 2; border-right: none; border-left: 1px solid var(--border); }
   .case-card-vr .case-body { order: 1; }
@@ -704,29 +704,24 @@
     border-radius: 6px; width: fit-content;
   }
 
-  /* CRITIQUES */
-  .critique-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 18px; position: relative; }
-  .critique-grid::before {
-    content: '';
-    position: absolute; top: -50px; left: 5%; right: 5%; height: calc(100% + 100px);
-    background:
-      radial-gradient(ellipse 42% 55% at 22% 35%, rgba(228,196,43,0.11) 0%, transparent 72%),
-      radial-gradient(ellipse 42% 55% at 78% 65%, rgba(88,155,220,0.13) 0%, transparent 72%);
-    filter: blur(30px);
-    pointer-events: none; z-index: 0;
-  }
+  /* CRITIQUES: a deliberate loosely-pinned pair, not a uniform grid */
+  .critique-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 30px; }
   .critique-card {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: 10px; padding: 28px;
+    border-radius: 14px; padding: 28px;
     display: flex; flex-direction: column;
     backdrop-filter: blur(8px); position: relative; z-index: 1;
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+    box-shadow: 0 14px 34px rgba(0,0,0,0.28);
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.25s;
   }
-  .critique-grid .critique-card:nth-child(2) { transform: translateY(26px); }
-  .critique-grid .critique-card:nth-child(2).reveal.visible { transform: translateY(26px); }
+  .critique-grid .critique-card.cs2 { transform: rotate(-1.1deg); }
+  .critique-grid .critique-card.lol { transform: rotate(1.1deg); }
+  .critique-grid .critique-card.cs2.reveal.visible { transform: rotate(-1.1deg); }
+  .critique-grid .critique-card.lol.reveal.visible { transform: rotate(1.1deg); }
   .critique-card:hover:not(.wip) {
     border-color: var(--border-bright);
     box-shadow: 0 0 22px rgba(124,95,252,0.12);
+    transform: rotate(0deg) scale(1.015);
   }
   .critique-card.wip { opacity: 0.6; }
   .wip-badge {
@@ -1139,7 +1134,7 @@
     .why-images { grid-template-columns: 1fr 1fr; }
     .about-grid { grid-template-columns: 1fr; gap: 36px; }
 
-    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .skills-grid { columns: 2; }
     .case-card { grid-template-columns: 1fr; }
     .case-visual { border-right: none; border-bottom: 1px solid var(--border); min-height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; padding: 16px 20px; gap: 14px; }
     .case-live-note { flex-basis: 100%; }
@@ -1148,8 +1143,8 @@
     .case-num { font-size: 40px; }
     .rec-grid { grid-template-columns: 1fr 1fr; }
     .critique-grid { grid-template-columns: 1fr; }
-    .critique-grid .critique-card:nth-child(2),
-    .critique-grid .critique-card:nth-child(2).reveal.visible { transform: none; }
+    .critique-grid .critique-card.cs2, .critique-grid .critique-card.lol,
+    .critique-grid .critique-card.cs2.reveal.visible, .critique-grid .critique-card.lol.reveal.visible { transform: none; }
     .timeline::before { display: none; }
     .timeline { flex-wrap: wrap; gap: 10px; }
     .t-step { flex-direction: row; flex: none; gap: 8px; }
@@ -1157,7 +1152,7 @@
   }
   @media (max-width: 640px) {
     h1 { letter-spacing: -1.5px; }
-    .skills-grid { grid-template-columns: 1fr; }
+    .skills-grid { columns: 1; }
     .about-stats { grid-template-columns: 1fr 1fr; }
     .nav-links { display: none; }
 
