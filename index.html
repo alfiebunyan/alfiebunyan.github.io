@@ -14,1669 +14,812 @@
 <meta name="twitter:title" content="Alfie Bunyan | Games &amp; UX Researcher">
 <meta name="twitter:description" content="Junior UX researcher specialising in games and AI.">
 <meta name="twitter:image" content="https://alfiebunyan.github.io/assets/alfie.jpg">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%237c5ffc'/><text y='72' x='50' font-size='62' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='900' fill='white'>A</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2307080a'/><rect x='6' y='6' width='88' height='88' rx='18' fill='none' stroke='%23ff5757' stroke-width='6'/><text y='70' x='50' font-size='56' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' fill='white'>A</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Silkscreen&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #06060f;
-    --surface: rgba(12, 10, 28, 0.58);
-    --surface-2: rgba(22, 18, 48, 0.72);
-    --border: rgba(110, 80, 220, 0.14);
-    --border-bright: rgba(124, 95, 252, 0.32);
-    --accent: #7c5ffc;
-    --accent-light: #a899ff;
-    --cyan: #22d3ee;
-    --text: #ffffff;
-    --text-muted: #9099b8;
-    --text-dim: #6b7294;
-    --white: #fff;
-    --green: #22c55e;
+    --canvas: #07080a;
+    --surface: #0d0d0d;
+    --elevated: #101111;
+    --card: #121212;
+    --ink: #f4f4f6;
+    --body: #cdcdcd;
+    --mute: #9c9c9d;
+    --ash: #6a6b6c;
+    --hairline: #242728;
+    --soft: rgba(255,255,255,.08);
+    --strong: rgba(255,255,255,.16);
+    --red: #ff6161;
+    --blue: #57c1ff;
+    --green: #59d499;
+    --yellow: #ffc533;
+    --joy-red: #ff3c28;
+    --joy-blue: #0ab9e6;
+    --ps-blue: #0070d1;
+    --pixel: 'Silkscreen', ui-monospace, monospace;
+    --radius: 10px;
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
   body {
-    background:
-      radial-gradient(ellipse at 14% 18%, rgba(90, 20, 180, 0.24) 0%, transparent 52%),
-      radial-gradient(ellipse at 88% 78%, rgba(10, 110, 180, 0.16) 0%, transparent 48%),
-      radial-gradient(ellipse at 55% 52%, rgba(110, 20, 200, 0.08) 0%, transparent 44%),
-      var(--bg);
-    color: var(--text);
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    font-size: 16px;
-    line-height: 1.7;
-    overflow-x: hidden;
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    font-feature-settings: "calt", "kern", "liga", "ss03";
+    background: var(--canvas); color: var(--body);
+    font-size: 16px; line-height: 1.6; overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  img, video { display: block; max-width: 100%; }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+  strong { color: var(--ink); font-weight: 600; }
+  ::selection { background: rgba(255,87,87,.35); color: #fff; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
+
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── NAV ─────────────────────────────── */
+  nav.top {
+    position: sticky; top: 0; z-index: 50; height: 60px;
+    background: rgba(7,8,10,.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid transparent; transition: border-color .2s;
+  }
+  nav.top.scrolled { border-bottom-color: var(--hairline); }
+  nav.top .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .brand { display: flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 600; font-size: 15px; white-space: nowrap; }
+  .brand-mark { width: 24px; height: 24px; border-radius: 7px; display: grid; place-items: center; font-size: 13px; font-weight: 700; color: #fff;
+    background: linear-gradient(135deg, var(--joy-red) 0 50%, var(--joy-blue) 50% 100%); }
+  .nav-links { display: flex; gap: 2px; list-style: none; }
+  .nav-links a { display: block; font-size: 14px; font-weight: 500; letter-spacing: .2px; color: var(--mute); padding: 5px 11px; border-radius: 999px; transition: color .15s, background .15s; }
+  .nav-links a:hover { color: var(--ink); background: var(--elevated); }
+  .nav-links a.active { color: var(--ink); background: var(--elevated); box-shadow: 0 0 0 1px var(--soft) inset; }
+  .nav-right { display: flex; align-items: center; gap: 8px; }
+  .k-btn { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px 0 12px; border-radius: 8px; border: 1px solid var(--hairline); color: var(--mute); font-size: 13px; transition: border-color .15s, color .15s; }
+  .k-btn:hover { border-color: var(--strong); color: var(--ink); }
+  .kbd { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 4px; font-size: 11px; font-family: Inter, sans-serif; color: var(--body);
+    background: linear-gradient(#141414, #0d0d0d); border: 1px solid var(--hairline); box-shadow: 0 1px 0 #000; }
+
+  /* ── BUTTONS ─────────────────────────── */
+  .btn { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 8px; font-size: 14px; font-weight: 500; letter-spacing: .2px; transition: background .15s, border-color .15s, transform .15s; white-space: nowrap; }
+  .btn-white { background: #fff; color: #000; }
+  .btn-white:hover { background: #e8e8e8; }
+  .btn-ghost { color: #fff; border: 1px solid var(--hairline); background: rgba(13,13,13,.6); }
+  .btn-ghost:hover { border-color: var(--strong); background: var(--elevated); }
+  .btn:active { transform: translateY(1px); }
+
+  /* ── FACE-BUTTON GLYPHS (eyebrows) ───── */
+  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--pixel); font-size: 11px; letter-spacing: .6px; text-transform: uppercase; color: var(--mute); margin-bottom: 16px; }
+  .glyph { width: 18px; height: 18px; flex-shrink: 0; }
+  .g-tri { color: var(--green); } .g-cir { color: var(--red); } .g-x { color: var(--blue); } .g-sq { color: var(--yellow); }
+
+  h2 { color: var(--ink); font-size: clamp(32px, 4.4vw, 48px); font-weight: 300; letter-spacing: -.5px; line-height: 1.12; }
+  .intro { color: var(--mute); max-width: 640px; margin-top: 14px; font-size: 17px; }
+  section.block { padding: 112px 0; position: relative; }
+  section.block + section.block { border-top: 1px solid var(--hairline); }
+
+  /* ── HERO ────────────────────────────── */
+  #hero { position: relative; padding: 96px 0 40px; text-align: center; overflow: hidden; }
+  .glow { position: absolute; inset: -120px 0 auto; height: 720px; pointer-events: none; z-index: -1; }
+  .glow::before, .glow::after { content: ''; position: absolute; top: 0; width: 62%; height: 100%; filter: blur(90px); opacity: .32; }
+  .glow::before { left: -8%; background: radial-gradient(closest-side, var(--joy-red), transparent); transform: rotate(-14deg); }
+  .glow::after { right: -8%; background: radial-gradient(closest-side, var(--joy-blue), transparent); transform: rotate(14deg); opacity: .26; }
+  .grid-fade { position: absolute; inset: 0; z-index: -1; pointer-events: none;
+    background-image: linear-gradient(var(--soft) 1px, transparent 1px), linear-gradient(90deg, var(--soft) 1px, transparent 1px);
+    background-size: 56px 56px; mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 20%, transparent 75%); opacity: .5; }
+
+  .presence { display: inline-flex; align-items: center; gap: 12px; padding: 6px 16px 6px 6px; border-radius: 999px; background: rgba(16,17,17,.8); border: 1px solid var(--hairline); margin-bottom: 32px; text-align: left; }
+  .presence-av { position: relative; }
+  .presence-av img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+  .presence-av::after { content: ''; position: absolute; right: -1px; bottom: -1px; width: 13px; height: 13px; border-radius: 50%; background: var(--green); border: 3px solid var(--elevated); }
+  .presence b { display: block; color: var(--ink); font-size: 14px; font-weight: 600; line-height: 1.3; }
+  .presence span { font-size: 12.5px; color: var(--green); }
+  .presence span em { color: var(--mute); font-style: normal; }
+
+  #hero h1 { color: var(--ink); font-size: clamp(40px, 6.6vw, 72px); font-weight: 600; line-height: 1.06; letter-spacing: -1.2px; max-width: 900px; margin: 0 auto; }
+  #hero h1 .why { background: linear-gradient(90deg, var(--joy-red), #ff8a7a 50%, var(--joy-blue)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { font-size: 18px; color: var(--body); max-width: 660px; margin: 24px auto 0; }
+  .ctas { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+
+  /* ── COMMAND PALETTE ─────────────────── */
+  .palette { text-align: left; background: rgba(13,13,13,.94); border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden;
+    box-shadow: 0 0 0 1px var(--soft) inset, 0 30px 80px rgba(0,0,0,.6); }
+  #hero .palette { max-width: 760px; margin: 64px auto 0; backdrop-filter: blur(20px); }
+  .p-search { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--hairline); }
+  .p-search svg { width: 18px; height: 18px; color: var(--mute); flex-shrink: 0; }
+  .p-search input { flex: 1; min-width: 0; background: transparent; border: 0; outline: 0; color: var(--ink); font: inherit; font-size: 16px; }
+  .p-search input::placeholder { color: var(--ash); }
+  .p-list { max-height: 360px; overflow-y: auto; padding: 6px 8px 8px; }
+  .p-group { font-size: 12px; letter-spacing: .4px; color: var(--ash); padding: 10px 10px 4px; }
+  .p-row { display: flex; align-items: center; gap: 12px; width: 100%; padding: 7px 10px; border-radius: 6px; color: var(--ink); font-size: 15px; text-align: left; }
+  .p-row.active { background: var(--card); box-shadow: 0 0 0 1px var(--soft) inset; }
+  .p-icon { width: 26px; height: 26px; border-radius: 6px; display: grid; place-items: center; font-size: 11px; font-weight: 600; flex-shrink: 0; background: var(--card); color: var(--body); }
+  .p-row small { color: var(--mute); font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .p-tag { margin-left: auto; font-size: 12px; color: var(--mute); flex-shrink: 0; padding-left: 8px; }
+  .p-row.active .p-tag { display: none; }
+  .p-keys { margin-left: auto; display: none; gap: 4px; flex-shrink: 0; }
+  .p-row.active .p-keys { display: flex; }
+  .p-empty { padding: 24px; text-align: center; color: var(--mute); font-size: 14px; }
+  .p-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; border-top: 1px solid var(--hairline); background: var(--elevated); font-size: 13px; color: var(--mute); }
+  .now { display: flex; align-items: center; gap: 10px; min-width: 0; }
+  .now-bars { display: flex; align-items: flex-end; gap: 2px; height: 12px; flex-shrink: 0; }
+  .now-bars i { width: 3px; background: var(--green); border-radius: 1px; animation: eq 1s ease-in-out infinite; }
+  .now-bars i:nth-child(2) { animation-delay: -.3s; } .now-bars i:nth-child(3) { animation-delay: -.6s; }
+  @keyframes eq { 0%,100% { height: 3px; } 50% { height: 12px; } }
+  .now b { color: var(--green); font-weight: 500; white-space: nowrap; }
+  .now span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .p-hint { display: flex; gap: 4px; align-items: center; flex-shrink: 0; }
+
+  /* modal palette */
+  .cmdk { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.6); backdrop-filter: blur(4px); display: none; align-items: flex-start; justify-content: center; padding: 14vh 16px 16px; }
+  .cmdk.open { display: flex; }
+  .cmdk .palette { width: 100%; max-width: 640px; animation: pop .16s ease-out; }
+  @keyframes pop { from { opacity: 0; transform: scale(.98) translateY(-6px); } }
+
+  /* ── WHY ─────────────────────────────── */
+  .two { display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; margin-top: 48px; align-items: start; }
+  .lead { font-size: 19px; color: var(--ink); margin-bottom: 28px; }
+  .points { list-style: none; display: grid; gap: 4px; }
+  .points li { position: relative; padding: 16px 0 16px 28px; border-top: 1px solid var(--hairline); color: var(--body); font-size: 15.5px; }
+  .points li:last-child { border-bottom: 1px solid var(--hairline); }
+  .points li::before { content: ''; position: absolute; left: 4px; top: 25px; width: 8px; height: 8px; border-radius: 2px; background: var(--strong); }
+  .points li strong { display: block; margin-bottom: 4px; }
+  .collage { display: grid; grid-template-columns: 1.4fr 1fr; grid-template-rows: 220px 180px; gap: 10px; }
+  .collage figure { position: relative; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--hairline); }
+  .collage img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+  .collage figure:hover img { transform: scale(1.04); }
+  .collage .c1 { grid-column: 1 / 3; }
+  .collage figcaption { position: absolute; left: 10px; bottom: 10px; font-family: var(--pixel); font-size: 10px; color: #fff; background: rgba(0,0,0,.65); padding: 3px 8px; border-radius: 4px; backdrop-filter: blur(6px); }
+
+  /* ── ABOUT ───────────────────────────── */
+  .about-photo { border-radius: var(--radius); border: 1px solid var(--hairline); overflow: hidden; aspect-ratio: 4 / 3.2; }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+  .stat { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius); padding: 18px; position: relative; }
+  .stat-num { color: var(--ink); font-size: 34px; font-weight: 600; line-height: 1; letter-spacing: -.5px; }
+  .stat-lbl { font-size: 13.5px; color: var(--mute); margin-top: 8px; line-height: 1.45; }
+  .stat-key { position: absolute; top: 14px; right: 14px; font-family: var(--pixel); font-size: 9px; color: var(--ash); }
+  .stats-head { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; font-family: var(--pixel); font-size: 10px; color: var(--ash); text-transform: uppercase; letter-spacing: .6px; }
+
+  /* ── SKILLS ──────────────────────────── */
+  .skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 48px; }
+  .skill { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius); padding: 24px; transition: border-color .2s, background .2s; }
+  .skill:hover { border-color: var(--strong); background: var(--elevated); }
+  .skill-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .skill-ic { width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center; }
+  .skill-ic svg { width: 18px; height: 18px; }
+  .skill h3 { color: var(--ink); font-size: 16px; font-weight: 500; }
+  .skill ul { list-style: none; }
+  .skill li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 7px 0; font-size: 14px; border-top: 1px solid var(--soft); }
+  .skill li:first-child { border-top: 0; }
+  .applied { font-size: 11px; color: var(--mute); background: var(--card); border: 1px solid var(--hairline); border-radius: 4px; padding: 1px 6px; white-space: nowrap; }
+
+  /* ── CASE STUDIES ────────────────────── */
+  .cases { display: grid; gap: 16px; margin-top: 48px; }
+  .case { --acc: var(--red); display: grid; grid-template-columns: 260px 1fr; background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden; position: relative; }
+  .case::after { content: ''; position: absolute; top: 0; right: 0; width: 12px; height: 12px; background: var(--acc); }
+  .case.c-blue { --acc: var(--blue); } .case.c-green { --acc: var(--green); } .case.c-yellow { --acc: var(--yellow); }
+  .case-side { position: relative; padding: 28px; border-right: 1px solid var(--hairline); display: flex; flex-direction: column; gap: 14px;
+    background: radial-gradient(120% 70% at 0% 0%, color-mix(in srgb, var(--acc) 14%, transparent), transparent 70%), var(--elevated); }
+  .case-num { font-size: 56px; font-weight: 600; line-height: 1; color: var(--ink); letter-spacing: -2px; }
+  .case-type { align-self: flex-start; font-size: 12px; letter-spacing: .4px; color: var(--acc); background: color-mix(in srgb, var(--acc) 15%, transparent); padding: 2px 8px; border-radius: 4px; }
+  .case-ic { width: 52px; color: var(--acc); opacity: .9; margin-top: auto; }
+  .case-flag { font-family: var(--pixel); font-size: 10px; letter-spacing: .5px; color: #000; background: var(--acc); align-self: flex-start; padding: 3px 8px; border-radius: 3px; }
+  .case-note { font-size: 13px; color: var(--mute); line-height: 1.5; padding: 12px; border: 1px dashed var(--strong); border-radius: 8px; }
+  .case-body { padding: 32px; min-width: 0; }
+  .case-ctx { font-size: 13px; color: var(--mute); letter-spacing: .2px; }
+  .case h3 { color: var(--ink); font-size: 24px; font-weight: 500; line-height: 1.3; margin: 6px 0 18px; }
+  .case p { font-size: 15.5px; margin-bottom: 12px; }
+  .case-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); border: 1px solid var(--hairline); border-radius: var(--radius); overflow: hidden; margin-bottom: 22px; }
+  .case-stat { padding: 14px 16px; border-left: 1px solid var(--hairline); background: var(--canvas); }
+  .case-stat:first-child { border-left: 0; }
+  .cs-val { display: block; color: var(--ink); font-size: 24px; font-weight: 600; line-height: 1.15; }
+  .cs-lbl { display: block; font-size: 11.5px; color: var(--mute); margin-top: 4px; letter-spacing: .2px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0; }
+  .tag { font-size: 12.5px; color: var(--body); background: var(--card); border: 1px solid var(--hairline); padding: 3px 10px; border-radius: 999px; }
+  .steps { display: flex; margin: 22px 0; counter-reset: s; }
+  .step { flex: 1; position: relative; padding-top: 30px; font-size: 12.5px; color: var(--mute); line-height: 1.35; padding-right: 8px; }
+  .step::before { counter-increment: s; content: counter(s); position: absolute; top: 0; left: 0; width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center; font-size: 11px; font-weight: 600;
+    color: var(--acc); background: color-mix(in srgb, var(--acc) 15%, var(--canvas)); border: 1px solid color-mix(in srgb, var(--acc) 40%, transparent); }
+  .step::after { content: ''; position: absolute; top: 11px; left: 28px; right: 6px; height: 1px; background: var(--hairline); }
+  .step:last-child::after { display: none; }
+  .outcome { position: relative; padding: 16px 18px 16px 20px; border-radius: 8px; background: color-mix(in srgb, var(--acc) 7%, var(--canvas)); border: 1px solid color-mix(in srgb, var(--acc) 22%, transparent); color: var(--ink); font-size: 15px; margin: 18px 0 12px; }
+  .outcome-lbl { display: block; font-family: var(--pixel); font-size: 10px; color: var(--acc); margin-bottom: 6px; letter-spacing: .5px; }
+  .media { width: 100%; border-radius: var(--radius); border: 1px solid var(--hairline); margin: 14px 0; background: #000; }
+  .media-img { max-height: 380px; object-fit: cover; }
+  .media-lbl { font-size: 13px; color: var(--mute); margin-top: 18px; }
+  .distinction { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--yellow); margin-bottom: 14px; }
+  .distinction svg { width: 16px; height: 16px; }
+  .doc-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .doc-btn { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--ink); background: var(--elevated); border: 1px solid var(--hairline); transition: border-color .15s, background .15s; }
+  .doc-btn:hover { border-color: var(--strong); background: var(--card); }
+  .doc-btn svg { width: 15px; height: 15px; color: var(--mute); }
+  .nda { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--mute); }
+  .nda svg { width: 14px; height: 14px; }
+  .xp { margin-top: 20px; }
+  .xp-top { display: flex; justify-content: space-between; font-family: var(--pixel); font-size: 10px; color: var(--mute); margin-bottom: 8px; letter-spacing: .5px; }
+  .xp-top b { color: var(--acc); font-weight: 400; }
+  .xp-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
+  .xp-bar i { height: 8px; border-radius: 2px; background: var(--card); border: 1px solid var(--hairline); }
+  .xp-bar i.done { background: var(--acc); border-color: transparent; }
+  .xp-bar i.active { background: repeating-linear-gradient(90deg, var(--acc) 0 6px, transparent 6px 10px); border-color: color-mix(in srgb, var(--acc) 50%, transparent); animation: xp 1.2s linear infinite; background-size: 20px 100%; }
+  @keyframes xp { to { background-position: 20px 0; } }
+  .xp-lbl { font-size: 13px; color: var(--mute); margin-top: 10px; }
+
+  /* ── CRITIQUES ───────────────────────── */
+  .crits { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px; }
+  .crit { background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: border-color .2s; }
+  .crit:hover { border-color: var(--strong); }
+  .crit-cover { position: relative; height: 180px; background-size: cover; background-position: center; }
+  .crit-cover::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,8,10,.15), var(--surface)); }
+  .crit-game { position: absolute; left: 24px; bottom: 14px; z-index: 1; font-family: var(--pixel); font-size: 11px; letter-spacing: .5px; color: #fff; background: rgba(0,0,0,.6); padding: 4px 9px; border-radius: 4px; backdrop-filter: blur(6px); }
+  .crit-body { padding: 8px 24px 24px; display: flex; flex-direction: column; flex: 1; }
+  .crit h3 { color: var(--ink); font-size: 21px; font-weight: 500; line-height: 1.3; margin-bottom: 12px; }
+  .crit p { font-size: 15px; }
+  .pull { margin: 18px 0; padding-left: 16px; border-left: 2px solid var(--red); color: var(--ink); font-size: 16px; font-style: italic; }
+  .crit .doc-row { margin-top: auto; padding-top: 6px; }
+
+  /* ── RECOGNITION (achievements) ──────── */
+  .achs { display: grid; gap: 10px; margin-top: 48px; }
+  .ach { display: grid; grid-template-columns: 64px 1fr auto; gap: 20px; align-items: center; padding: 18px 22px 18px 18px; background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; transition: border-color .2s; }
+  .ach:hover { border-color: var(--strong); }
+  .ach-ic { width: 64px; height: 64px; border-radius: 12px; display: grid; place-items: center; position: relative;
+    background: linear-gradient(145deg, color-mix(in srgb, var(--c) 30%, #111), #0b0b0b); border: 1px solid color-mix(in srgb, var(--c) 45%, transparent); color: var(--c); }
+  .ach-ic svg { width: 28px; height: 28px; }
+  .ach h3 { color: var(--ink); font-size: 17px; font-weight: 500; }
+  .ach p { font-size: 14.5px; color: var(--mute); margin-top: 4px; }
+  .ach-meta { text-align: right; white-space: nowrap; }
+  .ach-meta small { display: block; font-family: var(--pixel); font-size: 9px; color: var(--green); letter-spacing: .5px; }
+  .ach-meta span { font-size: 13px; color: var(--body); }
+  .ach-thumb { width: 64px; height: 64px; border-radius: 12px; object-fit: cover; border: 1px solid var(--hairline); cursor: zoom-in; transition: transform .2s; }
+  .ach-thumb:hover { transform: scale(1.05); }
+  .ach.gold { background: linear-gradient(90deg, rgba(255,197,51,.06), transparent 50%), var(--surface); border-color: rgba(255,197,51,.28); }
+
+  /* ── CONTACT (PlayStation-blue chapter) ─ */
+  #contact { background: var(--ps-blue); color: #fff; border-top: 0 !important; overflow: hidden; }
+  #contact::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .12;
+    background-image: radial-gradient(#fff 1px, transparent 1.4px); background-size: 22px 22px;
+    mask-image: linear-gradient(90deg, #000, transparent 60%); -webkit-mask-image: linear-gradient(90deg, #000, transparent 60%); }
+  #contact .wrap { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  #contact .eyebrow { color: rgba(255,255,255,.75); }
+  #contact .eyebrow .glyph { color: #fff; }
+  #contact h2 { color: #fff; }
+  #contact .intro { color: rgba(255,255,255,.85); }
+  .c-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+  .c-link { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 20px; border-radius: 999px; font-size: 14px; font-weight: 500; border: 1px solid rgba(255,255,255,.4); transition: background .15s, color .15s; }
+  .c-link:hover { background: #fff; color: var(--ps-blue); }
+  .c-link svg { width: 16px; height: 16px; }
+  .form { background: var(--canvas); color: var(--body); border-radius: 14px; padding: 28px; box-shadow: 0 30px 80px rgba(0,0,0,.35); display: grid; gap: 12px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form input, .form textarea { width: 100%; background: var(--elevated); border: 1px solid var(--hairline); border-radius: 8px; padding: 11px 14px; color: var(--ink); font: inherit; font-size: 15px; transition: border-color .15s; }
+  .form input:focus, .form textarea:focus { outline: 0; border-color: var(--blue); }
+  .form textarea { min-height: 140px; resize: vertical; }
+  .form ::placeholder { color: var(--ash); }
+  .form .btn-white { justify-content: center; height: 44px; }
+  .form .btn-white:disabled { opacity: .6; cursor: wait; }
+  .status { display: none; font-size: 14px; padding: 10px 14px; border-radius: 8px; }
+  .status.success { color: var(--green); background: rgba(89,212,153,.12); }
+  .status.error { color: var(--red); background: rgba(255,97,97,.12); }
+
+  footer { padding: 32px 0; font-size: 13px; color: var(--ash); }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  footer .egg { font-family: var(--pixel); font-size: 10px; letter-spacing: .5px; }
+
+  /* ── OVERLAYS ────────────────────────── */
+  .back-top { position: fixed; right: 20px; bottom: 20px; z-index: 40; width: 42px; height: 42px; border-radius: 10px; background: var(--elevated); border: 1px solid var(--hairline); color: var(--ink); display: grid; place-items: center; opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity .2s, transform .2s, border-color .15s; }
+  .back-top.show { opacity: 1; pointer-events: auto; transform: none; }
+  .back-top:hover { border-color: var(--strong); }
+  .lightbox, .modal { position: fixed; inset: 0; z-index: 150; background: rgba(0,0,0,.85); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity .25s; }
+  .lightbox.open, .modal.open { opacity: 1; pointer-events: auto; }
+  .lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 10px; }
+  .x-btn { position: absolute; top: 18px; right: 18px; width: 38px; height: 38px; border-radius: 8px; background: var(--elevated); border: 1px solid var(--hairline); color: var(--ink); }
+  .modal-box { width: min(1000px, 100%); height: min(88vh, 1100px); background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+  .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 10px 10px 18px; border-bottom: 1px solid var(--hairline); color: var(--ink); font-size: 14px; font-weight: 500; }
+  .modal-head .x-btn { position: static; width: 32px; height: 32px; }
+  .modal iframe { flex: 1; width: 100%; border: 0; background: #fff; }
+
+  .toast { position: fixed; left: 50%; bottom: 24px; z-index: 300; display: flex; align-items: center; gap: 14px; padding: 10px 22px 10px 10px; border-radius: 999px;
+    background: #16181a; border: 1px solid var(--strong); box-shadow: 0 20px 50px rgba(0,0,0,.6); transform: translate(-50%, 140%); transition: transform .45s cubic-bezier(.2,.9,.3,1.2); max-width: calc(100vw - 32px); }
+  .toast.show { transform: translate(-50%, 0); }
+  .toast-ic { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(145deg, #2b2b2b, #111); border: 2px solid var(--green); color: var(--green); flex-shrink: 0; }
+  .toast-ic svg { width: 20px; height: 20px; }
+  .toast small { display: block; font-family: var(--pixel); font-size: 10px; color: var(--green); letter-spacing: .5px; }
+  .toast b { color: var(--ink); font-weight: 500; font-size: 14px; }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .now-bars i, .xp-bar i.active { animation: none; }
   }
 
-  /* ANIMATED GRID */
-  body::before {
-    content: '';
-    position: fixed; inset: 0; z-index: 0;
-    background-image:
-      linear-gradient(rgba(124,95,252,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(124,95,252,0.04) 1px, transparent 1px),
-      radial-gradient(circle at 1px 1px, rgba(124,95,252,0.14) 1px, transparent 0);
-    background-size: 72px 72px, 72px 72px, 36px 36px;
-    animation: grid-drift 28s linear infinite;
-    pointer-events: none;
-  }
-  @keyframes grid-drift {
-    from { background-position: 0 0, 0 0, 0 0; }
-    to   { background-position: 72px 72px, 72px 72px, 36px 36px; }
+  /* Touch screens have no keyboard shortcut, so show a plain label */
+  @media (hover: none) {
+    .k-btn .kbd { display: none; }
+    .k-btn .k-label { display: inline !important; }
+    .k-btn { padding: 0 12px; }
+    .p-hint { display: none; }
   }
 
-  /* ORBS */
-  .orb {
-    position: fixed; border-radius: 50%;
-    pointer-events: none; filter: blur(85px); z-index: 0;
-  }
-  .orb-1 {
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(124,95,252,0.26) 0%, transparent 70%);
-    top: -160px; right: -100px;
-    animation: float-a 20s ease-in-out infinite;
-  }
-  .orb-2 {
-    width: 520px; height: 520px;
-    background: radial-gradient(circle, rgba(34,211,238,0.15) 0%, transparent 70%);
-    top: 28vh; left: -140px;
-    animation: float-b 26s ease-in-out infinite 3s;
-  }
-  .orb-3 {
-    width: 620px; height: 620px;
-    background: radial-gradient(circle, rgba(100,50,220,0.2) 0%, transparent 70%);
-    bottom: -80px; right: 18%;
-    animation: float-a 32s ease-in-out infinite 9s;
-  }
-  .orb-4 {
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(34,211,238,0.11) 0%, transparent 70%);
-    top: 62vh; right: -60px;
-    animation: float-b 23s ease-in-out infinite 14s;
-  }
-  @keyframes float-a {
-    0%,100% { transform: translate(0,0) scale(1); }
-    25%     { transform: translate(-65px,55px) scale(1.07); }
-    50%     { transform: translate(45px,-95px) scale(0.93); }
-    75%     { transform: translate(80px,22px) scale(1.04); }
-  }
-  @keyframes float-b {
-    0%,100% { transform: translate(0,0) scale(1); }
-    33%     { transform: translate(72px,-52px) scale(1.1); }
-    66%     { transform: translate(-48px,62px) scale(0.92); }
-  }
-
-  /* BEAMS */
-  .beam {
-    position: fixed; top: -100%; height: 300%;
-    pointer-events: none; z-index: 0;
-  }
-  .beam-1 {
-    left: 12%; width: 1px;
-    background: linear-gradient(180deg, transparent, rgba(124,95,252,0.3), transparent);
-    transform: rotate(13deg); transform-origin: top center;
-    animation: beam-fade 15s ease-in-out infinite;
-  }
-  .beam-2 {
-    left: 53%; width: 2px;
-    background: linear-gradient(180deg, transparent, rgba(34,211,238,0.2), transparent);
-    transform: rotate(-9deg); transform-origin: top center;
-    animation: beam-fade 20s ease-in-out infinite 5s;
-  }
-  .beam-3 {
-    left: 79%; width: 1px;
-    background: linear-gradient(180deg, transparent, rgba(124,95,252,0.16), transparent);
-    transform: rotate(20deg); transform-origin: top center;
-    animation: beam-fade 12s ease-in-out infinite 2s;
-  }
-  @keyframes beam-fade {
-    0%,100% { opacity: 0; }
-    20%,80% { opacity: 1; }
-    50%     { opacity: 0.5; }
-  }
-
-  /* SCANLINE */
-  .scanline {
-    position: fixed; left: 0; right: 0; height: 140px;
-    background: linear-gradient(180deg, transparent, rgba(124,95,252,0.05), transparent);
-    animation: scan 10s linear infinite;
-    pointer-events: none; z-index: 0;
-  }
-  @keyframes scan {
-    from { top: -140px; }
-    to   { top: 100vh; }
-  }
-
-  /* NAV */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-    background: rgba(6,6,15,0.82);
-    backdrop-filter: blur(18px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 52px; height: 56px;
-    display: flex; align-items: center; justify-content: space-between;
-  }
-  .nav-left { display: flex; align-items: center; gap: 18px; }
-  .nav-logo {
-    font-family: 'Exo 2', sans-serif;
-    font-size: 13px; font-weight: 700;
-    letter-spacing: 3px; text-transform: uppercase;
-    color: var(--accent-light);
-  }
-  .open-chip {
-    display: flex; align-items: center; gap: 6px;
-    padding: 3px 10px;
-    background: rgba(34,197,94,0.1);
-    border: 1px solid rgba(34,197,94,0.3);
-    border-radius: 20px;
-    font-size: 11px; font-weight: 600;
-    color: var(--green); letter-spacing: 0.3px;
-  }
-  .open-dot {
-    width: 6px; height: 6px;
-    background: var(--green); border-radius: 50%;
-    animation: dot-blink 1.8s ease-in-out infinite;
-  }
-  @keyframes dot-blink {
-    0%,100% { opacity: 1; }
-    50%     { opacity: 0.3; }
-  }
-  .nav-links { display: flex; gap: 28px; list-style: none; }
-  .nav-links a {
-    font-size: 13px; color: var(--text-muted);
-    text-decoration: none; letter-spacing: 0.4px;
-    position: relative; padding-bottom: 2px;
-    transition: color 0.2s;
-  }
-  .nav-links a::after {
-    content: '';
-    position: absolute; bottom: -2px; left: 0; right: 0;
-    height: 1px; background: var(--accent);
-    transform: scaleX(0); transition: transform 0.2s;
-  }
-  .nav-links a:hover,
-  .nav-links a.active { color: var(--text); }
-  .nav-links a:hover::after,
-  .nav-links a.active::after { transform: scaleX(1); }
-
-
-  /* LAYOUT */
-  .section-wrap {
-    position: relative; z-index: 1;
-    padding: 100px 52px;
-  }
-  .section-inner { max-width: 1100px; margin: 0 auto; }
-
-  .glass-section {
-    position: relative; z-index: 1;
-    background: rgba(10,8,26,0.4);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    padding: 100px 52px;
-    clip-path: polygon(0 30px, 100% 0, 100% calc(100% - 30px), 0 100%);
-  }
-
-  /* Soft blurred glow instead of a hard rule, so sections bleed together */
-  .divider {
-    position: relative; z-index: 0;
-    width: 100%; height: 56px; margin: -28px 0;
-    background: radial-gradient(ellipse 65% 100% at 50% 50%, rgba(124,95,252,0.14) 0%, rgba(34,211,238,0.08) 55%, transparent 80%);
-    filter: blur(22px);
-    pointer-events: none;
-  }
-
-  /* SECTION LABELS */
-  .section-label {
-    font-size: 11px; letter-spacing: 3px;
-    text-transform: uppercase; color: var(--cyan);
-    margin-bottom: 12px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .section-label::before {
-    content: ''; display: block;
-    width: 22px; height: 1px; background: var(--cyan);
-  }
-  .section-label.center { justify-content: center; }
-  .section-label.center::before { display: none; }
-
-  h2 {
-    font-family: 'Exo 2', sans-serif;
-    font-size: clamp(28px,4vw,46px);
-    font-weight: 800; color: var(--white);
-    letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px;
-  }
-  .section-intro {
-    font-size: 16px; color: var(--text-muted);
-    max-width: 580px; margin-bottom: 52px; line-height: 1.75;
-  }
-
-  /* HERO */
-  #hero {
-    position: relative; z-index: 1;
-    min-height: 100vh;
-    display: flex; flex-direction: column; justify-content: center;
-    padding: 130px 52px 100px;
-  }
-  .hero-inner {
-    max-width: 1220px; margin: 0 auto; width: 100%;
-    display: grid; grid-template-columns: 1fr auto;
-    gap: 48px; align-items: start;
-  }
-  .hero-avatar {
-    width: 300px; height: 300px; border-radius: 50%;
-    object-fit: cover; object-position: 43% 35%;
-    flex-shrink: 0; display: block;
-    border: 2px solid var(--border-bright);
-    box-shadow: 0 0 0 8px rgba(124,95,252,0.09), 0 8px 48px rgba(0,0,0,0.55);
-  }
-  .hero-label {
-    font-size: 11px; letter-spacing: 3.5px;
-    text-transform: uppercase; color: var(--cyan);
-    margin-bottom: 22px;
-    display: flex; align-items: center; gap: 12px;
-  }
-  .hero-label::before {
-    content: ''; display: block;
-    width: 32px; height: 1px; background: var(--cyan);
-  }
-  h1 {
-    font-family: 'Exo 2', sans-serif;
-    font-size: clamp(36px,4.7vw,66px);
-    font-weight: 900; color: var(--white);
-    letter-spacing: -3px; line-height: 1; margin-bottom: 28px;
-  }
-  h1 em {
-    font-style: normal;
-    background: linear-gradient(135deg, #b8acff 0%, #7c5ffc 40%, #22d3ee 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .hero-sub {
-    font-size: 18px; color: var(--text-muted);
-    max-width: 520px; line-height: 1.75; margin-bottom: 24px;
-  }
-  .current-status {
-    display: inline-flex; align-items: flex-start; gap: 10px;
-    padding: 9px 16px; margin-bottom: 32px; max-width: 520px;
-    background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.22);
-    border-radius: 10px; font-size: 13px; color: var(--text-muted); line-height: 1.6;
-  }
-  .current-status .open-dot { margin-top: 5px; flex-shrink: 0; }
-  .current-status strong { color: var(--green); font-weight: 600; }
-  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
-  .btn-primary {
-    display: inline-block; padding: 13px 28px;
-    background: var(--accent); color: var(--white);
-    border-radius: 7px; text-decoration: none;
-    font-size: 14px; font-weight: 600;
-    transition: background 0.2s, transform 0.15s, box-shadow 0.25s;
-  }
-  .btn-primary:hover {
-    background: #6a4fe0; transform: translateY(-2px);
-    box-shadow: 0 8px 36px rgba(124,95,252,0.4);
-  }
-  .btn-ghost {
-    display: inline-block; padding: 13px 28px;
-    border: 1px solid var(--border-bright); color: var(--text-muted);
-    border-radius: 7px; text-decoration: none;
-    font-size: 14px; font-weight: 500;
-    transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
-  }
-  .btn-ghost:hover {
-    border-color: var(--accent); color: var(--text);
-    box-shadow: 0 0 24px rgba(124,95,252,0.18);
-  }
-
-  /* ABOUT CANDID PHOTO */
-  .about-candid {
-    width: 100%; aspect-ratio: 16/9;
-    object-fit: cover; object-position: 50% 42%;
-    border-radius: 10px; border: 1px solid var(--border);
-    display: block; margin-bottom: 14px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .about-candid:hover {
-    border-color: var(--border-bright);
-    box-shadow: 0 0 24px rgba(124,95,252,0.18);
-  }
-
-  /* ABOUT */
-  #about h2 { font-size: clamp(22px, 3vw, 36px); }
-  .about-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 52px; align-items: start;
-  }
-  .about-text p {
-    color: var(--text-muted); margin-bottom: 16px;
-    line-height: 1.8; font-size: 15px;
-  }
-  .about-text p:last-child { margin-bottom: 0; }
-  .about-text strong { color: var(--text); font-weight: 600; }
-  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .stat-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 10px; padding: 22px;
-    backdrop-filter: blur(8px);
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .stat-card:hover {
-    border-color: var(--border-bright);
-    box-shadow: 0 0 24px rgba(124,95,252,0.12);
-  }
-  .stat-num {
-    font-family: 'Exo 2', sans-serif;
-    font-size: 28px; font-weight: 800;
-    color: var(--accent-light);
-    letter-spacing: -1px; line-height: 1; margin-bottom: 7px;
-  }
-  .stat-label { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-
-  /* SKILLS: masonry columns so card heights vary naturally instead of
-     a uniform, identically-sized grid */
-  .skills-grid { columns: 3; column-gap: 14px; }
-  .skill-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 10px; padding: 24px;
-    backdrop-filter: blur(8px);
-    transition: border-color 0.2s, box-shadow 0.2s;
-    display: block; width: 100%;
-    break-inside: avoid; margin-bottom: 14px;
-  }
-  .skill-card:hover {
-    border-color: var(--border-bright);
-    box-shadow: 0 0 22px rgba(124,95,252,0.12);
-  }
-  .skill-icon { font-size: 20px; margin-bottom: 12px; }
-  .skill-card h3 {
-    font-family: 'Exo 2', sans-serif;
-    font-size: 11px; font-weight: 700; color: var(--white);
-    letter-spacing: 1.8px; text-transform: uppercase; margin-bottom: 12px;
-  }
-  /* Skill card left border accents */
-  .skill-card.sk-games    { border-left: 3px solid #7c5ffc; }
-  .skill-card.sk-methods  { border-left: 3px solid #22d3ee; }
-  .skill-card.sk-analysis { border-left: 3px solid #22c55e; }
-  .skill-card.sk-vr       { border-left: 3px solid #3b82f6; }
-  .skill-card.sk-behaviour{ border-left: 3px solid #ec4899; }
-  .skill-card.sk-tools    { border-left: 3px solid #f97316; }
-
-  .skill-card ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
-  .skill-card ul li {
-    font-size: 13px; color: var(--text-muted);
-    padding-left: 14px; position: relative;
-    display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
-  }
-  .skill-card ul li::before { content: '·'; position: absolute; left: 0; color: var(--accent); }
-  .skill-applied {
-    font-size: 9px; font-weight: 700; letter-spacing: 0.8px;
-    text-transform: uppercase; color: var(--accent-light);
-    background: rgba(124,95,252,0.12); border: 1px solid rgba(124,95,252,0.25);
-    border-radius: 3px; padding: 1px 5px; line-height: 1.6;
-    flex-shrink: 0;
-  }
-  .sk-games    .skill-applied { color: #7c5ffc; background: rgba(124,95,252,0.12); border-color: rgba(124,95,252,0.35); }
-  .sk-methods  .skill-applied { color: #22d3ee; background: rgba(34,211,238,0.12); border-color: rgba(34,211,238,0.35); }
-  .sk-analysis .skill-applied { color: #22c55e; background: rgba(34,197,94,0.12);  border-color: rgba(34,197,94,0.35); }
-  .sk-vr       .skill-applied { color: #3b82f6; background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.35); }
-  .sk-behaviour.skill-applied,
-  .sk-behaviour .skill-applied { color: #ec4899; background: rgba(236,72,153,0.12); border-color: rgba(236,72,153,0.35); }
-  .sk-tools    .skill-applied { color: #f97316; background: rgba(249,115,22,0.12); border-color: rgba(249,115,22,0.35); }
-
-  /* Case study stats strip */
-  .case-stats {
-    display: flex; gap: 0; flex-wrap: wrap;
-    margin-bottom: 16px; padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-  }
-  .case-stat { display: flex; flex-direction: column; gap: 0; padding-right: 24px; }
-  .case-stat + .case-stat { padding-left: 24px; border-left: 1px solid var(--border); }
-  .case-stat-val {
-    font-family: 'Exo 2', sans-serif;
-    font-size: 19px; font-weight: 900; color: var(--white); line-height: 1;
-  }
-  .case-stat-lbl { font-size: 10px; color: var(--text-dim); letter-spacing: 0.5px; text-transform: uppercase; margin-top: 4px; }
-  .case-card-22cans .case-stat-val { color: #a899ff; }
-  .case-card-vr .case-stat-val { color: #22d3ee; }
-  .case-card-dcd .case-stat-val { color: #22c55e; }
-
-  /* Stat counter reveal animation */
-  .case-stat.stat-hidden { opacity: 0; transform: translateY(12px); }
-  .case-stat { transition: opacity 0.45s ease, transform 0.45s ease; }
-  .case-stat.stat-visible { opacity: 1; transform: translateY(0); }
-
-  /* Coming soon progress bar */
-  .cs-progress { margin: 16px 0 4px; }
-  .cs-progress-bar { display: flex; gap: 5px; margin-bottom: 8px; }
-  .cs-progress-seg { flex: 1; height: 3px; border-radius: 2px; background: var(--border); }
-  .cs-progress-seg.done { background: var(--green); }
-  .cs-progress-seg.active {
-    background: linear-gradient(90deg, var(--green) 55%, rgba(34,197,94,0.2) 55%);
-  }
-  .cs-progress-label {
-    font-size: 11px; color: var(--green); font-weight: 600;
-    letter-spacing: 0.5px; opacity: 0.85;
-  }
-
-  /* Case study outcome callout */
-  .case-outcome {
-    margin-top: 16px; padding: 12px 16px;
-    background: rgba(124,95,252,0.06);
-    border-left: 2px solid var(--accent);
-    border-radius: 0 6px 6px 0;
-    font-size: 13px; color: var(--text-muted);
-    font-style: italic; line-height: 1.65;
-  }
-
-  /* Per-study left panel theming */
-  .case-card-22cans .case-visual {
-    background:
-      radial-gradient(ellipse at 120% -20%, rgba(124,95,252,0.32) 0%, transparent 55%),
-      linear-gradient(rgba(124,95,252,0.07) 1px, transparent 1px) 0 0 / 28px 28px,
-      linear-gradient(90deg, rgba(124,95,252,0.07) 1px, transparent 1px) 0 0 / 28px 28px,
-      rgba(14,10,34,0.92);
-  }
-  .case-card-vr .case-visual {
-    background:
-      radial-gradient(ellipse at 120% -20%, rgba(34,211,238,0.26) 0%, transparent 55%),
-      linear-gradient(rgba(34,211,238,0.06) 1px, transparent 1px) 0 0 / 28px 28px,
-      linear-gradient(90deg, rgba(34,211,238,0.06) 1px, transparent 1px) 0 0 / 28px 28px,
-      rgba(6,14,24,0.92);
-  }
-  .case-card-dcd .case-visual {
-    background:
-      radial-gradient(ellipse at 120% -20%, rgba(34,197,94,0.22) 0%, transparent 55%),
-      linear-gradient(rgba(34,197,94,0.06) 1px, transparent 1px) 0 0 / 28px 28px,
-      linear-gradient(90deg, rgba(34,197,94,0.06) 1px, transparent 1px) 0 0 / 28px 28px,
-      rgba(6,14,10,0.92);
-  }
-  .case-card-vr .case-visual::after { background: radial-gradient(circle at top right, rgba(34,211,238,0.22), transparent 70%); }
-  .case-card-dcd .case-visual::after { background: radial-gradient(circle at top right, rgba(34,197,94,0.2), transparent 70%); }
-
-  /* Case study SVG icons */
-  .case-icon { width: 52px; height: 52px; flex-shrink: 0; margin-bottom: 14px; opacity: 0.6; }
-  .case-card-22cans .case-icon { color: #a899ff; }
-  .case-card-vr .case-icon { color: #22d3ee; }
-  .case-card-dcd .case-icon { color: #22c55e; }
-
-  /* Case study distinction badge */
-  .case-distinction {
-    display: inline-flex; align-items: center; gap: 7px;
-    font-size: 11px; font-weight: 700; letter-spacing: 1px;
-    text-transform: uppercase; margin-bottom: 14px;
-  }
-  .case-distinction::before {
-    content: ''; display: inline-block;
-    width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
-  }
-  .case-card-dcd .case-distinction { color: #22c55e; }
-  .case-card-dcd .case-distinction::before { background: #22c55e; box-shadow: 0 0 8px rgba(34,197,94,0.7); }
-
-  /* 22cans flagship treatment */
-  .case-card-22cans {
-    border-top: 2px solid rgba(124,95,252,0.6);
-    box-shadow: 0 0 36px rgba(124,95,252,0.12);
-  }
-  .case-card-22cans:hover { box-shadow: 0 0 56px rgba(124,95,252,0.22); }
-  .featured-badge {
-    position: absolute; top: 14px; right: 14px;
-    background: rgba(124,95,252,0.16); border: 1px solid rgba(124,95,252,0.38);
-    border-radius: 4px; font-size: 9px; font-weight: 700;
-    letter-spacing: 2px; text-transform: uppercase; color: var(--accent-light);
-    padding: 4px 12px; white-space: nowrap;
-  }
-  .case-live-note {
-    padding: 10px 13px;
-    background: rgba(34,197,94,0.07); border: 1px solid rgba(34,197,94,0.22);
-    border-radius: 7px; font-size: 11.5px; color: var(--text-muted);
-    line-height: 1.55;
-  }
-
-  /* Critique reading time + pull quote */
-  .critique-meta {
-    font-size: 11px; color: var(--text-dim);
-    letter-spacing: 0.5px; margin-bottom: 10px;
-  }
-  .critique-pull {
-    font-size: 13px; font-style: italic;
-    color: var(--text-muted); line-height: 1.7;
-    border-left: 2px solid var(--accent);
-    padding-left: 12px; margin: 14px 0 16px;
-  }
-  .critique-card.cs2 .critique-pull { border-left-color: #d4b830; color: #8c9aaa; }
-  .critique-card.lol .critique-pull { border-left-color: #c8aa6e; color: #7a8fa0; }
-  .critique-links {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-top: 4px;
-  }
-
-  /* CASE STUDIES */
-  .case-studies { display: flex; flex-direction: column; gap: 24px; }
-  .case-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; overflow: hidden;
-    display: grid; grid-template-columns: 280px 1fr;
-    backdrop-filter: blur(10px);
-    transition: border-color 0.25s, box-shadow 0.25s;
-  }
-  .case-card:hover:not(.coming-soon) {
-    border-color: var(--border-bright);
-    box-shadow: 0 0 44px rgba(124,95,252,0.15);
-  }
-  .case-card.coming-soon { opacity: 0.65; }
-
-  /* Break the left-right-left monotony: 22cans runs wider, VR mirrors
-     the layout instead of repeating it */
-  .case-card-22cans { grid-template-columns: 350px 1fr; }
-  .case-card-22cans .case-visual { justify-content: flex-start; }
-  .case-card-22cans .case-type-badge { margin-top: auto; margin-bottom: 10px; }
-  .case-card-vr { grid-template-columns: 1fr 280px; }
-  .case-card-vr .case-visual { order: 2; border-right: none; border-left: 1px solid var(--border); }
-  .case-card-vr .case-body { order: 1; }
-  .case-card-vr .case-visual::after { left: 0; right: auto; background: radial-gradient(circle at top left, rgba(34,211,238,0.22), transparent 70%); }
-
-  .case-visual {
-    background: rgba(18,12,40,0.85);
-    background-image:
-      linear-gradient(rgba(124,95,252,0.07) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(124,95,252,0.07) 1px, transparent 1px);
-    background-size: 28px 28px;
-    display: flex; flex-direction: column;
-    justify-content: space-between;
-    padding: 28px; border-right: 1px solid var(--border);
-    min-height: 260px; position: relative; overflow: hidden;
-  }
-  .case-visual::after {
-    content: '';
-    position: absolute; top: 0; right: 0;
-    width: 90px; height: 90px;
-    background: radial-gradient(circle at top right, rgba(124,95,252,0.22), transparent 70%);
-    pointer-events: none;
-  }
-  .coming-soon-sign {
-    position: absolute; top: 12px; left: 12px; z-index: 10;
-    background: var(--green); color: #fff;
-    font-size: 9px; font-weight: 800;
-    letter-spacing: 2px; text-transform: uppercase;
-    padding: 4px 10px; border-radius: 4px;
-    box-shadow: 0 0 16px rgba(34,197,94,0.6);
-  }
-  .case-num {
-    font-family: 'Exo 2', sans-serif;
-    font-size: 74px; font-weight: 900;
-    line-height: 1.15; letter-spacing: -4px;
-    padding-bottom: 6px;
-    user-select: none;
-    background: linear-gradient(135deg, rgba(168,153,255,0.45) 0%, rgba(34,211,238,0.22) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .case-type-badge {
-    display: inline-block; padding: 4px 10px;
-    background: rgba(124,95,252,0.14);
-    border: 1px solid rgba(124,95,252,0.3);
-    border-radius: 4px; font-size: 10px;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--accent-light); width: fit-content;
-  }
-  .case-body {
-    padding: 30px 36px;
-    display: flex; flex-direction: column; justify-content: center;
-  }
-  .case-context {
-    font-size: 11px; letter-spacing: 1.5px;
-    text-transform: uppercase; color: var(--text-dim); margin-bottom: 7px;
-  }
-  .case-body h3 {
-    font-family: 'Exo 2', sans-serif;
-    font-size: 19px; font-weight: 700; color: var(--white);
-    letter-spacing: -0.3px; margin-bottom: 10px; line-height: 1.3;
-  }
-  .case-body p {
-    font-size: 13.5px; color: var(--text-muted);
-    line-height: 1.75; margin-bottom: 14px;
-  }
-  .case-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
-  .tag {
-    display: inline-block; padding: 3px 9px;
-    background: rgba(18,14,42,0.8); border: 1px solid var(--border);
-    border-radius: 4px; font-size: 11.5px; color: var(--text-muted);
-  }
-
-  /* TIMELINE */
-  .timeline {
-    position: relative;
-    display: flex; align-items: flex-start;
-    margin-bottom: 20px; padding-top: 4px;
-  }
-  .timeline::before {
-    content: '';
-    position: absolute; top: 11px; left: 11px; right: 11px; height: 1px;
-    background: linear-gradient(90deg, var(--accent), var(--cyan));
-    opacity: 0.38;
-  }
-  .t-step {
-    display: flex; flex-direction: column;
-    align-items: center; gap: 9px;
-    flex: 1; position: relative; z-index: 1;
-  }
-  .t-node {
-    width: 22px; height: 22px; border-radius: 50%;
-    background: rgba(8,6,22,0.95);
-    border: 1.5px solid var(--accent);
-    box-shadow: 0 0 10px rgba(124,95,252,0.45);
-    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-  }
-  .t-step:last-child .t-node {
-    border-color: var(--cyan);
-    box-shadow: 0 0 10px rgba(34,211,238,0.45);
-  }
-  .t-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-  .t-step:last-child .t-dot { background: var(--cyan); }
-  .t-label {
-    font-size: 10px; color: var(--text-muted);
-    text-align: center; line-height: 1.3; max-width: 72px;
-  }
-
-  /* DOC LINKS */
-  .doc-link {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 9px 16px;
-    background: rgba(34,211,238,0.07);
-    border: 1px solid rgba(34,211,238,0.22);
-    border-radius: 6px; text-decoration: none;
-    color: var(--cyan); font-size: 13px; font-weight: 500;
-    width: fit-content;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  .doc-link:hover {
-    background: rgba(34,211,238,0.13);
-    border-color: rgba(34,211,238,0.45);
-  }
-  .nda-note {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 12px; color: var(--text-muted);
-    padding: 7px 12px;
-    background: rgba(250,200,80,0.05);
-    border: 1px solid rgba(250,200,80,0.15);
-    border-radius: 6px; width: fit-content;
-  }
-
-  /* CRITIQUES: a deliberate loosely-pinned pair, not a uniform grid */
-  .critique-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 30px; }
-  .critique-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 14px; padding: 28px;
-    display: flex; flex-direction: column;
-    backdrop-filter: blur(8px); position: relative; z-index: 1;
-    box-shadow: 0 14px 34px rgba(0,0,0,0.28);
-    transition: border-color 0.2s, box-shadow 0.2s, transform 0.25s;
-  }
-  .critique-grid .critique-card.cs2 { transform: rotate(-1.1deg); }
-  .critique-grid .critique-card.lol { transform: rotate(1.1deg); }
-  .critique-grid .critique-card.cs2.reveal.visible { transform: rotate(-1.1deg); }
-  .critique-grid .critique-card.lol.reveal.visible { transform: rotate(1.1deg); }
-  .critique-card:hover:not(.wip) {
-    border-color: var(--border-bright);
-    box-shadow: 0 0 22px rgba(124,95,252,0.12);
-    transform: rotate(0deg) scale(1.015);
-  }
-  .critique-card.wip { opacity: 0.6; }
-  .wip-badge {
-    position: absolute; top: 14px; right: 14px;
-    background: rgba(124,95,252,0.15);
-    border: 1px solid rgba(124,95,252,0.3);
-    border-radius: 4px; padding: 3px 8px;
-    font-size: 9px; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--accent-light);
-  }
-  .critique-game {
-    font-size: 10px; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--accent-light); margin-bottom: 6px;
-  }
-  .critique-card h4 {
-    font-family: 'Exo 2', sans-serif;
-    font-size: 16px; font-weight: 700; color: var(--white);
-    margin-bottom: 10px; line-height: 1.3;
-  }
-  .critique-card p {
-    font-size: 13px; color: var(--text-muted);
-    line-height: 1.65; flex: 1; margin-bottom: 16px;
-  }
-
-  /* RECOGNITION */
-  .rec-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; margin-bottom: 18px; }
-  .rec-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 10px; padding: 22px 24px;
-    display: flex; gap: 14px; align-items: flex-start;
-    backdrop-filter: blur(8px);
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .rec-card:hover {
-    border-color: var(--border-bright);
-    box-shadow: 0 0 22px rgba(124,95,252,0.12);
-  }
-  .rec-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; }
-  .rec-card h4 { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
-  .rec-card p { font-size: 12.5px; color: var(--text-muted); line-height: 1.5; }
-  .rec-year { font-size: 11px; color: var(--cyan); letter-spacing: 1px; margin-top: 6px; display: block; }
-
-  /* GEN.G CARD */
-  .geng-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 10px; padding: 20px 24px;
-    display: flex; align-items: center; gap: 20px;
-    backdrop-filter: blur(8px);
-    transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .geng-card:hover {
-    border-color: var(--border-bright);
-    box-shadow: 0 0 22px rgba(124,95,252,0.12);
-  }
-  .geng-thumb {
-    width: 116px; height: 82px; object-fit: cover;
-    border-radius: 6px; border: 1px solid var(--border);
-    flex-shrink: 0;
-  }
-  .geng-text h4 { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 5px; }
-  .geng-text p { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
-
-  /* CONTACT FORM */
-  .contact-form-wrap {
-    max-width: 520px; margin: 36px auto 0;
-  }
-  .contact-form {
-    display: flex; flex-direction: column; gap: 14px;
-  }
-  .contact-form input,
-  .contact-form textarea {
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 13px 16px;
-    color: var(--text);
-    font-family: 'Exo 2', sans-serif;
-    font-size: 14px;
-    width: 100%;
-    transition: border-color 0.2s;
-    outline: none;
-    resize: vertical;
-  }
-  .contact-form input:focus,
-  .contact-form textarea:focus { border-color: var(--border-bright); }
-  .contact-form input::placeholder,
-  .contact-form textarea::placeholder { color: var(--text-muted); }
-  .contact-form textarea { min-height: 120px; }
-  .contact-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  @media (max-width: 520px) { .contact-form-row { grid-template-columns: 1fr; } }
-  .contact-submit {
-    background: var(--accent); color: #06060f;
-    border: none; border-radius: 8px;
-    padding: 13px 28px; font-size: 14px; font-weight: 700;
-    font-family: 'Exo 2', sans-serif; letter-spacing: 0.5px;
-    cursor: pointer; transition: opacity 0.2s, transform 0.15s;
-    align-self: flex-end;
-  }
-  .contact-submit:hover { opacity: 0.88; transform: translateY(-1px); }
-  .contact-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-  .contact-status {
-    font-size: 13px; text-align: center; padding: 10px;
-    border-radius: 6px; display: none;
-  }
-  .contact-status.success { background: rgba(34,197,94,0.1); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
-  .contact-status.error { background: rgba(239,68,68,0.08); color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
-
-  /* CONTACT */
-  .contact-links { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
-  .contact-link {
-    display: flex; align-items: center; gap: 9px;
-    padding: 14px 22px;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 8px; text-decoration: none;
-    color: var(--text-muted); font-size: 14px;
-    backdrop-filter: blur(8px);
-    transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
-  }
-  .contact-link:hover {
-    border-color: var(--border-bright); color: var(--text);
-    box-shadow: 0 0 22px rgba(124,95,252,0.14);
-  }
-  .contact-link strong { color: var(--text); font-weight: 600; }
-
-  /* FOOTER */
-  footer {
-    position: relative; z-index: 1;
-    border-top: 1px solid var(--border);
-    padding: 28px 52px; text-align: center;
-    font-size: 12px; color: var(--text-dim);
-  }
-
-  /* BACK TO TOP */
-  .back-top {
-    position: fixed; bottom: 30px; right: 30px; z-index: 150;
-    width: 44px; height: 44px;
-    background: var(--surface); border: 1px solid var(--border-bright);
-    border-radius: 8px; color: var(--text-muted); font-size: 18px;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    backdrop-filter: blur(10px);
-    opacity: 0; transform: translateY(8px); pointer-events: none;
-    transition: opacity 0.3s, transform 0.3s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
-  }
-  .back-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  .back-top:hover {
-    border-color: var(--accent); color: var(--text);
-    box-shadow: 0 0 16px rgba(124,95,252,0.3);
-  }
-
-  /* CANVAS */
-  #bg-canvas {
-    position: fixed; inset: 0;
-    width: 100%; height: 100%;
-    z-index: 0; pointer-events: none;
-  }
-
-  /* SCROLL REVEAL */
-  .reveal {
-    opacity: 0; transform: translateY(20px);
-    transition: opacity 0.55s ease, transform 0.55s ease;
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* WHY I DO THIS */
-  .why-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 60px; align-items: start;
-  }
-  .why-text p {
-    color: var(--text-muted); margin-bottom: 16px;
-    line-height: 1.8; font-size: 15px;
-  }
-  .why-text p:last-child { margin-bottom: 0; }
-  .why-list, .about-list {
-    list-style: none; display: flex; flex-direction: column; gap: 14px;
-    padding: 0; margin: 0;
-  }
-  .why-list li, .about-list li {
-    color: var(--text-muted); font-size: 15px; line-height: 1.75;
-    padding-left: 18px; position: relative;
-  }
-  .why-list li::before, .about-list li::before {
-    content: '▸'; position: absolute; left: 0;
-    color: var(--accent); font-size: 12px; top: 4px;
-  }
-  .why-list strong, .about-list strong { color: var(--text); font-weight: 600; }
-  .highlight-text {
-    background: linear-gradient(135deg, #b8acff 0%, #7c5ffc 40%, #22d3ee 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text; font-weight: 700;
-  }
-  .why-images {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto;
-    gap: 8px;
-  }
-  .why-img {
-    width: 100%; object-fit: cover;
-    border-radius: 8px; border: 1px solid var(--border);
-    display: block; background: var(--surface-2);
-    transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
-  }
-  .why-img:hover {
-    border-color: var(--border-bright);
-    box-shadow: 0 0 28px rgba(124,95,252,0.22);
-    transform: scale(1.012);
-    z-index: 2; position: relative;
-  }
-  .why-img-wide {
-    grid-column: span 2;
-    aspect-ratio: 16/7;
-  }
-  .why-img-tall {
-    aspect-ratio: 3/4;
-  }
-  .why-img-sq {
-    aspect-ratio: 4/3;
-  }
-
-  /* IMAGE LIGHTBOX */
-  .img-lightbox {
-    position: fixed; inset: 0; z-index: 1001;
-    background: rgba(4,3,12,0.93);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.25s;
-    cursor: zoom-out;
-  }
-  .img-lightbox.open { opacity: 1; pointer-events: auto; }
-  .img-lightbox img {
-    max-width: 92vw; max-height: 90vh;
-    border-radius: 10px;
-    box-shadow: 0 32px 80px rgba(0,0,0,0.7);
-    object-fit: contain;
-    transform: scale(0.94);
-    transition: transform 0.25s;
-  }
-  .img-lightbox.open img { transform: scale(1); }
-  .img-lightbox-close {
-    position: absolute; top: 18px; right: 22px;
-    background: none; border: 1px solid rgba(255,255,255,0.2);
-    color: rgba(255,255,255,0.6); font-size: 18px;
-    width: 36px; height: 36px; border-radius: 6px;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    transition: color 0.2s, border-color 0.2s;
-  }
-  .img-lightbox-close:hover { color: #fff; border-color: rgba(255,255,255,0.5); }
-
-  /* PDF MODAL */
-  .pdf-modal-overlay {
-    position: fixed; inset: 0; z-index: 1000;
-    background: rgba(4,3,12,0.9);
-    backdrop-filter: blur(10px);
-    display: flex; align-items: center; justify-content: center;
-    opacity: 0; pointer-events: none;
-    transition: opacity 0.25s;
-  }
-  .pdf-modal-overlay.open { opacity: 1; pointer-events: auto; }
-  .pdf-modal-box {
-    width: min(880px, 94vw); height: min(88vh, 920px);
-    background: var(--surface-2);
-    border: 1px solid var(--border-bright);
-    border-radius: 12px; overflow: hidden;
-    display: flex; flex-direction: column;
-    transform: translateY(20px);
-    transition: transform 0.28s cubic-bezier(0.22,1,0.36,1);
-    box-shadow: 0 32px 80px rgba(0,0,0,0.7);
-  }
-  .pdf-modal-overlay.open .pdf-modal-box { transform: translateY(0); }
-  .pdf-modal-header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 20px;
-    background: rgba(10,8,26,0.95);
-    border-bottom: 1px solid var(--border);
-    flex-shrink: 0;
-  }
-  .pdf-modal-title {
-    font-size: 13px; font-weight: 600; color: var(--text);
-    letter-spacing: 0.2px;
-  }
-  .pdf-modal-close {
-    background: none; border: 1px solid var(--border);
-    cursor: pointer; color: var(--text-muted);
-    font-size: 16px; line-height: 1; padding: 5px 10px;
-    border-radius: 5px; transition: color 0.2s, border-color 0.2s, background 0.2s;
-  }
-  .pdf-modal-close:hover {
-    color: var(--text); border-color: var(--accent);
-    background: rgba(124,95,252,0.1);
-  }
-  #pdf-modal-frame { flex: 1; border: none; width: 100%; background: #fff; }
-
-  /* GAME-THEMED CRITIQUE CARDS */
-  .critique-card.cs2 {
-    background:
-      radial-gradient(ellipse at 96% 6%, rgba(228,196,43,0.08) 0%, transparent 44%),
-      radial-gradient(ellipse at 4% 94%, rgba(228,196,43,0.04) 0%, transparent 40%),
-      linear-gradient(155deg, #0d1117 0%, #12191f 100%);
-    border-color: rgba(228,196,43,0.16);
-  }
-  .critique-card.cs2:hover:not(.wip) {
-    border-color: rgba(228,196,43,0.4);
-    box-shadow: 0 0 32px rgba(228,196,43,0.1);
-  }
-  .critique-card.cs2 .critique-game { color: #d4b830; letter-spacing: 2.5px; }
-  .critique-card.cs2 h4 { color: #e8e0c4; }
-  .critique-card.cs2 p { color: #8c9aaa; }
-  .critique-card.cs2::before {
-    content: '💣';
-    position: absolute; top: 14px; right: 16px;
-    font-size: 22px; pointer-events: none; opacity: 0.75;
-    background: none; width: auto; height: auto;
-  }
-
-  .critique-card.lol {
-    background:
-      radial-gradient(ellipse at 6% 94%, rgba(200,155,60,0.1) 0%, transparent 48%),
-      radial-gradient(ellipse at 94% 6%, rgba(200,155,60,0.04) 0%, transparent 38%),
-      linear-gradient(155deg, #010a13 0%, #0c1829 100%);
-    border-color: rgba(200,155,60,0.2);
-  }
-  .critique-card.lol:hover:not(.wip) {
-    border-color: rgba(200,155,60,0.48);
-    box-shadow: 0 0 32px rgba(200,155,60,0.12);
-  }
-  .critique-card.lol .critique-game { color: #c8aa6e; letter-spacing: 2.5px; }
-  .critique-card.lol h4 { color: #f0e6d3; }
-  .critique-card.lol p { color: #7a8fa0; }
-  .critique-card.lol::before {
-    content: '🏆';
-    position: absolute; top: 14px; right: 16px;
-    font-size: 20px; pointer-events: none; opacity: 0.75;
-    border: none; border-radius: 0; box-shadow: none;
-    width: auto; height: auto; background: none;
-  }
-
-  /* Game screenshot backgrounds on critique cards */
-  .critique-card.cs2::after {
-    content: '';
-    position: absolute; inset: 0; border-radius: inherit;
-    background: url('assets/cs2-bg.jpg') center / cover no-repeat;
-    opacity: 0.06; pointer-events: none; z-index: 0;
-    transition: opacity 0.3s;
-  }
-  .critique-card.cs2:hover::after { opacity: 0.1; }
-  .critique-card.lol::after {
-    content: '';
-    position: absolute; inset: 0; border-radius: inherit;
-    background: url('assets/lol-bg.jpg') center / cover no-repeat;
-    opacity: 0.06; pointer-events: none; z-index: 0;
-    transition: opacity 0.3s;
-  }
-  .critique-card.lol:hover::after { opacity: 0.1; }
-  /* Keep card content above the background image */
-  .critique-card > * { position: relative; z-index: 1; }
-
-  /* CASE STUDY VIDEO */
-  .video-label {
-    font-size: 11.5px; color: var(--text-dim); letter-spacing: 0.3px;
-    margin-top: 16px;
-  }
-  .case-video {
-    width: 100%; border-radius: 8px;
-    border: 1px solid var(--border);
-    display: block; background: #000;
-    max-height: 380px; object-fit: cover; object-position: top right;
-    margin-top: 16px;
-  }
-
-  /* ABOUT PHOTO */
-  .about-photo-wrap {
-    position: relative;
-  }
-  .about-photo-label {
-    position: absolute; bottom: 12px; left: 12px;
-    font-size: 11px; letter-spacing: 1.5px;
-    text-transform: uppercase; color: var(--text-muted);
-    background: rgba(6,6,15,0.78); backdrop-filter: blur(8px);
-    padding: 5px 10px; border-radius: 4px;
-    border: 1px solid var(--border);
-  }
-
-  /* DOC-LINK BUTTON */
-  button.doc-link {
-    cursor: pointer; font-family: inherit;
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 9px 16px;
-    background: rgba(34,211,238,0.07);
-    border: 1px solid rgba(34,211,238,0.22);
-    border-radius: 6px; color: var(--cyan);
-    font-size: 13px; font-weight: 500; width: fit-content;
-    transition: background 0.2s, border-color 0.2s;
-  }
-  button.doc-link:hover {
-    background: rgba(34,211,238,0.14);
-    border-color: rgba(34,211,238,0.48);
-  }
-  button.doc-link.sm { font-size: 12px; padding: 7px 12px; }
-
-  /* RESPONSIVE */
-  @media (max-width: 960px) {
-    nav { padding: 0 24px; }
-    .section-wrap, .glass-section { padding: 80px 24px; }
-    #hero { padding: 120px 24px 80px; }
-    .hero-inner { grid-template-columns: 1fr; }
-    .hero-avatar { display: none; }
-
-    .why-grid { grid-template-columns: 1fr; gap: 36px; }
-    .why-images { grid-template-columns: 1fr 1fr; }
-    .about-grid { grid-template-columns: 1fr; gap: 36px; }
-
-    .skills-grid { columns: 2; }
-    .case-card { grid-template-columns: 1fr; }
-    .case-visual { border-right: none; border-bottom: 1px solid var(--border); min-height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; padding: 16px 20px; gap: 14px; }
-    .case-live-note { flex-basis: 100%; }
-    .case-card-vr .case-visual, .case-card-vr .case-body { order: 0; border-left: none; }
-    .case-icon { width: 30px; height: 30px; margin-bottom: 0; }
+  /* ── RESPONSIVE ──────────────────────── */
+  @media (max-width: 980px) {
+    .nav-links { display: none; }
+    .two, #contact .wrap { grid-template-columns: 1fr; gap: 40px; }
+    .skills { grid-template-columns: 1fr 1fr; }
+    .case { grid-template-columns: 1fr; }
+    .case-side { border-right: 0; border-bottom: 1px solid var(--hairline); flex-direction: row; flex-wrap: wrap; align-items: center; padding: 22px 24px; }
     .case-num { font-size: 40px; }
-    .rec-grid { grid-template-columns: 1fr 1fr; }
-    .critique-grid { grid-template-columns: 1fr; }
-    .critique-grid .critique-card.cs2, .critique-grid .critique-card.lol,
-    .critique-grid .critique-card.cs2.reveal.visible, .critique-grid .critique-card.lol.reveal.visible { transform: none; }
-    .timeline::before { display: none; }
-    .timeline { flex-wrap: wrap; gap: 10px; }
-    .t-step { flex-direction: row; flex: none; gap: 8px; }
-    .t-label { max-width: none; text-align: left; }
+    .case-ic { display: none; }
+    .case-note { flex-basis: 100%; }
   }
   @media (max-width: 640px) {
-    h1 { letter-spacing: -1.5px; }
-    .skills-grid { columns: 1; }
-    .about-stats { grid-template-columns: 1fr 1fr; }
-    .nav-links { display: none; }
-
-    .rec-grid { grid-template-columns: 1fr; }
-    .geng-thumb { display: none; }
+    .wrap { padding: 0 16px; }
+    section.block { padding: 80px 0; }
+    #hero { padding-top: 64px; }
+    .k-btn .k-label { display: none; }
+    .skills, .crits, .form-row { grid-template-columns: 1fr; }
+    .case-body { padding: 22px 18px; }
+    .steps { flex-direction: column; gap: 10px; }
+    .step { padding: 2px 0 0 32px; min-height: 22px; }
+    .step::after { display: none; }
+    .ach { grid-template-columns: 52px 1fr; gap: 14px; }
+    .ach-ic, .ach-thumb { width: 52px; height: 52px; }
+    .ach-meta { grid-column: 2; text-align: left; }
+    .p-row small, .p-tag, .p-hint { display: none; }
+    .collage { grid-template-rows: 180px 140px; }
   }
 </style>
 </head>
 <body>
 
-<!-- BACKGROUND -->
-<div class="orb orb-1"></div>
-<div class="orb orb-2"></div>
-<div class="orb orb-3"></div>
-<div class="orb orb-4"></div>
-<canvas id="bg-canvas"></canvas>
-<div class="beam beam-1"></div>
-<div class="beam beam-2"></div>
-<div class="beam beam-3"></div>
-<div class="scanline"></div>
+<!-- Face-button glyphs, used as section markers -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="tri" viewBox="0 0 20 20"><path d="M10 3.5 17 16H3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="cir" viewBox="0 0 20 20"><circle cx="10" cy="10" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="x" viewBox="0 0 20 20"><path d="m4.5 4.5 11 11m0-11-11 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="sq" viewBox="0 0 20 20"><rect x="4" y="4" width="12" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z M14 3v5h5 M9 13h6 M9 17h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="slides" viewBox="0 0 24 24"><path d="M3 4h18v12H3Z M12 16v4 M8 20h8 M7 12l3-3 3 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="trophy" viewBox="0 0 24 24"><path d="M8 21h8 M12 17v4 M7 4h10v5a5 5 0 0 1-10 0Z M7 6H4a3 3 0 0 0 3 4 M17 6h3a3 3 0 0 1-3 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-left">
-    <div class="nav-logo">Alfie Bunyan</div>
-    <div class="open-chip"><div class="open-dot"></div>Open to Work</div>
+<nav class="top" id="nav">
+  <div class="wrap">
+    <a href="#hero" class="brand"><span class="brand-mark">A</span>Alfie Bunyan</a>
+    <ul class="nav-links">
+      <li><a href="#why">Why</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#work">Case Studies</a></li>
+      <li><a href="#critiques">Critiques</a></li>
+      <li><a href="#recognition">Recognition</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="k-btn" id="openCmdk" aria-label="Open quick search"><span class="k-label">Search</span><span class="kbd" id="modKey">Ctrl</span><span class="kbd">K</span></button>
+      <a href="#contact" class="btn btn-white" style="height:32px;padding:0 14px">Contact</a>
+    </div>
   </div>
-  <ul class="nav-links">
-    <li><a href="#why">Why</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#work">Case Studies</a></li>
-    <li><a href="#critiques">Critiques</a></li>
-    <li><a href="#recognition">Recognition</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-inner">
-    <div class="hero-content">
-      <div class="hero-label reveal">Games User Researcher</div>
-      <h1 class="reveal" style="transition-delay:0.1s">I research the <em>'why'</em><br>behind how people think, play, and interact.</h1>
-      <p class="hero-sub reveal" style="transition-delay:0.2s">
-        Postgraduate researcher combining psychology, play, and mixed-methods UX research, from VR to mobile playtesting, to help teams build better player experiences in an AI-shaped industry. Based in Guildford and London, open to hybrid and remote.
-      </p>
-      <div class="current-status reveal" style="transition-delay:0.25s">
-        <div class="open-dot"></div>
-        <span><strong>Right now:</strong> piloting mobile playtests on PlaytestCloud, mentored by senior games researcher Joe Kulik through the Limit Break Mentorship Programme.</span>
-      </div>
-      <div class="hero-cta reveal" style="transition-delay:0.3s">
-        <a href="#work" class="btn-primary">View Case Studies</a>
-        <a href="#contact" class="btn-ghost">Get in Touch</a>
-        <a href="assets/Alfie_Bunyan_CV.pdf" download="Alfie_Bunyan_CV.pdf" class="btn-ghost">Download CV</a>
+  <div class="glow"></div>
+  <div class="grid-fade"></div>
+  <div class="wrap">
+    <div class="presence reveal">
+      <div class="presence-av"><img src="assets/alfie.jpg" alt="Alfie Bunyan"></div>
+      <div><b>Games User Researcher</b><span>Online <em>&middot; Open to work &middot; Guildford &amp; London</em></span></div>
+    </div>
+    <h1 class="reveal">I research the <span class="why">why</span> behind how people think, play, and interact.</h1>
+    <p class="lede reveal">Postgraduate researcher combining psychology, play, and mixed-methods UX research, from VR to mobile playtesting, to help teams build better player experiences in an AI-shaped industry. Based in Guildford and London, open to hybrid and remote.</p>
+    <div class="ctas reveal">
+      <a href="#work" class="btn btn-white">View Case Studies</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+      <a href="assets/Alfie_Bunyan_CV.pdf" download="Alfie_Bunyan_CV.pdf" class="btn btn-ghost">Download CV</a>
+    </div>
+
+    <div class="palette reveal" id="heroPalette">
+      <label class="p-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="text" placeholder="Search Alfie's research..." aria-label="Search the portfolio" autocomplete="off">
+      </label>
+      <div class="p-list" role="listbox"></div>
+      <div class="p-foot">
+        <div class="now"><span class="now-bars"><i></i><i></i><i></i></span><b>Now playing</b><span>Piloting mobile playtests on PlaytestCloud, mentored by senior games researcher Joe Kulik through the Limit Break Mentorship Programme</span></div>
+        <div class="p-hint"><span class="kbd">&uarr;</span><span class="kbd">&darr;</span><span class="kbd">&#8629;</span></div>
       </div>
     </div>
-    <img src="assets/alfie.jpg" alt="Alfie Bunyan" class="hero-avatar reveal" style="transition-delay:0.2s">
   </div>
 </section>
 
-<div class="divider"></div>
-
-<!-- WHY I DO THIS -->
-<div class="glass-section" id="why">
-  <div class="section-inner">
-    <div class="section-label reveal">Motivation</div>
+<!-- WHY -->
+<section class="block" id="why">
+  <div class="wrap">
+    <div class="eyebrow reveal"><svg class="glyph g-tri"><use href="#tri"/></svg>Motivation</div>
     <h2 class="reveal">Why I do this.</h2>
-    <div class="why-grid">
-      <div class="why-text reveal">
-        <p>I have had two obsessions my whole life: <strong>gaming and psychology</strong>. This is what happens when you combine them.</p>
-        <ul class="why-list">
-          <li><strong>I study the gap between what people say and what they do.</strong> Most human behaviour runs on autopilot. My interest is in making the invisible visible: finding the patterns in what people do and giving teams something they can actually act on.</li>
-          <li><strong>The counterintuitive questions are the interesting ones.</strong> Why does removing a feature players hated make them angrier? Why does anticipating a reward feel different from receiving it, even when the brain responds the same way?</li>
-          <li><strong>Games are a unique research environment.</strong> High-stakes emotional behaviour (frustration, trust, flow, social dynamics) in a controlled setting. The stakes feel low to the participant. The insight is anything but.</li>
-          <li><strong>I've experienced gaming communities at scale.</strong> Attending major esports events shapes how I think about player psychology, not just as data points, but as something felt firsthand.</li>
+    <div class="two">
+      <div class="reveal">
+        <p class="lead">I have had two obsessions my whole life: <strong>gaming and psychology</strong>. This is what happens when you combine them.</p>
+        <ul class="points">
+          <li><strong>I study the gap between what people say and what they do.</strong>Most human behaviour runs on autopilot. My interest is in making the invisible visible: finding the patterns in what people do and giving teams something they can actually act on.</li>
+          <li><strong>The counterintuitive questions are the interesting ones.</strong>Why does removing a feature players hated make them angrier? Why does anticipating a reward feel different from receiving it, even when the brain responds the same way?</li>
+          <li><strong>Games are a unique research environment.</strong>High-stakes emotional behaviour (frustration, trust, flow, social dynamics) in a controlled setting. The stakes feel low to the participant. The insight is anything but.</li>
+          <li><strong>I've experienced gaming communities at scale.</strong>Attending major esports events shapes how I think about player psychology, not just as data points, but as something felt firsthand.</li>
         </ul>
       </div>
-      <div class="why-images reveal" style="transition-delay:0.1s">
-        <!-- Save images from the chat to assets/ with these exact filenames -->
-        <img src="assets/worlds-arena.jpg"   alt="LoL Worlds 2024 Grand Final arena at The O2 London, packed crowd under blue light" class="why-img why-img-wide" loading="lazy">
-        <img src="assets/worlds-banners.jpg" alt="LoL Worlds 2024 Grand Final BLG vs T1 banners inside The O2" class="why-img why-img-tall" loading="lazy">
-        <img src="assets/worlds-stage.jpg"   alt="LoL Worlds 2024 stage, player on main screen, crowd lights" class="why-img why-img-sq" loading="lazy">
+      <div class="collage reveal">
+        <figure class="c1"><img src="assets/worlds-arena.jpg" alt="LoL Worlds 2024 Grand Final arena at The O2 London, packed crowd under blue light" loading="lazy"><figcaption>Worlds 2024 &middot; The O2</figcaption></figure>
+        <figure><img src="assets/worlds-banners.jpg" alt="LoL Worlds 2024 Grand Final BLG vs T1 banners inside The O2" loading="lazy"></figure>
+        <figure><img src="assets/worlds-stage.jpg" alt="LoL Worlds 2024 stage, player on main screen, crowd lights" loading="lazy"></figure>
       </div>
     </div>
   </div>
-</div>
-
-<div class="divider"></div>
+</section>
 
 <!-- ABOUT -->
-<div class="section-wrap" id="about">
-  <div class="section-inner">
-    <div class="section-label reveal">Background</div>
+<section class="block" id="about">
+  <div class="wrap">
+    <div class="eyebrow reveal"><svg class="glyph g-cir"><use href="#cir"/></svg>Background</div>
     <h2 class="reveal">Psychology applied to play.</h2>
-    <div class="about-grid">
-      <div class="about-text reveal">
-        <ul class="about-list">
-          <li><strong>Psychology at the University of Surrey:</strong> BSc (2:1), then MSc in Psychology, Game Design and Digital Innovation (predicted Distinction). The research methods grounding matters as much as the subject.</li>
-          <li><strong>Live studio placement at 22cans</strong> (a games studio) on Masters of Albion: the full research lifecycle with real stakeholders, recruitment, facilitation, analysis, and a prioritised findings report delivered to the development team.</li>
-          <li><strong>Specialist interests</strong> in player psychology and AI's growing role in game design, with PC and mobile playtesting, VR interaction design, and trust in immersive systems all part of the toolkit. Focused on translating findings into something a development team can actually use.</li>
-          <li><strong>Based in Guildford and London.</strong> Open to onsite, hybrid, or fully remote.</li>
+    <div class="two">
+      <div class="reveal">
+        <ul class="points">
+          <li><strong>Psychology at the University of Surrey</strong>BSc (2:1), then MSc in Psychology, Game Design and Digital Innovation (predicted Distinction). The research methods grounding matters as much as the subject.</li>
+          <li><strong>Live studio placement at 22cans</strong>A games studio, on Masters of Albion: the full research lifecycle with real stakeholders, recruitment, facilitation, analysis, and a prioritised findings report delivered to the development team.</li>
+          <li><strong>Specialist interests</strong>Player psychology and AI's growing role in game design, with PC and mobile playtesting, VR interaction design, and trust in immersive systems all part of the toolkit. Focused on translating findings into something a development team can actually use.</li>
+          <li><strong>Based in Guildford and London</strong>Open to onsite, hybrid, or fully remote.</li>
         </ul>
       </div>
-      <div class="reveal" style="transition-delay:0.1s; margin-top:-28px;">
-        <img src="assets/alfie-hero.jpg" alt="Alfie Bunyan at graduation" class="about-candid" loading="lazy">
-        <div class="about-stats">
-          <div class="stat-card">
-            <div class="stat-num">2</div>
-            <div class="stat-label">Psychology degrees at Surrey: BSc (2:1) and MSc (predicted Distinction)</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">4</div>
-            <div class="stat-label">Research studies across games, VR, and behavioural contexts</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">40+</div>
-            <div class="stat-label">Participants engaged across studies</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-num">5</div>
-            <div class="stat-label">Stage research lifecycle delivered, ethics to stakeholder report</div>
-          </div>
+      <div class="reveal">
+        <div class="about-photo"><img src="assets/alfie-hero.jpg" alt="Alfie Bunyan at graduation" loading="lazy"></div>
+        <div class="stats-head"><span>Player stats</span><span>P1</span></div>
+        <div class="stats" style="margin-top:10px">
+          <div class="stat"><span class="stat-key">DEG</span><div class="stat-num">2</div><div class="stat-lbl">Psychology degrees at Surrey: BSc (2:1) and MSc (predicted Distinction)</div></div>
+          <div class="stat"><span class="stat-key">STU</span><div class="stat-num">4</div><div class="stat-lbl">Research studies across games, VR, and behavioural contexts</div></div>
+          <div class="stat"><span class="stat-key">PAR</span><div class="stat-num">40+</div><div class="stat-lbl">Participants engaged across studies</div></div>
+          <div class="stat"><span class="stat-key">LVL</span><div class="stat-num">5</div><div class="stat-lbl">Stage research lifecycle delivered, ethics to stakeholder report</div></div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<div class="divider"></div>
+</section>
 
 <!-- SKILLS -->
-<div class="glass-section" id="skills">
-  <div class="section-inner">
-    <div class="section-label reveal">Capabilities</div>
-    <h2 class="reveal">How I Work</h2>
-    <p class="section-intro reveal">Methods, tools, and analytical approaches I bring to user research projects.</p>
-    <div class="skills-grid">
-      <div class="skill-card sk-games reveal">
-        <div class="skill-icon">🎮</div>
-        <h3>Games Research</h3>
+<section class="block" id="skills">
+  <div class="wrap">
+    <div class="eyebrow reveal"><svg class="glyph g-x"><use href="#x"/></svg>Capabilities</div>
+    <h2 class="reveal">How I work.</h2>
+    <p class="intro reveal">Methods, tools, and analytical approaches I bring to user research projects. Each one is tagged with where I have applied it.</p>
+    <div class="skills">
+      <div class="skill reveal">
+        <div class="skill-head"><span class="skill-ic" style="background:rgba(255,97,97,.12);color:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.3 5H6.7a4 4 0 0 0-4 3.6L2 15a3 3 0 0 0 5.4 2l1.6-2h6l1.6 2a3 3 0 0 0 5.4-2l-.7-6.4A4 4 0 0 0 17.3 5Z"/></svg></span><h3>Games Research</h3></div>
         <ul>
-          <li>Playtesting facilitation <span class="skill-applied">22cans</span></li>
-          <li>Think-aloud protocols <span class="skill-applied">22cans</span></li>
-          <li>Player psychology frameworks <span class="skill-applied">MSc</span></li>
-          <li>Heuristic evaluation <span class="skill-applied">MSc</span></li>
-          <li>Engagement and retention analysis <span class="skill-applied">22cans</span></li>
-          <li>Game feel and UX critique <span class="skill-applied">portfolio</span></li>
+          <li>Playtesting facilitation <span class="applied">22cans</span></li>
+          <li>Think-aloud protocols <span class="applied">22cans</span></li>
+          <li>Player psychology frameworks <span class="applied">MSc</span></li>
+          <li>Heuristic evaluation <span class="applied">MSc</span></li>
+          <li>Engagement and retention analysis <span class="applied">22cans</span></li>
+          <li>Game feel and UX critique <span class="applied">Portfolio</span></li>
         </ul>
       </div>
-      <div class="skill-card sk-methods reveal" style="transition-delay:0.08s">
-        <div class="skill-icon">🔬</div>
-        <h3>Research Methods</h3>
+      <div class="skill reveal">
+        <div class="skill-head"><span class="skill-ic" style="background:rgba(87,193,255,.12);color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8 11h6M11 8v6"/></svg></span><h3>Research Methods</h3></div>
         <ul>
-          <li>Semi-structured interviews <span class="skill-applied">22cans</span></li>
-          <li>Behavioural observation <span class="skill-applied">22cans</span></li>
-          <li>Eye-tracking (VR contexts) <span class="skill-applied">VR study</span></li>
-          <li>Within/between-subjects design <span class="skill-applied">VR study</span></li>
-          <li>Survey and experiment design <span class="skill-applied">MSc</span></li>
-          <li>Ethics and consent management <span class="skill-applied">22cans</span></li>
+          <li>Semi-structured interviews <span class="applied">22cans</span></li>
+          <li>Behavioural observation <span class="applied">22cans</span></li>
+          <li>Eye-tracking (VR contexts) <span class="applied">VR study</span></li>
+          <li>Within/between-subjects design <span class="applied">VR study</span></li>
+          <li>Survey and experiment design <span class="applied">MSc</span></li>
+          <li>Ethics and consent management <span class="applied">22cans</span></li>
         </ul>
       </div>
-      <div class="skill-card sk-analysis reveal" style="transition-delay:0.16s">
-        <div class="skill-icon">📊</div>
-        <h3>Analysis</h3>
+      <div class="skill reveal">
+        <div class="skill-head"><span class="skill-ic" style="background:rgba(89,212,153,.12);color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Analysis</h3></div>
         <ul>
-          <li>Thematic analysis <span class="skill-applied">22cans</span></li>
-          <li>Qualitative coding <span class="skill-applied">22cans</span></li>
-          <li>Affinity mapping <span class="skill-applied">22cans</span></li>
-          <li>SPSS <span class="skill-applied">MSc</span></li>
-          <li>Mixed-methods design <span class="skill-applied">VR study</span></li>
-          <li>Prompt engineering for research workflows <span class="skill-applied">portfolio</span></li>
-          <li>AI/ML-aware research design <span class="skill-applied">portfolio</span></li>
+          <li>Thematic analysis <span class="applied">22cans</span></li>
+          <li>Qualitative coding <span class="applied">22cans</span></li>
+          <li>Affinity mapping <span class="applied">22cans</span></li>
+          <li>SPSS <span class="applied">MSc</span></li>
+          <li>Mixed-methods design <span class="applied">VR study</span></li>
+          <li>Prompt engineering for research workflows <span class="applied">Portfolio</span></li>
+          <li>AI/ML-aware research design <span class="applied">Portfolio</span></li>
         </ul>
       </div>
-      <div class="skill-card sk-vr reveal" style="transition-delay:0.24s">
-        <div class="skill-icon">🥽</div>
-        <h3>VR and Technical</h3>
+      <div class="skill reveal">
+        <div class="skill-head"><span class="skill-ic" style="background:rgba(255,197,51,.12);color:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3h-3l-2-2.5h-4L8 18H5a3 3 0 0 1-3-3Z"/><circle cx="8" cy="12" r="1.6"/><circle cx="16" cy="12" r="1.6"/></svg></span><h3>VR and Technical</h3></div>
         <ul>
-          <li>Unreal Engine (prototyping) <span class="skill-applied">VR study</span></li>
-          <li>VR environment design <span class="skill-applied">VR study</span></li>
-          <li>Immersive UX evaluation <span class="skill-applied">VR study</span></li>
-          <li>Embodied interaction research <span class="skill-applied">VR study</span></li>
-          <li>OBS Studio (session recording) <span class="skill-applied">VR study</span></li>
+          <li>Unreal Engine (prototyping) <span class="applied">VR study</span></li>
+          <li>VR environment design <span class="applied">VR study</span></li>
+          <li>Immersive UX evaluation <span class="applied">VR study</span></li>
+          <li>Embodied interaction research <span class="applied">VR study</span></li>
+          <li>OBS Studio (session recording) <span class="applied">VR study</span></li>
         </ul>
       </div>
-      <div class="skill-card sk-behaviour reveal" style="transition-delay:0.32s">
-        <div class="skill-icon">🧠</div>
-        <h3>Behavioural Science</h3>
+      <div class="skill reveal">
+        <div class="skill-head"><span class="skill-ic" style="background:rgba(200,140,255,.12);color:#c88cff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="8" cy="19" r="2"/><circle cx="16" cy="19" r="2"/><path d="m10.5 6.5-4 4M13.5 6.5l4 4M6 14l1.3 3M18 14l-1.3 3M10 19h4"/></svg></span><h3>Behavioural Science</h3></div>
         <ul>
-          <li>Motor learning and skill acquisition <span class="skill-applied">VR study</span></li>
-          <li>Cognitive load assessment <span class="skill-applied">VR study</span></li>
-          <li>Trust and mental model research <span class="skill-applied">MSc</span></li>
-          <li>Child-appropriate methodology <span class="skill-applied">MSc</span></li>
-          <li>Implicit vs explicit learning <span class="skill-applied">VR study</span></li>
+          <li>Motor learning and skill acquisition <span class="applied">VR study</span></li>
+          <li>Cognitive load assessment <span class="applied">VR study</span></li>
+          <li>Trust and mental model research <span class="applied">MSc</span></li>
+          <li>Child-appropriate methodology <span class="applied">MSc</span></li>
+          <li>Implicit vs explicit learning <span class="applied">VR study</span></li>
         </ul>
       </div>
-      <div class="skill-card sk-tools reveal" style="transition-delay:0.4s">
-        <div class="skill-icon">🛠</div>
-        <h3>Tools and Platforms</h3>
+      <div class="skill reveal">
+        <div class="skill-head"><span class="skill-ic" style="background:rgba(255,255,255,.08);color:var(--ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4Z"/></svg></span><h3>Tools and Platforms</h3></div>
         <ul>
-          <li>Qualtrics <span class="skill-applied">22cans</span></li>
-          <li>Google Forms <span class="skill-applied">MSc</span></li>
-          <li>Zoom (remote facilitation) <span class="skill-applied">22cans</span></li>
-          <li>MS Teams <span class="skill-applied">22cans</span></li>
-          <li>Participant recruitment pipelines <span class="skill-applied">22cans</span></li>
+          <li>Qualtrics <span class="applied">22cans</span></li>
+          <li>Google Forms <span class="applied">MSc</span></li>
+          <li>Zoom (remote facilitation) <span class="applied">22cans</span></li>
+          <li>MS Teams <span class="applied">22cans</span></li>
+          <li>Participant recruitment pipelines <span class="applied">22cans</span></li>
         </ul>
       </div>
     </div>
   </div>
-</div>
-
-<div class="divider"></div>
+</section>
 
 <!-- CASE STUDIES -->
-<div class="section-wrap" id="work">
-  <div class="section-inner">
-    <div class="section-label reveal">Selected Research</div>
-    <h2 class="reveal">Case Studies</h2>
-    <p class="section-intro reveal">A selection of research projects spanning games, VR, and behavioural psychology.</p>
+<section class="block" id="work">
+  <div class="wrap">
+    <div class="eyebrow reveal"><svg class="glyph g-sq"><use href="#sq"/></svg>Selected Research</div>
+    <h2 class="reveal">Case studies.</h2>
+    <p class="intro reveal">A selection of research projects spanning games, VR, and behavioural psychology.</p>
 
-    <div class="case-studies">
+    <div class="cases">
 
-      <!-- 22CANS -->
-      <div class="case-card case-card-22cans reveal">
-        <div class="case-visual">
-          <svg class="case-icon" viewBox="0 0 48 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M14 8h20a10 10 0 0 1 10 10v2a6 6 0 0 1-11 3.4L29 19H19l-4 4.4A6 6 0 0 1 4 20v-2A10 10 0 0 1 14 8Z"/>
-            <path d="M13 14v6M10 17h6"/>
-            <circle cx="34" cy="15" r="1.6" fill="currentColor" stroke="none"/>
-            <circle cx="38" cy="19" r="1.6" fill="currentColor" stroke="none"/>
-            <circle cx="34" cy="23" r="1.6" fill="currentColor" stroke="none"/>
-            <circle cx="30" cy="19" r="1.6" fill="currentColor" stroke="none"/>
-          </svg>
+      <!-- 01 · 22CANS -->
+      <article class="case reveal" id="case-22cans">
+        <div class="case-side">
           <div class="case-num">01</div>
-          <div class="case-type-badge">User Research Consultant</div>
-          <div class="case-live-note">22cans is an active, live games studio, this placement ran alongside a real release, not a simulated exercise.</div>
-          <div class="featured-badge">Featured Study</div>
+          <span class="case-type">User Research Consultant</span>
+          <span class="case-flag">Featured study</span>
+          <div class="case-note">22cans is an active, live games studio. This placement ran alongside a real release, not a simulated exercise.</div>
+          <svg class="case-ic" viewBox="0 0 48 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 8h20a10 10 0 0 1 10 10v2a6 6 0 0 1-11 3.4L29 19H19l-4 4.4A6 6 0 0 1 4 20v-2A10 10 0 0 1 14 8Z"/><path d="M13 14v6M10 17h6"/><circle cx="34" cy="15" r="1.6" fill="currentColor" stroke="none"/><circle cx="38" cy="19" r="1.6" fill="currentColor" stroke="none"/><circle cx="34" cy="23" r="1.6" fill="currentColor" stroke="none"/><circle cx="30" cy="19" r="1.6" fill="currentColor" stroke="none"/></svg>
         </div>
         <div class="case-body">
-          <div class="case-context">University of Surrey &nbsp;·&nbsp; 22cans (Games Studio) &nbsp;·&nbsp; 2026</div>
+          <div class="case-ctx">University of Surrey &middot; 22cans (Games Studio) &middot; 2026</div>
           <h3>End-to-End Playtest Research for a Released Title</h3>
           <div class="case-stats">
-            <div class="case-stat"><span class="case-stat-val">3</span><span class="case-stat-lbl">Sessions Facilitated</span></div>
-            <div class="case-stat"><span class="case-stat-val">20</span><span class="case-stat-lbl">Participants Analysed</span></div>
-            <div class="case-stat"><span class="case-stat-val">10</span><span class="case-stat-lbl">Recommendations Made</span></div>
-            <div class="case-stat"><span class="case-stat-val">8</span><span class="case-stat-lbl">Adopted by the Studio</span></div>
+            <div class="case-stat"><span class="cs-val">3</span><span class="cs-lbl">Sessions facilitated</span></div>
+            <div class="case-stat"><span class="cs-val">20</span><span class="cs-lbl">Participants analysed</span></div>
+            <div class="case-stat"><span class="cs-val">10</span><span class="cs-lbl">Recommendations made</span></div>
+            <div class="case-stat"><span class="cs-val">8</span><span class="cs-lbl">Adopted by the studio</span></div>
           </div>
           <p>A full user research engagement embedded within 22cans, a live games studio, covering the complete research lifecycle from participant recruitment through stakeholder delivery. I ran 3 live facilitated playtest sessions, conducted and transcribed post-play interviews, and applied thematic analysis across data from 20 participants to surface usability pain points and engagement patterns, then delivered a prioritised findings report of 10 recommendations to the development team.</p>
           <p>Working in a live studio environment meant navigating real constraints: NDA protocols, stakeholder expectations, and production timelines alongside the research itself.</p>
-          <div class="case-tags">
-            <span class="tag">Playtesting Facilitation</span>
-            <span class="tag">Semi-structured Interviews</span>
-            <span class="tag">Thematic Analysis</span>
-            <span class="tag">Ethics Documentation</span>
-            <span class="tag">Stakeholder Expectation Management</span>
+          <div class="tags">
+            <span class="tag">Playtesting Facilitation</span><span class="tag">Semi-structured Interviews</span><span class="tag">Thematic Analysis</span><span class="tag">Ethics Documentation</span><span class="tag">Stakeholder Expectation Management</span>
           </div>
-          <div class="timeline">
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Ethics and Consent</div></div>
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Recruitment</div></div>
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Facilitation</div></div>
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Thematic Analysis</div></div>
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Studio Debrief</div></div>
+          <div class="steps">
+            <div class="step">Ethics and Consent</div><div class="step">Recruitment</div><div class="step">Facilitation</div><div class="step">Thematic Analysis</div><div class="step">Studio Debrief</div>
           </div>
-          <img src="assets/giz-screens.jpg" alt="Dual-screen playtesting setup at the GIZ" class="case-video" style="object-fit:cover; object-position:center; max-height:400px;" loading="lazy">
-          <div class="case-outcome">8 of the 10 recommendations were adopted and acted on by the development team, feeding directly into post-playtest iteration on the title. Specifics under NDA.</div>
-          <div class="nda-note" style="margin-top:12px;">🔒 &nbsp;Full research documentation available on request (NDA-restricted)</div>
+          <img src="assets/giz-screens.jpg" alt="Dual-screen playtesting setup at the GIZ" class="media media-img" loading="lazy">
+          <div class="outcome"><span class="outcome-lbl">Outcome</span>8 of the 10 recommendations were adopted and acted on by the development team, feeding directly into post-playtest iteration on the title. Specifics under NDA.</div>
+          <div class="nda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Full research documentation available on request (NDA-restricted)</div>
         </div>
-      </div>
+      </article>
 
-      <!-- VR SIMULATION -->
-      <div class="case-card case-card-vr reveal">
-        <div class="case-visual">
-          <svg class="case-icon" viewBox="0 0 52 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-            <path d="M2 10C2 6 6 4 10 4L42 4C46 4 50 6 50 10L50 20C50 24 46 26 42 26L38 26C36 26 34 24 32 22C30 20 28 20 26 20C24 20 22 20 20 22C18 24 16 26 14 26L10 26C6 26 2 24 2 20Z"/>
-            <circle cx="16" cy="15" r="5"/><circle cx="36" cy="15" r="5"/>
-            <path d="M21 15L31 15" stroke-width="1.5"/>
-          </svg>
+      <!-- 02 · VR SIMULATION -->
+      <article class="case c-blue reveal" id="case-vr">
+        <div class="case-side">
           <div class="case-num">02</div>
-          <div class="case-type-badge">MSc Module Project</div>
+          <span class="case-type">MSc Module Project</span>
+          <svg class="case-ic" viewBox="0 0 52 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M2 10C2 6 6 4 10 4L42 4C46 4 50 6 50 10L50 20C50 24 46 26 42 26L38 26C36 26 34 24 32 22C30 20 28 20 26 20C24 20 22 20 20 22C18 24 16 26 14 26L10 26C6 26 2 24 2 20Z"/><circle cx="16" cy="15" r="5"/><circle cx="36" cy="15" r="5"/><path d="M21 15L31 15" stroke-width="1.5"/></svg>
         </div>
         <div class="case-body">
-          <div class="case-context">University of Surrey &nbsp;·&nbsp; MSc Year 1</div>
+          <div class="case-ctx">University of Surrey &middot; MSc Year 1</div>
           <h3>VR Cognitive Impairment Simulation</h3>
           <div class="case-stats">
-            <div class="case-stat"><span class="case-stat-val">UE5</span><span class="case-stat-lbl">Custom VR Build</span></div>
-            <div class="case-stat"><span class="case-stat-val">1 of 4</span><span class="case-stat-lbl">Cognitive Domains Prototyped</span></div>
-            <div class="case-stat"><span class="case-stat-val">Proposal</span><span class="case-stat-lbl">Proof of Concept</span></div>
+            <div class="case-stat"><span class="cs-val">UE5</span><span class="cs-lbl">Custom VR build</span></div>
+            <div class="case-stat"><span class="cs-val">1 of 4</span><span class="cs-lbl">Cognitive domains prototyped</span></div>
+            <div class="case-stat"><span class="cs-val">Proposal</span><span class="cs-lbl">Proof of concept</span></div>
           </div>
           <p>Designed and built a proof-of-concept VR environment in Unreal Engine simulating alcohol-like visual impairment, proposed as part of a larger study into how impairment affects cognitive performance. The prototype demonstrated one of four planned cognitive tests, introducing measurable perceptual distortions during an in-world task with a single demonstration participant to show how the full study would run.</p>
           <p>Scoped as a four-domain study examining distinct cognitive capacities and how they interact under impairment. Delivered as an academic presentation covering design rationale, methodology, and implications for accessibility and safety simulation.</p>
-          <div class="case-tags">
-            <span class="tag">Unreal Engine</span>
-            <span class="tag">VR Prototyping</span>
-            <span class="tag">Cognitive Assessment</span>
-            <span class="tag">Behavioural Observation</span>
-            <span class="tag">Academic Presentation</span>
+          <div class="tags">
+            <span class="tag">Unreal Engine</span><span class="tag">VR Prototyping</span><span class="tag">Cognitive Assessment</span><span class="tag">Behavioural Observation</span><span class="tag">Academic Presentation</span>
           </div>
-          <div class="timeline">
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Prototype Design</div></div>
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">VR Build</div></div>
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">User Sessions</div></div>
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Findings Presentation</div></div>
+          <div class="steps">
+            <div class="step">Prototype Design</div><div class="step">VR Build</div><div class="step">User Sessions</div><div class="step">Findings Presentation</div>
           </div>
-          <div class="case-outcome">The proof of concept showed that measurable perceptual distortion could be induced and tested in VR, establishing the method for the proposed four-domain study into cognitive impairment.</div>
-          <div class="video-label">&#9654;&nbsp; Demonstration session recording, click to play</div>
-          <video class="case-video" controls muted playsinline preload="none" style="margin-top:8px;">
-            <source src="assets/vr-participant.mp4" type="video/mp4">
-          </video>
-          <button onclick="openPDF('assets/vr-presentation.pdf','VR Cognitive Impairment Simulation: Full Presentation')" class="doc-link" style="margin-top:12px;">&#128196; &nbsp;Read Presentation</button>
+          <div class="outcome"><span class="outcome-lbl">Outcome</span>The proof of concept showed that measurable perceptual distortion could be induced and tested in VR, establishing the method for the proposed four-domain study into cognitive impairment.</div>
+          <p class="media-lbl">&#9654;&nbsp; Demonstration session recording, click to play</p>
+          <video class="media" controls muted playsinline preload="none"><source src="assets/vr-participant.mp4" type="video/mp4"></video>
+          <div class="doc-row">
+            <button class="doc-btn" onclick="openPDF('assets/vr-presentation.pdf','VR Cognitive Impairment Simulation: Full Presentation')"><svg><use href="#doc"/></svg>Read Presentation</button>
+          </div>
         </div>
-      </div>
+      </article>
 
-      <!-- DCD DISSERTATION -->
-      <div class="case-card case-card-dcd reveal">
-        <div class="case-visual">
-          <svg class="case-icon" viewBox="0 0 44 42" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-            <circle cx="22" cy="5" r="3.5" fill="currentColor" stroke="none"/>
-            <circle cx="7" cy="22" r="3.5" fill="currentColor" stroke="none"/>
-            <circle cx="37" cy="22" r="3.5" fill="currentColor" stroke="none"/>
-            <circle cx="14" cy="37" r="3.5" fill="currentColor" stroke="none"/>
-            <circle cx="30" cy="37" r="3.5" fill="currentColor" stroke="none"/>
-            <line x1="22" y1="8.5" x2="10" y2="18.5"/><line x1="22" y1="8.5" x2="34" y2="18.5"/>
-            <line x1="9" y1="25" x2="13" y2="33.5"/><line x1="35" y1="25" x2="31" y2="33.5"/>
-            <line x1="17.5" y1="37" x2="26.5" y2="37"/>
-          </svg>
+      <!-- 03 · DCD DISSERTATION -->
+      <article class="case c-green reveal" id="case-dcd">
+        <div class="case-side">
           <div class="case-num">03</div>
-          <div class="case-type-badge">BSc Dissertation</div>
+          <span class="case-type">BSc Dissertation</span>
+          <svg class="case-ic" viewBox="0 0 44 42" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="22" cy="5" r="3.5" fill="currentColor" stroke="none"/><circle cx="7" cy="22" r="3.5" fill="currentColor" stroke="none"/><circle cx="37" cy="22" r="3.5" fill="currentColor" stroke="none"/><circle cx="14" cy="37" r="3.5" fill="currentColor" stroke="none"/><circle cx="30" cy="37" r="3.5" fill="currentColor" stroke="none"/><line x1="22" y1="8.5" x2="10" y2="18.5"/><line x1="22" y1="8.5" x2="34" y2="18.5"/><line x1="9" y1="25" x2="13" y2="33.5"/><line x1="35" y1="25" x2="31" y2="33.5"/><line x1="17.5" y1="37" x2="26.5" y2="37"/></svg>
         </div>
         <div class="case-body">
-          <div class="case-context">University of Surrey &nbsp;·&nbsp; BSc Psychology &nbsp;·&nbsp; 2025</div>
+          <div class="case-ctx">University of Surrey &middot; BSc Psychology &middot; 2025</div>
           <h3>Motor Learning in DCD: Gamified Research with Children</h3>
-          <div class="case-distinction">First Class Honours</div>
-          <div class="case-outcome" style="margin-top:0;">Designing for a 9 to 11 year old participant group meant the research instrument had to work as a game first and a study second, an alien-feeding task standing in for a visuomotor rotation test, with findings analysed in Jamovi and written up with implications for inclusive, child-appropriate UX methodology.</div>
-          <div class="case-stats">
-            <div class="case-stat"><span class="case-stat-val">6</span><span class="case-stat-lbl">Pilot Studies</span></div>
-            <div class="case-stat"><span class="case-stat-val">100</span><span class="case-stat-lbl">Trials per Participant</span></div>
-            <div class="case-stat"><span class="case-stat-val">9-11 yrs</span><span class="case-stat-lbl">Participant Age</span></div>
+          <div class="distinction"><svg><use href="#trophy"/></svg>First Class Honours</div>
+          <div class="outcome" style="margin-top:0"><span class="outcome-lbl">Design challenge</span>Designing for a 9 to 11 year old participant group meant the research instrument had to work as a game first and a study second, an alien-feeding task standing in for a visuomotor rotation test, with findings analysed in Jamovi and written up with implications for inclusive, child-appropriate UX methodology.</div>
+          <div class="case-stats" style="margin-top:18px">
+            <div class="case-stat"><span class="cs-val">6</span><span class="cs-lbl">Pilot studies</span></div>
+            <div class="case-stat"><span class="cs-val">100</span><span class="cs-lbl">Trials per participant</span></div>
+            <div class="case-stat"><span class="cs-val">9-11 yrs</span><span class="cs-lbl">Participant age</span></div>
           </div>
           <p>Investigated motor learning differences in children with Developmental Coordination Disorder using a gamified visuomotor rotation task, presented as an alien-feeding game for participants aged 9 to 11. Piloted across 6 runs of two 50-trial stages each, the study compared implicit and explicit learning strategies across DCD and typically-developing groups.</p>
           <p>Designing research instruments for a child population required careful attention to ethics, age-appropriate language, and engagement, skills directly transferable to game UX research with diverse player populations.</p>
-          <div class="timeline">
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Study Design</div></div>
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Gamified Task</div></div>
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Data Collection</div></div>
-            <div class="t-step"><div class="t-node"><div class="t-dot"></div></div><div class="t-label">Statistical Analysis</div></div>
+          <div class="steps">
+            <div class="step">Study Design</div><div class="step">Gamified Task</div><div class="step">Data Collection</div><div class="step">Statistical Analysis</div>
           </div>
-          <div class="case-tags">
-            <span class="tag">Child-appropriate Methodology</span>
-            <span class="tag">Gamified Research Design</span>
-            <span class="tag">Between-subjects Design</span>
-            <span class="tag">Jamovi Analysis</span>
-            <span class="tag">Ethics: Child Participants</span>
+          <div class="tags">
+            <span class="tag">Child-appropriate Methodology</span><span class="tag">Gamified Research Design</span><span class="tag">Between-subjects Design</span><span class="tag">Jamovi Analysis</span><span class="tag">Ethics: Child Participants</span>
           </div>
-          <button onclick="openPDF('assets/dissertation.pdf','Motor Learning in DCD: BSc Dissertation')" class="doc-link" style="margin-top:14px;">&#128196; &nbsp;Read Dissertation</button>
+          <div class="doc-row">
+            <button class="doc-btn" onclick="openPDF('assets/dissertation.pdf','Motor Learning in DCD: BSc Dissertation')"><svg><use href="#doc"/></svg>Read Dissertation</button>
+          </div>
         </div>
-      </div>
+      </article>
 
-      <!-- MSC AV TRUST: COMING SOON -->
-      <div class="case-card coming-soon reveal">
-        <div class="case-visual">
-          <div class="coming-soon-sign">Coming Soon</div>
+      <!-- 04 · MSC AV TRUST -->
+      <article class="case c-yellow reveal" id="case-av">
+        <div class="case-side">
           <div class="case-num">04</div>
-          <div class="case-type-badge">MSc Dissertation</div>
+          <span class="case-type">MSc Dissertation</span>
+          <span class="case-flag">Ongoing research</span>
+          <svg class="case-ic" viewBox="0 0 48 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22v-6l5-8h26l5 8v6a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2Z"/><path d="M6 16h36"/><circle cx="13" cy="24" r="3.5"/><circle cx="35" cy="24" r="3.5"/><path d="M20 4l4 4 4-4"/></svg>
         </div>
         <div class="case-body">
-          <div class="case-context">University of Surrey &nbsp;·&nbsp; MSc Dissertation &nbsp;·&nbsp; 2026</div>
+          <div class="case-ctx">University of Surrey &middot; MSc Dissertation &middot; 2026</div>
           <h3>Trust in Autonomous Vehicles: VR Study</h3>
-          <p>Examining how driving style and explanatory behaviour affect user trust in autonomous systems, using a custom VR environment and a mixed-methods design (target sample of 30) combining quantitative psychometrics with qualitative self-report analysis.</p>
-          <div class="case-tags">
-            <span class="tag">VR Research Design</span>
-            <span class="tag">Trust Measurement</span>
-            <span class="tag">Mixed-methods</span>
-            <span class="tag">Autonomous Systems UX</span>
-            <span class="tag">Psychometrics</span>
+          <p>Examining how driving style and explanatory behaviour affect user trust in autonomous systems, using a custom VR environment and a mixed-methods design with 43 participants, combining quantitative psychometrics with qualitative self-report analysis.</p>
+          <p>I am continuing this line of research beyond the MSc and preparing the findings for publication.</p>
+          <div class="tags">
+            <span class="tag">VR Research Design</span><span class="tag">Trust Measurement</span><span class="tag">Mixed-methods</span><span class="tag">Autonomous Systems UX</span><span class="tag">Psychometrics</span>
           </div>
-          <div class="cs-progress">
-            <div class="cs-progress-bar">
-              <div class="cs-progress-seg done"></div>
-              <div class="cs-progress-seg done"></div>
-              <div class="cs-progress-seg done"></div>
-              <div class="cs-progress-seg active"></div>
-            </div>
-            <div class="cs-progress-label">Writing up &nbsp;·&nbsp; Est. completion: Summer 2026</div>
+          <div class="xp">
+            <div class="xp-top"><span>Quest progress</span><b>N = 43</b></div>
+            <div class="xp-bar"><i class="done"></i><i class="done"></i><i class="done"></i><i class="active"></i></div>
+            <div class="xp-lbl">Continuing the research and preparing for publication</div>
           </div>
         </div>
-      </div>
+      </article>
 
     </div>
   </div>
-</div>
+</section>
 
-<div class="divider"></div>
-
-<!-- GAME CRITIQUES -->
-<div class="glass-section" id="critiques">
-  <div class="section-inner">
-    <div class="section-label reveal">UX Analysis</div>
-    <h2 class="reveal">Game Design Critiques</h2>
-    <p class="section-intro reveal">Independent UX and player psychology analysis of AAA titles, applying behavioural frameworks to real game design decisions. These sit alongside the case studies as evidence of how I think, not just what I have done.</p>
-    <div class="critique-grid">
-      <div class="critique-card cs2 reveal">
-        <div class="critique-game">Counter-Strike 2</div>
-        <h4>A Tale of Two Economies</h4>
-        <p>A psychological critique separating CS2's two design systems: a skill-based in-game economy built on prospect theory and cognitive load, and a monetisation economy built on variable reinforcement, the near-miss effect, and classical conditioning. Examines the ethical implications of gambling mechanics in a free-to-access platform that peaks at 1.8 million concurrent players, including the CSGOLotto scandal and the gap between regulatory response and psychological evidence.</p>
-        <p class="critique-pull">"The skin economy isn't cosmetic. It's a second game built on variable reinforcement, running parallel to the first."</p>
-        <div class="critique-links">
-          <a href="critique-cs2.html" onclick="event.preventDefault(); openPDF('critique-cs2.html','CS2: A Tale of Two Economies')" class="doc-link sm">&#128196; &nbsp;Read Critique</a>
-          <a href="assets/critique-1.pdf" target="_blank" class="doc-link sm">&#128202; &nbsp;View Slides</a>
+<!-- CRITIQUES -->
+<section class="block" id="critiques">
+  <div class="wrap">
+    <div class="eyebrow reveal"><svg class="glyph g-tri"><use href="#tri"/></svg>UX Analysis</div>
+    <h2 class="reveal">Game design critiques.</h2>
+    <p class="intro reveal">Independent UX and player psychology analysis of AAA titles, applying behavioural frameworks to real game design decisions. These sit alongside the case studies as evidence of how I think, not just what I have done.</p>
+    <div class="crits">
+      <article class="crit reveal" id="crit-cs2">
+        <div class="crit-cover" style="background-image:url('assets/cs2-bg.jpg')"><span class="crit-game">Counter-Strike 2</span></div>
+        <div class="crit-body">
+          <h3>A Tale of Two Economies</h3>
+          <p>A psychological critique separating CS2's two design systems: a skill-based in-game economy built on prospect theory and cognitive load, and a monetisation economy built on variable reinforcement, the near-miss effect, and classical conditioning. Examines the ethical implications of gambling mechanics in a free-to-access platform that peaks at 1.8 million concurrent players, including the CSGOLotto scandal and the gap between regulatory response and psychological evidence.</p>
+          <p class="pull">"The skin economy isn't cosmetic. It's a second game built on variable reinforcement, running parallel to the first."</p>
+          <div class="doc-row">
+            <a href="critique-cs2.html" onclick="event.preventDefault(); openPDF('critique-cs2.html','CS2: A Tale of Two Economies')" class="doc-btn"><svg><use href="#doc"/></svg>Read Critique</a>
+            <a href="assets/critique-1.pdf" target="_blank" rel="noopener" class="doc-btn"><svg><use href="#slides"/></svg>View Slides</a>
+          </div>
         </div>
-      </div>
-      <div class="critique-card lol reveal" style="transition-delay:0.1s">
-        <div class="critique-game">League of Legends</div>
-        <h4>Mastery, Monetisation, and Manufactured Toxicity</h4>
-        <p>A three-part critique examining how League of Legends sustains 180 million players through emergent complexity and staged mastery; how the ranked system satisfies self-determination theory needs while weaponising loss aversion and the goal gradient effect; and how Hextech monetisation deploys variable ratio reinforcement and engineered FOMO against a predominantly adolescent player base. Argues that toxicity is a structural output of anonymous high-stakes design, not a player personality problem, and that Riot built the conditions for it.</p>
-        <p class="critique-pull">"Toxicity isn't a player personality problem. Riot built the conditions for it."</p>
-        <div class="critique-links">
-          <a href="critique-lol.html" onclick="event.preventDefault(); openPDF('critique-lol.html','LoL: Mastery, Monetisation, and Manufactured Toxicity')" class="doc-link sm">&#128196; &nbsp;Read Critique</a>
-          <a href="assets/critique-2.pdf" target="_blank" class="doc-link sm">&#128202; &nbsp;View Slides</a>
+      </article>
+      <article class="crit reveal" id="crit-lol">
+        <div class="crit-cover" style="background-image:url('assets/lol-bg.jpg')"><span class="crit-game">League of Legends</span></div>
+        <div class="crit-body">
+          <h3>Mastery, Monetisation, and Manufactured Toxicity</h3>
+          <p>A three-part critique examining how League of Legends sustains 180 million players through emergent complexity and staged mastery; how the ranked system satisfies self-determination theory needs while weaponising loss aversion and the goal gradient effect; and how Hextech monetisation deploys variable ratio reinforcement and engineered FOMO against a predominantly adolescent player base. Argues that toxicity is a structural output of anonymous high-stakes design, not a player personality problem, and that Riot built the conditions for it.</p>
+          <p class="pull" style="border-left-color:var(--blue)">"Toxicity isn't a player personality problem. Riot built the conditions for it."</p>
+          <div class="doc-row">
+            <a href="critique-lol.html" onclick="event.preventDefault(); openPDF('critique-lol.html','LoL: Mastery, Monetisation, and Manufactured Toxicity')" class="doc-btn"><svg><use href="#doc"/></svg>Read Critique</a>
+            <a href="assets/critique-2.pdf" target="_blank" rel="noopener" class="doc-btn"><svg><use href="#slides"/></svg>View Slides</a>
+          </div>
         </div>
-      </div>
+      </article>
     </div>
   </div>
-</div>
-
-<div class="divider"></div>
+</section>
 
 <!-- RECOGNITION -->
-<div class="section-wrap" id="recognition">
-  <div class="section-inner">
-    <div class="section-label reveal">Awards and Programmes</div>
-    <h2 class="reveal">Recognition</h2>
-    <p class="section-intro reveal">Selected for competitive games industry programmes and academic distinctions.</p>
-
-    <div class="rec-grid">
-      <div class="rec-card reveal">
-        <div class="rec-icon">🎯</div>
-        <div>
-          <h4>Limit Break Mentorship Programme</h4>
-          <p>Selected applicant for the games industry mentorship programme connecting emerging talent with senior industry professionals.</p>
-          <span class="rec-year">2025/26</span>
-        </div>
+<section class="block" id="recognition">
+  <div class="wrap">
+    <div class="eyebrow reveal"><svg class="glyph g-cir"><use href="#cir"/></svg>Awards and Programmes</div>
+    <h2 class="reveal">Recognition.</h2>
+    <p class="intro reveal">Selected for competitive games industry programmes and academic distinctions.</p>
+    <div class="achs">
+      <div class="ach gold reveal">
+        <img src="assets/geng-award.jpg" class="ach-thumb" alt="Gen.G Foundation Scholarship certificate awarded to Alfie Bunyan" loading="lazy" onclick="openImg('assets/geng-award.jpg')">
+        <div><h3>Gen.G Foundation Scholarship</h3><p>Recipient of the Gen.G Foundation Scholarship, competitively awarded for the Gen.G gaming industry practicum abroad programme, in recognition of achievements in gaming, esports, and leadership.</p></div>
+        <div class="ach-meta"><small>Unlocked</small><span>Jun 2024</span></div>
       </div>
-      <div class="rec-card reveal" style="transition-delay:0.08s">
-        <div class="rec-icon">🎮</div>
-        <div>
-          <h4>Active Game Jam Participant</h4>
-          <p>Surrey Video Game Society member. Independently produced AAA design critiques as part of ongoing personal research practice.</p>
-          <span class="rec-year">Jan 2024 - Jan 2026</span>
-        </div>
+      <div class="ach reveal">
+        <div class="ach-ic" style="--c:var(--blue)"><svg><use href="#trophy"/></svg></div>
+        <div><h3>Limit Break Mentorship Programme</h3><p>Selected applicant for the games industry mentorship programme connecting emerging talent with senior industry professionals.</p></div>
+        <div class="ach-meta"><small>Unlocked</small><span>2025/26</span></div>
+      </div>
+      <div class="ach reveal">
+        <div class="ach-ic" style="--c:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.3 5H6.7a4 4 0 0 0-4 3.6L2 15a3 3 0 0 0 5.4 2l1.6-2h6l1.6 2a3 3 0 0 0 5.4-2l-.7-6.4A4 4 0 0 0 17.3 5Z"/></svg></div>
+        <div><h3>Active Game Jam Participant</h3><p>Surrey Video Game Society member. Independently produced AAA design critiques as part of ongoing personal research practice.</p></div>
+        <div class="ach-meta"><small>Unlocked</small><span>Jan 2024 - Jan 2026</span></div>
       </div>
     </div>
-
-    <!-- GEN.G FULL-WIDTH CARD -->
-    <div class="geng-card reveal">
-      <a href="assets/geng-award.jpg" onclick="event.preventDefault(); openImg('assets/geng-award.jpg')" style="cursor:zoom-in"><img src="assets/geng-award.jpg" class="geng-thumb" alt="Gen.G Foundation Scholarship certificate awarded to Alfie Bunyan" loading="lazy"></a>
-      <div class="geng-text">
-        <h4>Gen.G Foundation Scholarship</h4>
-        <p>Recipient of the Gen.G Foundation Scholarship, competitively awarded for the Gen.G gaming industry practicum abroad programme, in recognition of achievements in gaming, esports, and leadership.</p>
-        <span class="rec-year">Jun 2024</span>
-      </div>
-    </div>
-
   </div>
-</div>
-
-<div class="divider"></div>
+</section>
 
 <!-- CONTACT -->
-<div class="section-wrap" id="contact">
-  <div class="section-inner" style="text-align:center;">
-    <div class="section-label center reveal">Get in Touch</div>
-    <h2 class="reveal">Let's work together.</h2>
-    <p class="section-intro reveal" style="margin:14px auto 0;">
-      Open to junior user research and UX research roles in games and AI. Onsite, hybrid, or fully remote. Guildford, London, and across the UK.
-    </p>
-    <div class="contact-form-wrap reveal">
-      <form class="contact-form" id="contact-form">
-        <input type="hidden" name="access_key" value="0482d18f-e628-4cd8-8c17-0fe20e042c59">
-        <input type="hidden" name="subject" value="Portfolio Enquiry - Alfie Bunyan">
-        <input type="hidden" name="from_name" value="Alfie Bunyan Portfolio">
-        <div class="contact-form-row">
-          <input type="text" name="name" placeholder="Your name" required>
-          <input type="email" name="email" placeholder="Your email" required>
-        </div>
-        <input type="text" name="organisation" placeholder="Organisation (optional)">
-        <textarea name="message" placeholder="Your message..." required></textarea>
-        <div class="contact-status" id="contact-status"></div>
-        <button type="submit" class="contact-submit">Send Message</button>
-      </form>
+<section class="block" id="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow"><svg class="glyph"><use href="#x"/></svg>Get in Touch</div>
+      <h2>Let's work together.</h2>
+      <p class="intro">Open to junior user research and UX research roles in games and AI. Onsite, hybrid, or fully remote. Guildford, London, and across the UK.</p>
+      <div class="c-links">
+        <a href="https://www.linkedin.com/in/alfie-bunyan" target="_blank" rel="noopener" class="c-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3Zm6.5 0h3.8v1.5h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4Z"/></svg>LinkedIn</a>
+        <a href="assets/Alfie_Bunyan_CV.pdf" download="Alfie_Bunyan_CV.pdf" class="c-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14"/></svg>Download CV</a>
+      </div>
     </div>
-    <div class="contact-links reveal">
-      <a href="https://www.linkedin.com/in/alfie-bunyan" target="_blank" class="contact-link">
-        <span>in</span><strong>LinkedIn</strong>
-      </a>
-      <a href="assets/Alfie_Bunyan_CV.pdf" download="Alfie_Bunyan_CV.pdf" class="contact-link">
-        <span>↓</span><strong>Download CV</strong>
-      </a>
-    </div>
+    <form class="form reveal" id="contact-form">
+      <input type="hidden" name="access_key" value="0482d18f-e628-4cd8-8c17-0fe20e042c59">
+      <input type="hidden" name="subject" value="Portfolio Enquiry - Alfie Bunyan">
+      <input type="hidden" name="from_name" value="Alfie Bunyan Portfolio">
+      <div class="form-row">
+        <input type="text" name="name" placeholder="Your name" required aria-label="Your name">
+        <input type="email" name="email" placeholder="Your email" required aria-label="Your email">
+      </div>
+      <input type="text" name="organisation" placeholder="Organisation (optional)" aria-label="Organisation">
+      <textarea name="message" placeholder="Your message..." required aria-label="Your message"></textarea>
+      <div class="status" id="contact-status"></div>
+      <button type="submit" class="btn btn-white contact-submit">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Alfie Bunyan &middot; Games User Researcher &middot; Guildford, UK</span>
+    <span class="egg" title="Try it">&uarr;&uarr;&darr;&darr;&larr;&rarr;&larr;&rarr; B A</span>
+  </div>
+</footer>
+
+<!-- Overlays -->
+<div class="cmdk" id="cmdk" aria-hidden="true">
+  <div class="palette" role="dialog" aria-label="Quick search">
+    <label class="p-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="text" placeholder="Jump to a section, study or document..." aria-label="Search the portfolio" autocomplete="off">
+      <span class="kbd">Esc</span>
+    </label>
+    <div class="p-list" role="listbox"></div>
   </div>
 </div>
 
-<!-- IMAGE LIGHTBOX -->
-<div id="img-lightbox" class="img-lightbox" onclick="closeImg()">
-  <button class="img-lightbox-close" onclick="closeImg()">&#x2715;</button>
+<div id="img-lightbox" class="lightbox" onclick="closeImg()">
+  <button class="x-btn" onclick="closeImg()" aria-label="Close">&#x2715;</button>
   <img id="img-lightbox-src" src="" alt="Award certificate">
 </div>
 
-<!-- PDF MODAL -->
-<div id="pdf-modal" class="pdf-modal-overlay" onclick="closePDFModal(event)">
-  <div class="pdf-modal-box">
-    <div class="pdf-modal-header">
-      <span class="pdf-modal-title" id="pdf-modal-title">Document</span>
-      <button class="pdf-modal-close" onclick="closePDF()">✕</button>
-    </div>
+<div id="pdf-modal" class="modal" onclick="closePDFModal(event)">
+  <div class="modal-box">
+    <div class="modal-head"><span id="pdf-modal-title">Document</span><button class="x-btn" onclick="closePDF()" aria-label="Close">&#x2715;</button></div>
     <iframe id="pdf-modal-frame" src="" title="Document viewer"></iframe>
   </div>
 </div>
 
-<footer>
-  Alfie Bunyan &nbsp;·&nbsp; Games User Researcher &nbsp;·&nbsp; Guildford, UK
-</footer>
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <span class="toast-ic"><svg><use href="#trophy"/></svg></span>
+  <span><small>Achievement unlocked</small><b id="toast-text"></b></span>
+</div>
 
-<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">&uarr;</button>
 
 <script>
   // Clean up /index.html in URL bar
@@ -1684,225 +827,118 @@
 
   // Scroll reveal
   const ro = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.12 });
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
+  }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
 
-  // Stat reveal animation
-  document.querySelectorAll('.case-stat').forEach(s => s.classList.add('stat-hidden'));
-  const statObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.querySelectorAll('.case-stat').forEach((s, i) => {
-          setTimeout(() => {
-            s.classList.remove('stat-hidden');
-            s.classList.add('stat-visible');
-          }, i * 110);
-        });
-        statObs.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.35 });
-  document.querySelectorAll('.case-stats').forEach(el => statObs.observe(el));
-
-  // Nav active state
-  const sections = document.querySelectorAll('[id]');
+  // Nav active state, border and back to top
+  const nav = document.getElementById('nav');
+  const sections = document.querySelectorAll('section[id]');
   const links = document.querySelectorAll('.nav-links a');
   window.addEventListener('scroll', () => {
     let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 80) current = s.id;
-    });
-    links.forEach(a => {
-      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-    });
-
-    // Back to top
-    document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
-  }, { passive: true });
-</script>
-<script>
-(function () {
-  const canvas = document.getElementById('bg-canvas');
-  const ctx = canvas.getContext('2d');
-
-  function resize() {
-    canvas.width  = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize', resize, { passive: true });
-
-  // Mouse
-  const mouse = { x: -9999, y: -9999, vx: 0, vy: 0 };
-  window.addEventListener('mousemove', e => {
-    mouse.vx = e.clientX - mouse.x;
-    mouse.vy = e.clientY - mouse.y;
-    mouse.x  = e.clientX;
-    mouse.y  = e.clientY;
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+    document.getElementById('backTop').classList.toggle('show', window.scrollY > 600);
   }, { passive: true });
 
-  // Colour palette
-  const COLS = ['124,95,252', '34,211,238', '168,153,255'];
-
-  // ── PARTICLES ──────────────────────────────────────────
-  function mkParticle() {
-    return {
-      x:   Math.random() * canvas.width,
-      y:   Math.random() * canvas.height,
-      vx:  (Math.random() - 0.5) * 0.35,
-      vy:  (Math.random() - 0.5) * 0.35,
-      r:   Math.random() * 1.6 + 0.4,
-      a:   Math.random() * 0.4 + 0.12,
-      col: COLS[Math.floor(Math.random() * COLS.length)]
-    };
+  // Achievement toast
+  let toastTimer;
+  function achievement(text) {
+    const t = document.getElementById('toast');
+    document.getElementById('toast-text').textContent = text;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => t.classList.remove('show'), 4200);
   }
-  const particles = Array.from({ length: 75 }, mkParticle);
-
-  // ── STREAKS ────────────────────────────────────────────
-  const streaks = [];
-
-  function fireStreak(x, y, angle, speed, opts = {}) {
-    streaks.push({
-      x, y, angle, speed,
-      len:   opts.len   || 80  + Math.random() * 150,
-      life:  opts.life  || 1,
-      decay: opts.decay || 0.02 + Math.random() * 0.018,
-      w:     opts.w     || 0.7 + Math.random() * 1.4,
-      col:   Math.random() > 0.5 ? '124,95,252' : '34,211,238'
-    });
+  function once(key, fn) {
+    try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, '1'); } catch (e) {}
+    fn();
   }
+  // Reaching the contact section counts as "completing" the portfolio
+  new IntersectionObserver((entries, obs) => {
+    if (entries[0].isIntersecting) { once('ach-complete', () => achievement('Completionist: you reached the end')); obs.disconnect(); }
+  }, { threshold: 0.4 }).observe(document.getElementById('contact'));
 
-  function autoStreak() {
-    const edge = Math.floor(Math.random() * 4);
-    let x, y, angle;
-    const W = canvas.width, H = canvas.height;
-    const spread = 0.7;
-    if      (edge === 0) { x = Math.random()*W; y = -20;  angle =  Math.PI/2 + (Math.random()-0.5)*spread; }
-    else if (edge === 1) { x = W+20; y = Math.random()*H; angle =  Math.PI   + (Math.random()-0.5)*spread; }
-    else if (edge === 2) { x = Math.random()*W; y = H+20; angle = -Math.PI/2 + (Math.random()-0.5)*spread; }
-    else                 { x = -20; y = Math.random()*H;  angle =              (Math.random()-0.5)*spread; }
-    fireStreak(x, y, angle, 8 + Math.random() * 10);
-  }
-
-  // ── RIPPLES ────────────────────────────────────────────
-  const ripples = [];
-
-  window.addEventListener('click', e => {
-    ripples.push({
-      x: e.clientX, y: e.clientY,
-      r: 0, max: 110 + Math.random() * 70,
-      col: Math.random() > 0.5 ? '124,95,252' : '34,211,238'
-    });
-    // Burst outward
-    for (let i = 0; i < 5; i++) {
-      fireStreak(
-        e.clientX, e.clientY,
-        (Math.PI * 2 / 5) * i + Math.random() * 0.3,
-        10 + Math.random() * 8,
-        { len: 60, life: 0.9, decay: 0.03 }
-      );
-    }
+  // Konami code easter egg
+  const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+  let kPos = 0;
+  document.addEventListener('keydown', e => {
+    const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    kPos = k === konami[kPos] ? kPos + 1 : (k === konami[0] ? 1 : 0);
+    if (kPos === konami.length) { kPos = 0; achievement('Secret found: +30 lives. Thanks for exploring!'); }
   });
 
-  // ── LOOP ───────────────────────────────────────────────
-  let streakTimer = 0;
+  // ── Command palette ───────────────────────
+  const go = sel => () => { closeCmdk(); document.querySelector(sel).scrollIntoView({ behavior: 'smooth' }); };
+  const ITEMS = [
+    { g: 'Case studies', t: 'End-to-End Playtest Research', s: '22cans · 8 of 10 recommendations adopted', tag: 'Featured', ic: '01', c: 'var(--red)', run: go('#case-22cans') },
+    { g: 'Case studies', t: 'Trust in Autonomous Vehicles', s: 'VR · N = 43 · towards publication', tag: 'Ongoing', ic: '04', c: 'var(--yellow)', run: go('#case-av') },
+    { g: 'Case studies', t: 'Motor Learning in DCD', s: 'Gamified research with children · First Class', tag: 'BSc', ic: '03', c: 'var(--green)', run: go('#case-dcd') },
+    { g: 'Case studies', t: 'VR Cognitive Impairment Simulation', s: 'Unreal Engine 5 proof of concept', tag: 'MSc', ic: '02', c: 'var(--blue)', run: go('#case-vr') },
+    { g: 'Critiques', t: 'Counter-Strike 2: A Tale of Two Economies', s: 'Variable reinforcement and skin economies', tag: 'Critique', ic: 'CS', run: () => { closeCmdk(); openPDF('critique-cs2.html','CS2: A Tale of Two Economies'); } },
+    { g: 'Critiques', t: 'League of Legends: Manufactured Toxicity', s: 'Mastery, monetisation and toxicity', tag: 'Critique', ic: 'LoL', run: () => { closeCmdk(); openPDF('critique-lol.html','LoL: Mastery, Monetisation, and Manufactured Toxicity'); } },
+    { g: 'Documents', t: 'Download CV', s: 'PDF', tag: 'File', ic: 'CV', run: () => { closeCmdk(); const a = document.createElement('a'); a.href = 'assets/Alfie_Bunyan_CV.pdf'; a.download = 'Alfie_Bunyan_CV.pdf'; a.click(); } },
+    { g: 'Documents', t: 'BSc Dissertation', s: 'Motor Learning in DCD', tag: 'PDF', ic: 'PDF', run: () => { closeCmdk(); openPDF('assets/dissertation.pdf','Motor Learning in DCD: BSc Dissertation'); } },
+    { g: 'Documents', t: 'VR Simulation Presentation', s: 'Full presentation deck', tag: 'PDF', ic: 'PDF', run: () => { closeCmdk(); openPDF('assets/vr-presentation.pdf','VR Cognitive Impairment Simulation: Full Presentation'); } },
+    { g: 'Sections', t: 'Why I do this', s: 'Motivation', tag: 'Section', ic: '&#9651;', run: go('#why') },
+    { g: 'Sections', t: 'About', s: 'Background and stats', tag: 'Section', ic: '&#9675;', run: go('#about') },
+    { g: 'Sections', t: 'Skills', s: 'How I work', tag: 'Section', ic: '&#10005;', run: go('#skills') },
+    { g: 'Sections', t: 'Recognition', s: 'Awards and programmes', tag: 'Section', ic: '&#9633;', run: go('#recognition') },
+    { g: 'Sections', t: 'Contact', s: 'Send a message', tag: 'Section', ic: '&#9993;', run: go('#contact') },
+    { g: 'Links', t: 'LinkedIn', s: 'linkedin.com/in/alfie-bunyan', tag: 'External', ic: 'in', run: () => { closeCmdk(); window.open('https://www.linkedin.com/in/alfie-bunyan', '_blank', 'noopener'); } },
+  ];
 
-  function draw() {
-    requestAnimationFrame(draw);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    // Particles
-    for (const p of particles) {
-      const dx = p.x - mouse.x, dy = p.y - mouse.y;
-      const d  = Math.sqrt(dx * dx + dy * dy);
-      if (d < 140 && d > 0) {
-        const f = ((140 - d) / 140) * 0.9;
-        p.vx += (dx / d) * f;
-        p.vy += (dy / d) * f;
-      }
-      p.vx *= 0.96; p.vy *= 0.96;
-      p.x  += p.vx;  p.y  += p.vy;
-      if (p.x < 0) p.x = canvas.width;
-      if (p.x > canvas.width)  p.x = 0;
-      if (p.y < 0) p.y = canvas.height;
-      if (p.y > canvas.height) p.y = 0;
-
-      ctx.save();
-      ctx.globalAlpha = p.a;
-      ctx.fillStyle   = `rgb(${p.col})`;
-      ctx.shadowBlur  = 8;
-      ctx.shadowColor = `rgba(${p.col},0.9)`;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
+  function makePalette(root, limit) {
+    const input = root.querySelector('input');
+    const list = root.querySelector('.p-list');
+    let shown = [], idx = 0;
+    function render() {
+      const q = input.value.trim().toLowerCase();
+      shown = ITEMS.filter(it => !q || (it.t + ' ' + it.s + ' ' + it.g + ' ' + it.tag).toLowerCase().includes(q));
+      if (limit && !q) shown = shown.slice(0, limit);
+      idx = Math.min(idx, Math.max(shown.length - 1, 0));
+      if (!shown.length) { list.innerHTML = '<div class="p-empty">No results. Try "VR", "CV" or "trust".</div>'; return; }
+      let html = '', last = '';
+      shown.forEach((it, n) => {
+        if (it.g !== last) { html += `<div class="p-group">${it.g}</div>`; last = it.g; }
+        const ic = it.c ? `style="background:color-mix(in srgb, ${it.c} 15%, transparent);color:${it.c}"` : '';
+        html += `<button class="p-row${n === idx ? ' active' : ''}" data-n="${n}" role="option"><span class="p-icon" ${ic}>${it.ic}</span>${it.t} <small>${it.s}</small><span class="p-tag">${it.tag}</span><span class="p-keys"><span class="kbd">Open</span><span class="kbd">&#8629;</span></span></button>`;
+      });
+      list.innerHTML = html;
     }
-
-    // Auto streak timer
-    streakTimer++;
-    if (streakTimer > 50 + Math.random() * 35) {
-      autoStreak();
-      streakTimer = 0;
+    function setIdx(n) {
+      if (!shown.length) return;
+      idx = (n + shown.length) % shown.length;
+      list.querySelectorAll('.p-row').forEach(r => r.classList.toggle('active', +r.dataset.n === idx));
+      const a = list.querySelector('.p-row.active'); if (a) a.scrollIntoView({ block: 'nearest' });
     }
-
-    // Draw streaks
-    for (let i = streaks.length - 1; i >= 0; i--) {
-      const s = streaks[i];
-      s.x    += Math.cos(s.angle) * s.speed;
-      s.y    += Math.sin(s.angle) * s.speed;
-      s.life -= s.decay;
-      if (s.life <= 0) { streaks.splice(i, 1); continue; }
-
-      const tx = s.x - Math.cos(s.angle) * s.len;
-      const ty = s.y - Math.sin(s.angle) * s.len;
-      const g  = ctx.createLinearGradient(tx, ty, s.x, s.y);
-      g.addColorStop(0, `rgba(${s.col},0)`);
-      g.addColorStop(1, `rgba(${s.col},${s.life})`);
-
-      ctx.save();
-      ctx.globalAlpha = s.life;
-      ctx.strokeStyle = g;
-      ctx.lineWidth   = s.w;
-      ctx.shadowBlur  = 12;
-      ctx.shadowColor = `rgba(${s.col},0.8)`;
-      ctx.lineCap     = 'round';
-      ctx.beginPath();
-      ctx.moveTo(tx, ty); ctx.lineTo(s.x, s.y);
-      ctx.stroke();
-      // Bright head
-      ctx.fillStyle   = `rgba(255,255,255,${s.life * 0.85})`;
-      ctx.shadowBlur  = 16;
-      ctx.shadowColor = `rgba(${s.col},1)`;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.w * 2, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.restore();
-    }
-
-    // Ripples
-    for (let i = ripples.length - 1; i >= 0; i--) {
-      const rp = ripples[i];
-      rp.r += 3.5;
-      const op = 1 - rp.r / rp.max;
-      if (op <= 0) { ripples.splice(i, 1); continue; }
-      ctx.save();
-      ctx.globalAlpha = op * 0.65;
-      ctx.strokeStyle = `rgba(${rp.col},1)`;
-      ctx.lineWidth   = 1.5;
-      ctx.shadowBlur  = 14;
-      ctx.shadowColor = `rgba(${rp.col},0.9)`;
-      ctx.beginPath();
-      ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.restore();
-    }
+    input.addEventListener('input', () => { idx = 0; render(); });
+    input.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); setIdx(idx + 1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); setIdx(idx - 1); }
+      else if (e.key === 'Enter' && shown[idx]) { e.preventDefault(); shown[idx].run(); }
+    });
+    list.addEventListener('mousemove', e => { const r = e.target.closest('.p-row'); if (r && +r.dataset.n !== idx) setIdx(+r.dataset.n); });
+    list.addEventListener('click', e => { const r = e.target.closest('.p-row'); if (r) shown[+r.dataset.n].run(); });
+    render();
+    return { input, reset() { input.value = ''; idx = 0; render(); } };
   }
 
-  draw();
-})();
-</script>
-<script>
+  const heroPal = makePalette(document.getElementById('heroPalette'), 6);
+  const cmdkEl = document.getElementById('cmdk');
+  const modalPal = makePalette(cmdkEl, 0);
+  function openCmdk() { modalPal.reset(); cmdkEl.classList.add('open'); cmdkEl.setAttribute('aria-hidden', 'false'); setTimeout(() => modalPal.input.focus(), 10); }
+  function closeCmdk() { cmdkEl.classList.remove('open'); cmdkEl.setAttribute('aria-hidden', 'true'); }
+  cmdkEl.addEventListener('click', e => { if (e.target === cmdkEl) closeCmdk(); });
+  document.getElementById('openCmdk').addEventListener('click', openCmdk);
+  if (/Mac|iPhone|iPad/.test(navigator.platform)) document.getElementById('modKey').textContent = '⌘';
+  document.addEventListener('keydown', e => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); cmdkEl.classList.contains('open') ? closeCmdk() : openCmdk(); }
+  });
+
+  // ── Document viewer, lightbox, form ──────
   function openPDF(src, title) {
     const frameSrc = src.toLowerCase().endsWith('.pdf') ? src + '#toolbar=0&navpanes=0' : src;
     document.getElementById('pdf-modal-frame').src = frameSrc;
@@ -1915,13 +951,20 @@
     document.body.style.overflow = '';
     setTimeout(() => { document.getElementById('pdf-modal-frame').src = ''; }, 300);
   }
-  function closePDFModal(e) {
-    if (e.target === document.getElementById('pdf-modal')) closePDF();
+  function closePDFModal(e) { if (e.target === document.getElementById('pdf-modal')) closePDF(); }
+  function openImg(src) {
+    document.getElementById('img-lightbox-src').src = src;
+    document.getElementById('img-lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closePDF(); closeImg(); } });
+  function closeImg() {
+    document.getElementById('img-lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => { document.getElementById('img-lightbox-src').src = ''; }, 300);
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closePDF(); closeImg(); closeCmdk(); } });
 
-  // Contact form
-  document.getElementById('contact-form').addEventListener('submit', async function(e) {
+  document.getElementById('contact-form').addEventListener('submit', async function (e) {
     e.preventDefault();
     const btn = this.querySelector('.contact-submit');
     const status = document.getElementById('contact-status');
@@ -1938,30 +981,20 @@
       const json = await res.json();
       if (json.success) {
         status.textContent = 'Message sent! I\'ll get back to you soon.';
-        status.className = 'contact-status success';
+        status.className = 'status success';
         this.reset();
+        achievement('First contact: message sent');
       } else {
         throw new Error(json.message);
       }
-    } catch(err) {
+    } catch (err) {
       status.textContent = 'Something went wrong. Try emailing alfiebunyans@gmail.com directly.';
-      status.className = 'contact-status error';
+      status.className = 'status error';
     }
     status.style.display = 'block';
     btn.disabled = false;
     btn.textContent = 'Send Message';
   });
-
-  function openImg(src) {
-    document.getElementById('img-lightbox-src').src = src;
-    document.getElementById('img-lightbox').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeImg() {
-    document.getElementById('img-lightbox').classList.remove('open');
-    document.body.style.overflow = '';
-    setTimeout(() => { document.getElementById('img-lightbox-src').src = ''; }, 300);
-  }
 </script>
 </body>
 </html>
