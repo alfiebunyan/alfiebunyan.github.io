@@ -182,6 +182,27 @@
   .stat-key { position: absolute; top: 14px; right: 14px; font-family: var(--pixel); font-size: 9px; color: var(--ash); }
   .stats-head { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; font-family: var(--pixel); font-size: 10px; color: var(--ash); text-transform: uppercase; letter-spacing: .6px; }
 
+  /* ── EXPERIENCE ──────────────────────── */
+  .roles { margin-top: 48px; display: grid; gap: 16px; }
+  .role { --acc: var(--green); display: grid; grid-template-columns: 260px 1fr; background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden; position: relative; }
+  .role.r-red { --acc: var(--red); }
+  .role::after { content: ''; position: absolute; top: 0; right: 0; width: 12px; height: 12px; background: var(--acc); }
+  .role-side { padding: 28px; border-right: 1px solid var(--hairline); display: flex; flex-direction: column; gap: 10px; align-items: flex-start;
+    background: radial-gradient(120% 70% at 0% 0%, color-mix(in srgb, var(--acc) 12%, transparent), transparent 70%), var(--elevated); }
+  .role-dates { color: var(--ink); font-size: 17px; font-weight: 500; line-height: 1.3; }
+  .role-kind { font-size: 13px; color: var(--mute); }
+  .role-live { display: inline-flex; align-items: center; gap: 7px; font-family: var(--pixel); font-size: 10px; letter-spacing: .5px; color: var(--green); }
+  .role-live::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
+  .role-body { padding: 28px 32px; min-width: 0; }
+  .role h3 { color: var(--ink); font-size: 22px; font-weight: 500; line-height: 1.3; }
+  .role-org { font-size: 14px; color: var(--mute); margin: 4px 0 16px; }
+  .role ul { list-style: none; display: grid; gap: 9px; }
+  .role li { position: relative; padding-left: 20px; font-size: 15.5px; }
+  .role li::before { content: ''; position: absolute; left: 2px; top: 10px; width: 7px; height: 7px; border-radius: 2px; background: color-mix(in srgb, var(--acc) 60%, transparent); }
+  .role .tags { margin-bottom: 0; }
+  .role-link { display: inline-block; margin-top: 14px; font-size: 14px; font-weight: 500; color: var(--ink); border-bottom: 1px solid var(--strong); }
+  .role-link:hover { border-color: var(--ink); }
+
   /* ── SKILLS ──────────────────────────── */
   .skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 48px; }
   .skill { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius); padding: 24px; transition: border-color .2s, background .2s; }
@@ -353,6 +374,9 @@
     .case-side { border-right: 0; border-bottom: 1px solid var(--hairline); flex-direction: row; flex-wrap: wrap; align-items: center; padding: 22px 24px; }
     .case-num { font-size: 40px; }
     .case-ic { display: none; }
+    .role { grid-template-columns: 1fr; }
+    .role-side { border-right: 0; border-bottom: 1px solid var(--hairline); padding: 20px 24px; }
+    .role-body { padding: 22px 24px; }
     .case-note { flex-basis: 100%; }
   }
   @media (max-width: 640px) {
@@ -392,6 +416,7 @@
     <ul class="nav-links">
       <li><a href="#why">Why</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#work">Case Studies</a></li>
       <li><a href="#critiques">Critiques</a></li>
@@ -487,6 +512,57 @@
   </div>
 </section>
 
+<!-- EXPERIENCE -->
+<section class="block" id="experience">
+  <div class="wrap">
+    <div class="eyebrow reveal"><svg class="glyph g-sq"><use href="#sq"/></svg>Work History</div>
+    <h2 class="reveal">Experience.</h2>
+    <p class="intro reveal">Where I have applied research and data skills in real teams, with real stakeholders.</p>
+    <div class="roles">
+
+      <article class="role reveal" id="role-surrey">
+        <div class="role-side">
+          <span class="role-live">Current role</span>
+          <div class="role-dates">Jun 2026 to Oct 2026</div>
+          <div class="role-kind">Full-time, fixed-term contract</div>
+        </div>
+        <div class="role-body">
+          <h3>Data Analyst and Admin Coordinator</h3>
+          <div class="role-org">Widening Participation and Outreach &middot; University of Surrey</div>
+          <ul>
+            <li><strong>Turned a year of unused feedback into findings.</strong> Single-handedly cleaned, structured, and analysed a full year of programme feedback that had never been used.</li>
+            <li><strong>Working at scale with personal, opinion-rich data.</strong> Student records, survey results, and open-text feedback covering thousands of students.</li>
+            <li><strong>Reporting to decision makers.</strong> Produce reports, dashboards, and cleaned datasets for managers and for internal and external stakeholders.</li>
+            <li><strong>Coordinating data across the university.</strong> The link between teams and schools for reporting data, working with internal and external partners.</li>
+            <li><strong>Findings that lead to change.</strong> Recurring shortcomings surfaced in the feedback are now driving changes to the areas concerned.</li>
+            <li><strong>Building systems that outlast the contract.</strong> Setting up reusable data processes, with video walkthroughs so the team can keep running them.</li>
+          </ul>
+          <div class="tags">
+            <span class="tag">Excel</span><span class="tag">HEAT</span><span class="tag">Jamovi</span><span class="tag">Data Cleaning</span><span class="tag">Dashboards</span><span class="tag">Survey Analysis</span><span class="tag">Stakeholder Reporting</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="role r-red reveal" id="role-22cans">
+        <div class="role-side">
+          <div class="role-dates">2026</div>
+          <div class="role-kind">Live studio placement</div>
+        </div>
+        <div class="role-body">
+          <h3>User Research Consultant</h3>
+          <div class="role-org">22cans (Games Studio) &middot; via the University of Surrey</div>
+          <ul>
+            <li>Ran the full research lifecycle on Masters of Albion: recruitment, facilitation, thematic analysis, and a prioritised findings report for the development team.</li>
+            <li>3 facilitated playtest sessions, 20 participants analysed, and 8 of 10 recommendations adopted by the studio.</li>
+          </ul>
+          <a href="#case-22cans" class="role-link">Read the case study &rarr;</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
 <!-- SKILLS -->
 <section class="block" id="skills">
   <div class="wrap">
@@ -523,6 +599,8 @@
           <li>Qualitative coding <span class="applied">22cans</span></li>
           <li>Affinity mapping <span class="applied">22cans</span></li>
           <li>SPSS <span class="applied">MSc</span></li>
+          <li>Jamovi <span class="applied">BSc, Surrey WP</span></li>
+          <li>Data cleaning and dashboards (Excel) <span class="applied">Surrey WP</span></li>
           <li>Mixed-methods design <span class="applied">VR study</span></li>
           <li>Prompt engineering for research workflows <span class="applied">Portfolio</span></li>
           <li>AI/ML-aware research design <span class="applied">Portfolio</span></li>
@@ -552,6 +630,7 @@
         <div class="skill-head"><span class="skill-ic" style="background:rgba(255,255,255,.08);color:var(--ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4Z"/></svg></span><h3>Tools and Platforms</h3></div>
         <ul>
           <li>Qualtrics <span class="applied">22cans</span></li>
+          <li>HEAT (student tracking database) <span class="applied">Surrey WP</span></li>
           <li>Google Forms <span class="applied">MSc</span></li>
           <li>Zoom (remote facilitation) <span class="applied">22cans</span></li>
           <li>MS Teams <span class="applied">22cans</span></li>
@@ -884,6 +963,7 @@
     { g: 'Documents', t: 'VR Simulation Presentation', s: 'Full presentation deck', tag: 'PDF', ic: 'PDF', run: () => { closeCmdk(); openPDF('assets/vr-presentation.pdf','VR Cognitive Impairment Simulation: Full Presentation'); } },
     { g: 'Sections', t: 'Why I do this', s: 'Motivation', tag: 'Section', ic: '&#9651;', run: go('#why') },
     { g: 'Sections', t: 'About', s: 'Background and stats', tag: 'Section', ic: '&#9675;', run: go('#about') },
+    { g: 'Sections', t: 'Experience', s: 'Data Analyst at Surrey, 22cans placement', tag: 'Section', ic: '&#9633;', run: go('#experience') },
     { g: 'Sections', t: 'Skills', s: 'How I work', tag: 'Section', ic: '&#10005;', run: go('#skills') },
     { g: 'Sections', t: 'Recognition', s: 'Awards and programmes', tag: 'Section', ic: '&#9633;', run: go('#recognition') },
     { g: 'Sections', t: 'Contact', s: 'Send a message', tag: 'Section', ic: '&#9993;', run: go('#contact') },
