@@ -443,7 +443,7 @@
     <div class="ctas reveal">
       <a href="#work" class="btn btn-white">View Case Studies</a>
       <a href="#contact" class="btn btn-ghost">Get in Touch</a>
-      <a href="assets/Alfie_Bunyan_CV.pdf" download="Alfie_Bunyan_CV.pdf" class="btn btn-ghost">Download CV</a>
+      <a href="assets/Alfie_Bunyan_CV.docx" download="Alfie_Bunyan_CV.docx" class="btn btn-ghost">Download CV</a>
     </div>
 
     <div class="palette reveal" id="heroPalette">
@@ -843,7 +843,7 @@
       <p class="intro">Open to junior user research and UX research roles in games and AI. Onsite, hybrid, or fully remote. Guildford, London, and across the UK.</p>
       <div class="c-links">
         <a href="https://www.linkedin.com/in/alfie-bunyan" target="_blank" rel="noopener" class="c-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3Zm6.5 0h3.8v1.5h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4Z"/></svg>LinkedIn</a>
-        <a href="assets/Alfie_Bunyan_CV.pdf" download="Alfie_Bunyan_CV.pdf" class="c-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14"/></svg>Download CV</a>
+        <a href="assets/Alfie_Bunyan_CV.docx" download="Alfie_Bunyan_CV.docx" class="c-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14"/></svg>Download CV</a>
       </div>
     </div>
     <form class="form reveal" id="contact-form">
@@ -958,7 +958,7 @@
     { g: 'Case studies', t: 'VR Cognitive Impairment Simulation', s: 'Unreal Engine 5 proof of concept', tag: 'MSc', ic: '02', c: 'var(--blue)', run: go('#case-vr') },
     { g: 'Critiques', t: 'Counter-Strike 2: A Tale of Two Economies', s: 'Variable reinforcement and skin economies', tag: 'Critique', ic: 'CS', run: () => { closeCmdk(); openPDF('critique-cs2.html','CS2: A Tale of Two Economies'); } },
     { g: 'Critiques', t: 'League of Legends: Manufactured Toxicity', s: 'Mastery, monetisation and toxicity', tag: 'Critique', ic: 'LoL', run: () => { closeCmdk(); openPDF('critique-lol.html','LoL: Mastery, Monetisation, and Manufactured Toxicity'); } },
-    { g: 'Documents', t: 'Download CV', s: 'PDF', tag: 'File', ic: 'CV', run: () => { closeCmdk(); const a = document.createElement('a'); a.href = 'assets/Alfie_Bunyan_CV.pdf'; a.download = 'Alfie_Bunyan_CV.pdf'; a.click(); } },
+    { g: 'Documents', t: 'Download CV', s: 'Word document', tag: 'File', ic: 'CV', run: () => { closeCmdk(); const a = document.createElement('a'); a.href = 'assets/Alfie_Bunyan_CV.docx'; a.download = 'Alfie_Bunyan_CV.docx'; a.click(); } },
     { g: 'Documents', t: 'BSc Dissertation', s: 'Motor Learning in DCD', tag: 'PDF', ic: 'PDF', run: () => { closeCmdk(); openPDF('assets/dissertation.pdf','Motor Learning in DCD: BSc Dissertation'); } },
     { g: 'Documents', t: 'VR Simulation Presentation', s: 'Full presentation deck', tag: 'PDF', ic: 'PDF', run: () => { closeCmdk(); openPDF('assets/vr-presentation.pdf','VR Cognitive Impairment Simulation: Full Presentation'); } },
     { g: 'Sections', t: 'Why I do this', s: 'Motivation', tag: 'Section', ic: '&#9651;', run: go('#why') },
