@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Alfie Bunyan | Games &amp; UX Researcher</title>
-<meta name="description" content="Alfie Bunyan, Games User Researcher. Combining psychology, play, and mixed-methods UX research. Playtest research at 22cans, Gen.G Scholar, Limit Break Mentee.">
+<meta name="description" content="Alfie Bunyan, Games User Researcher. Walk around a small planet of research combining psychology, play, and mixed-methods UX research. Playtest research at 22cans, Gen.G Scholar, Limit Break Mentee.">
+<meta name="theme-color" content="#0b0920">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://alfiebunyan.github.io">
 <meta property="og:title" content="Alfie Bunyan | Games &amp; UX Researcher">
@@ -14,1067 +15,465 @@
 <meta name="twitter:title" content="Alfie Bunyan | Games &amp; UX Researcher">
 <meta name="twitter:description" content="Junior UX researcher specialising in games and AI.">
 <meta name="twitter:image" content="https://alfiebunyan.github.io/assets/alfie.jpg">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2307080a'/><rect x='6' y='6' width='88' height='88' rx='18' fill='none' stroke='%23ff5757' stroke-width='6'/><text y='70' x='50' font-size='56' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' fill='white'>A</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23ffc533'/><text y='67' x='50' font-size='46' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' fill='%231b1300'>AB</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Silkscreen&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --canvas: #07080a;
-    --surface: #0d0d0d;
-    --elevated: #101111;
-    --card: #121212;
-    --ink: #f4f4f6;
-    --body: #cdcdcd;
-    --mute: #9c9c9d;
-    --ash: #6a6b6c;
-    --hairline: #242728;
-    --soft: rgba(255,255,255,.08);
-    --strong: rgba(255,255,255,.16);
-    --red: #ff6161;
-    --blue: #57c1ff;
-    --green: #59d499;
-    --yellow: #ffc533;
-    --joy-red: #ff3c28;
-    --joy-blue: #0ab9e6;
-    --ps-blue: #0070d1;
-    --pixel: 'Silkscreen', ui-monospace, monospace;
-    --radius: 10px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
-  body {
-    font-family: Inter, system-ui, -apple-system, sans-serif;
-    font-feature-settings: "calt", "kern", "liga", "ss03";
-    background: var(--canvas); color: var(--body);
-    font-size: 16px; line-height: 1.6; overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-  }
-  a { color: inherit; text-decoration: none; }
-  img, video { display: block; max-width: 100%; }
-  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
-  strong { color: var(--ink); font-weight: 600; }
-  ::selection { background: rgba(255,87,87,.35); color: #fff; }
-  :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
-
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-
-  /* ── NAV ─────────────────────────────── */
-  nav.top {
-    position: sticky; top: 0; z-index: 50; height: 60px;
-    background: rgba(7,8,10,.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid transparent; transition: border-color .2s;
-  }
-  nav.top.scrolled { border-bottom-color: var(--hairline); }
-  nav.top .wrap { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .brand { display: flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 600; font-size: 15px; white-space: nowrap; }
-  .brand-mark { width: 24px; height: 24px; border-radius: 7px; display: grid; place-items: center; font-size: 13px; font-weight: 700; color: #fff;
-    background: linear-gradient(135deg, var(--joy-red) 0 50%, var(--joy-blue) 50% 100%); }
-  .nav-links { display: flex; gap: 2px; list-style: none; }
-  .nav-links a { display: block; font-size: 14px; font-weight: 500; letter-spacing: .2px; color: var(--mute); padding: 5px 11px; border-radius: 999px; transition: color .15s, background .15s; }
-  .nav-links a:hover { color: var(--ink); background: var(--elevated); }
-  .nav-links a.active { color: var(--ink); background: var(--elevated); box-shadow: 0 0 0 1px var(--soft) inset; }
-  .nav-right { display: flex; align-items: center; gap: 8px; }
-  .k-btn { display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 8px 0 12px; border-radius: 8px; border: 1px solid var(--hairline); color: var(--mute); font-size: 13px; transition: border-color .15s, color .15s; }
-  .k-btn:hover { border-color: var(--strong); color: var(--ink); }
-  .kbd { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 5px; border-radius: 4px; font-size: 11px; font-family: Inter, sans-serif; color: var(--body);
-    background: linear-gradient(#141414, #0d0d0d); border: 1px solid var(--hairline); box-shadow: 0 1px 0 #000; }
-
-  /* ── BUTTONS ─────────────────────────── */
-  .btn { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 18px; border-radius: 8px; font-size: 14px; font-weight: 500; letter-spacing: .2px; transition: background .15s, border-color .15s, transform .15s; white-space: nowrap; }
-  .btn-white { background: #fff; color: #000; }
-  .btn-white:hover { background: #e8e8e8; }
-  .btn-ghost { color: #fff; border: 1px solid var(--hairline); background: rgba(13,13,13,.6); }
-  .btn-ghost:hover { border-color: var(--strong); background: var(--elevated); }
-  .btn:active { transform: translateY(1px); }
-
-  /* ── FACE-BUTTON GLYPHS (eyebrows) ───── */
-  .eyebrow { display: inline-flex; align-items: center; gap: 10px; font-family: var(--pixel); font-size: 11px; letter-spacing: .6px; text-transform: uppercase; color: var(--mute); margin-bottom: 16px; }
-  .glyph { width: 18px; height: 18px; flex-shrink: 0; }
-  .g-tri { color: var(--green); } .g-cir { color: var(--red); } .g-x { color: var(--blue); } .g-sq { color: var(--yellow); }
-
-  h2 { color: var(--ink); font-size: clamp(32px, 4.4vw, 48px); font-weight: 300; letter-spacing: -.5px; line-height: 1.12; }
-  .intro { color: var(--mute); max-width: 640px; margin-top: 14px; font-size: 17px; }
-  section.block { padding: 112px 0; position: relative; }
-  section.block + section.block { border-top: 1px solid var(--hairline); }
-
-  /* ── HERO ────────────────────────────── */
-  #hero { position: relative; padding: 96px 0 40px; text-align: center; overflow: hidden; }
-  .glow { position: absolute; inset: -120px 0 auto; height: 720px; pointer-events: none; z-index: -1; }
-  .glow::before, .glow::after { content: ''; position: absolute; top: 0; width: 62%; height: 100%; filter: blur(90px); opacity: .32; }
-  .glow::before { left: -8%; background: radial-gradient(closest-side, var(--joy-red), transparent); transform: rotate(-14deg); }
-  .glow::after { right: -8%; background: radial-gradient(closest-side, var(--joy-blue), transparent); transform: rotate(14deg); opacity: .26; }
-  .grid-fade { position: absolute; inset: 0; z-index: -1; pointer-events: none;
-    background-image: linear-gradient(var(--soft) 1px, transparent 1px), linear-gradient(90deg, var(--soft) 1px, transparent 1px);
-    background-size: 56px 56px; mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 20%, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 20%, transparent 75%); opacity: .5; }
-
-  .presence { display: inline-flex; align-items: center; gap: 12px; padding: 6px 16px 6px 6px; border-radius: 999px; background: rgba(16,17,17,.8); border: 1px solid var(--hairline); margin-bottom: 32px; text-align: left; }
-  .presence-av { position: relative; }
-  .presence-av img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
-  .presence-av::after { content: ''; position: absolute; right: -1px; bottom: -1px; width: 13px; height: 13px; border-radius: 50%; background: var(--green); border: 3px solid var(--elevated); }
-  .presence b { display: block; color: var(--ink); font-size: 14px; font-weight: 600; line-height: 1.3; }
-  .presence span { font-size: 12.5px; color: var(--green); }
-  .presence span em { color: var(--mute); font-style: normal; }
-
-  #hero h1 { color: var(--ink); font-size: clamp(40px, 6.6vw, 72px); font-weight: 600; line-height: 1.06; letter-spacing: -1.2px; max-width: 900px; margin: 0 auto; }
-  #hero h1 .why { background: linear-gradient(90deg, var(--joy-red), #ff8a7a 50%, var(--joy-blue)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .lede { font-size: 18px; color: var(--body); max-width: 660px; margin: 24px auto 0; }
-  .ctas { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
-
-  /* ── COMMAND PALETTE ─────────────────── */
-  .palette { text-align: left; background: rgba(13,13,13,.94); border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden;
-    box-shadow: 0 0 0 1px var(--soft) inset, 0 30px 80px rgba(0,0,0,.6); }
-  #hero .palette { max-width: 760px; margin: 64px auto 0; backdrop-filter: blur(20px); }
-  .p-search { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-bottom: 1px solid var(--hairline); }
-  .p-search svg { width: 18px; height: 18px; color: var(--mute); flex-shrink: 0; }
-  .p-search input { flex: 1; min-width: 0; background: transparent; border: 0; outline: 0; color: var(--ink); font: inherit; font-size: 16px; }
-  .p-search input::placeholder { color: var(--ash); }
-  .p-list { max-height: 360px; overflow-y: auto; padding: 6px 8px 8px; }
-  .p-group { font-size: 12px; letter-spacing: .4px; color: var(--ash); padding: 10px 10px 4px; }
-  .p-row { display: flex; align-items: center; gap: 12px; width: 100%; padding: 7px 10px; border-radius: 6px; color: var(--ink); font-size: 15px; text-align: left; }
-  .p-row.active { background: var(--card); box-shadow: 0 0 0 1px var(--soft) inset; }
-  .p-icon { width: 26px; height: 26px; border-radius: 6px; display: grid; place-items: center; font-size: 11px; font-weight: 600; flex-shrink: 0; background: var(--card); color: var(--body); }
-  .p-row small { color: var(--mute); font-size: 13.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .p-tag { margin-left: auto; font-size: 12px; color: var(--mute); flex-shrink: 0; padding-left: 8px; }
-  .p-row.active .p-tag { display: none; }
-  .p-keys { margin-left: auto; display: none; gap: 4px; flex-shrink: 0; }
-  .p-row.active .p-keys { display: flex; }
-  .p-empty { padding: 24px; text-align: center; color: var(--mute); font-size: 14px; }
-  .p-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; border-top: 1px solid var(--hairline); background: var(--elevated); font-size: 13px; color: var(--mute); }
-  .now { display: flex; align-items: center; gap: 10px; min-width: 0; }
-  .now-bars { display: flex; align-items: flex-end; gap: 2px; height: 12px; flex-shrink: 0; }
-  .now-bars i { width: 3px; background: var(--green); border-radius: 1px; animation: eq 1s ease-in-out infinite; }
-  .now-bars i:nth-child(2) { animation-delay: -.3s; } .now-bars i:nth-child(3) { animation-delay: -.6s; }
-  @keyframes eq { 0%,100% { height: 3px; } 50% { height: 12px; } }
-  .now b { color: var(--green); font-weight: 500; white-space: nowrap; }
-  .now span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .p-hint { display: flex; gap: 4px; align-items: center; flex-shrink: 0; }
-
-  /* modal palette */
-  .cmdk { position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,.6); backdrop-filter: blur(4px); display: none; align-items: flex-start; justify-content: center; padding: 14vh 16px 16px; }
-  .cmdk.open { display: flex; }
-  .cmdk .palette { width: 100%; max-width: 640px; animation: pop .16s ease-out; }
-  @keyframes pop { from { opacity: 0; transform: scale(.98) translateY(-6px); } }
-
-  /* ── WHY ─────────────────────────────── */
-  .two { display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px; margin-top: 48px; align-items: start; }
-  .lead { font-size: 19px; color: var(--ink); margin-bottom: 28px; }
-  .points { list-style: none; display: grid; gap: 4px; }
-  .points li { position: relative; padding: 16px 0 16px 28px; border-top: 1px solid var(--hairline); color: var(--body); font-size: 15.5px; }
-  .points li:last-child { border-bottom: 1px solid var(--hairline); }
-  .points li::before { content: ''; position: absolute; left: 4px; top: 25px; width: 8px; height: 8px; border-radius: 2px; background: var(--strong); }
-  .points li strong { display: block; margin-bottom: 4px; }
-  .collage { display: grid; grid-template-columns: 1.4fr 1fr; grid-template-rows: 220px 180px; gap: 10px; }
-  .collage figure { position: relative; overflow: hidden; border-radius: var(--radius); border: 1px solid var(--hairline); }
-  .collage img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
-  .collage figure:hover img { transform: scale(1.04); }
-  .collage .c1 { grid-column: 1 / 3; }
-  .collage figcaption { position: absolute; left: 10px; bottom: 10px; font-family: var(--pixel); font-size: 10px; color: #fff; background: rgba(0,0,0,.65); padding: 3px 8px; border-radius: 4px; backdrop-filter: blur(6px); }
-
-  /* ── ABOUT ───────────────────────────── */
-  .about-photo { border-radius: var(--radius); border: 1px solid var(--hairline); overflow: hidden; aspect-ratio: 4 / 3.2; }
-  .about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; }
-  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-  .stat { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius); padding: 18px; position: relative; }
-  .stat-num { color: var(--ink); font-size: 34px; font-weight: 600; line-height: 1; letter-spacing: -.5px; }
-  .stat-lbl { font-size: 13.5px; color: var(--mute); margin-top: 8px; line-height: 1.45; }
-  .stat-key { position: absolute; top: 14px; right: 14px; font-family: var(--pixel); font-size: 9px; color: var(--ash); }
-  .stats-head { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; font-family: var(--pixel); font-size: 10px; color: var(--ash); text-transform: uppercase; letter-spacing: .6px; }
-
-  /* ── EXPERIENCE ──────────────────────── */
-  .roles { margin-top: 48px; display: grid; gap: 16px; }
-  .role { --acc: var(--green); display: grid; grid-template-columns: 260px 1fr; background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden; position: relative; }
-  .role.r-red { --acc: var(--red); }
-  .role::after { content: ''; position: absolute; top: 0; right: 0; width: 12px; height: 12px; background: var(--acc); }
-  .role-side { padding: 28px; border-right: 1px solid var(--hairline); display: flex; flex-direction: column; gap: 10px; align-items: flex-start;
-    background: radial-gradient(120% 70% at 0% 0%, color-mix(in srgb, var(--acc) 12%, transparent), transparent 70%), var(--elevated); }
-  .role-dates { color: var(--ink); font-size: 17px; font-weight: 500; line-height: 1.3; }
-  .role-kind { font-size: 13px; color: var(--mute); }
-  .role-live { display: inline-flex; align-items: center; gap: 7px; font-family: var(--pixel); font-size: 10px; letter-spacing: .5px; color: var(--green); }
-  .role-live::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); }
-  .role-body { padding: 28px 32px; min-width: 0; }
-  .role h3 { color: var(--ink); font-size: 22px; font-weight: 500; line-height: 1.3; }
-  .role-org { font-size: 14px; color: var(--mute); margin: 4px 0 16px; }
-  .role ul { list-style: none; display: grid; gap: 9px; }
-  .role li { position: relative; padding-left: 20px; font-size: 15.5px; }
-  .role li::before { content: ''; position: absolute; left: 2px; top: 10px; width: 7px; height: 7px; border-radius: 2px; background: color-mix(in srgb, var(--acc) 60%, transparent); }
-  .role .tags { margin-bottom: 0; }
-  .role-link { display: inline-block; margin-top: 14px; font-size: 14px; font-weight: 500; color: var(--ink); border-bottom: 1px solid var(--strong); }
-  .role-link:hover { border-color: var(--ink); }
-
-  /* ── SKILLS ──────────────────────────── */
-  .skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 48px; }
-  .skill { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius); padding: 24px; transition: border-color .2s, background .2s; }
-  .skill:hover { border-color: var(--strong); background: var(--elevated); }
-  .skill-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-  .skill-ic { width: 34px; height: 34px; border-radius: 8px; display: grid; place-items: center; }
-  .skill-ic svg { width: 18px; height: 18px; }
-  .skill h3 { color: var(--ink); font-size: 16px; font-weight: 500; }
-  .skill ul { list-style: none; }
-  .skill li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 7px 0; font-size: 14px; border-top: 1px solid var(--soft); }
-  .skill li:first-child { border-top: 0; }
-  .applied { font-size: 11px; color: var(--mute); background: var(--card); border: 1px solid var(--hairline); border-radius: 4px; padding: 1px 6px; white-space: nowrap; }
-
-  /* ── CASE STUDIES ────────────────────── */
-  .cases { display: grid; gap: 16px; margin-top: 48px; }
-  .case { --acc: var(--red); display: grid; grid-template-columns: 260px 1fr; background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden; position: relative; }
-  .case::after { content: ''; position: absolute; top: 0; right: 0; width: 12px; height: 12px; background: var(--acc); }
-  .case.c-blue { --acc: var(--blue); } .case.c-green { --acc: var(--green); } .case.c-yellow { --acc: var(--yellow); }
-  .case-side { position: relative; padding: 28px; border-right: 1px solid var(--hairline); display: flex; flex-direction: column; gap: 14px;
-    background: radial-gradient(120% 70% at 0% 0%, color-mix(in srgb, var(--acc) 14%, transparent), transparent 70%), var(--elevated); }
-  .case-num { font-size: 56px; font-weight: 600; line-height: 1; color: var(--ink); letter-spacing: -2px; }
-  .case-type { align-self: flex-start; font-size: 12px; letter-spacing: .4px; color: var(--acc); background: color-mix(in srgb, var(--acc) 15%, transparent); padding: 2px 8px; border-radius: 4px; }
-  .case-ic { width: 52px; color: var(--acc); opacity: .9; margin-top: auto; }
-  .case-flag { font-family: var(--pixel); font-size: 10px; letter-spacing: .5px; color: #000; background: var(--acc); align-self: flex-start; padding: 3px 8px; border-radius: 3px; }
-  .case-note { font-size: 13px; color: var(--mute); line-height: 1.5; padding: 12px; border: 1px dashed var(--strong); border-radius: 8px; }
-  .case-body { padding: 32px; min-width: 0; }
-  .case-ctx { font-size: 13px; color: var(--mute); letter-spacing: .2px; }
-  .case h3 { color: var(--ink); font-size: 24px; font-weight: 500; line-height: 1.3; margin: 6px 0 18px; }
-  .case p { font-size: 15.5px; margin-bottom: 12px; }
-  .case-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); border: 1px solid var(--hairline); border-radius: var(--radius); overflow: hidden; margin-bottom: 22px; }
-  .case-stat { padding: 14px 16px; border-left: 1px solid var(--hairline); background: var(--canvas); }
-  .case-stat:first-child { border-left: 0; }
-  .cs-val { display: block; color: var(--ink); font-size: 24px; font-weight: 600; line-height: 1.15; }
-  .cs-lbl { display: block; font-size: 11.5px; color: var(--mute); margin-top: 4px; letter-spacing: .2px; }
-  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 18px 0; }
-  .tag { font-size: 12.5px; color: var(--body); background: var(--card); border: 1px solid var(--hairline); padding: 3px 10px; border-radius: 999px; }
-  .steps { display: flex; margin: 22px 0; counter-reset: s; }
-  .step { flex: 1; position: relative; padding-top: 30px; font-size: 12.5px; color: var(--mute); line-height: 1.35; padding-right: 8px; }
-  .step::before { counter-increment: s; content: counter(s); position: absolute; top: 0; left: 0; width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center; font-size: 11px; font-weight: 600;
-    color: var(--acc); background: color-mix(in srgb, var(--acc) 15%, var(--canvas)); border: 1px solid color-mix(in srgb, var(--acc) 40%, transparent); }
-  .step::after { content: ''; position: absolute; top: 11px; left: 28px; right: 6px; height: 1px; background: var(--hairline); }
-  .step:last-child::after { display: none; }
-  .outcome { position: relative; padding: 16px 18px 16px 20px; border-radius: 8px; background: color-mix(in srgb, var(--acc) 7%, var(--canvas)); border: 1px solid color-mix(in srgb, var(--acc) 22%, transparent); color: var(--ink); font-size: 15px; margin: 18px 0 12px; }
-  .outcome-lbl { display: block; font-family: var(--pixel); font-size: 10px; color: var(--acc); margin-bottom: 6px; letter-spacing: .5px; }
-  .media { width: 100%; border-radius: var(--radius); border: 1px solid var(--hairline); margin: 14px 0; background: #000; }
-  .media-img { max-height: 380px; object-fit: cover; }
-  .media-lbl { font-size: 13px; color: var(--mute); margin-top: 18px; }
-  .distinction { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500; color: var(--yellow); margin-bottom: 14px; }
-  .distinction svg { width: 16px; height: 16px; }
-  .doc-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
-  .doc-btn { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--ink); background: var(--elevated); border: 1px solid var(--hairline); transition: border-color .15s, background .15s; }
-  .doc-btn:hover { border-color: var(--strong); background: var(--card); }
-  .doc-btn svg { width: 15px; height: 15px; color: var(--mute); }
-  .nda { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--mute); }
-  .nda svg { width: 14px; height: 14px; }
-  .xp { margin-top: 20px; }
-  .xp-top { display: flex; justify-content: space-between; font-family: var(--pixel); font-size: 10px; color: var(--mute); margin-bottom: 8px; letter-spacing: .5px; }
-  .xp-top b { color: var(--acc); font-weight: 400; }
-  .xp-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 4px; }
-  .xp-bar i { height: 8px; border-radius: 2px; background: var(--card); border: 1px solid var(--hairline); }
-  .xp-bar i.done { background: var(--acc); border-color: transparent; }
-  .xp-bar i.active { background: repeating-linear-gradient(90deg, var(--acc) 0 6px, transparent 6px 10px); border-color: color-mix(in srgb, var(--acc) 50%, transparent); animation: xp 1.2s linear infinite; background-size: 20px 100%; }
-  @keyframes xp { to { background-position: 20px 0; } }
-  .xp-lbl { font-size: 13px; color: var(--mute); margin-top: 10px; }
-
-  /* ── CRITIQUES ───────────────────────── */
-  .crits { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px; }
-  .crit { background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; transition: border-color .2s; }
-  .crit:hover { border-color: var(--strong); }
-  .crit-cover { position: relative; height: 180px; background-size: cover; background-position: center; }
-  .crit-cover::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,8,10,.15), var(--surface)); }
-  .crit-game { position: absolute; left: 24px; bottom: 14px; z-index: 1; font-family: var(--pixel); font-size: 11px; letter-spacing: .5px; color: #fff; background: rgba(0,0,0,.6); padding: 4px 9px; border-radius: 4px; backdrop-filter: blur(6px); }
-  .crit-body { padding: 8px 24px 24px; display: flex; flex-direction: column; flex: 1; }
-  .crit h3 { color: var(--ink); font-size: 21px; font-weight: 500; line-height: 1.3; margin-bottom: 12px; }
-  .crit p { font-size: 15px; }
-  .pull { margin: 18px 0; padding-left: 16px; border-left: 2px solid var(--red); color: var(--ink); font-size: 16px; font-style: italic; }
-  .crit .doc-row { margin-top: auto; padding-top: 6px; }
-
-  /* ── RECOGNITION (achievements) ──────── */
-  .achs { display: grid; gap: 10px; margin-top: 48px; }
-  .ach { display: grid; grid-template-columns: 64px 1fr auto; gap: 20px; align-items: center; padding: 18px 22px 18px 18px; background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; transition: border-color .2s; }
-  .ach:hover { border-color: var(--strong); }
-  .ach-ic { width: 64px; height: 64px; border-radius: 12px; display: grid; place-items: center; position: relative;
-    background: linear-gradient(145deg, color-mix(in srgb, var(--c) 30%, #111), #0b0b0b); border: 1px solid color-mix(in srgb, var(--c) 45%, transparent); color: var(--c); }
-  .ach-ic svg { width: 28px; height: 28px; }
-  .ach h3 { color: var(--ink); font-size: 17px; font-weight: 500; }
-  .ach p { font-size: 14.5px; color: var(--mute); margin-top: 4px; }
-  .ach-meta { text-align: right; white-space: nowrap; }
-  .ach-meta small { display: block; font-family: var(--pixel); font-size: 9px; color: var(--green); letter-spacing: .5px; }
-  .ach-meta span { font-size: 13px; color: var(--body); }
-  .ach-thumb { width: 64px; height: 64px; border-radius: 12px; object-fit: cover; border: 1px solid var(--hairline); cursor: zoom-in; transition: transform .2s; }
-  .ach-thumb:hover { transform: scale(1.05); }
-  .ach.gold { background: linear-gradient(90deg, rgba(255,197,51,.06), transparent 50%), var(--surface); border-color: rgba(255,197,51,.28); }
-
-  /* ── CONTACT (PlayStation-blue chapter) ─ */
-  #contact { background: var(--ps-blue); color: #fff; border-top: 0 !important; overflow: hidden; }
-  #contact::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .12;
-    background-image: radial-gradient(#fff 1px, transparent 1.4px); background-size: 22px 22px;
-    mask-image: linear-gradient(90deg, #000, transparent 60%); -webkit-mask-image: linear-gradient(90deg, #000, transparent 60%); }
-  #contact .wrap { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
-  #contact .eyebrow { color: rgba(255,255,255,.75); }
-  #contact .eyebrow .glyph { color: #fff; }
-  #contact h2 { color: #fff; }
-  #contact .intro { color: rgba(255,255,255,.85); }
-  .c-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
-  .c-link { display: inline-flex; align-items: center; gap: 10px; height: 44px; padding: 0 20px; border-radius: 999px; font-size: 14px; font-weight: 500; border: 1px solid rgba(255,255,255,.4); transition: background .15s, color .15s; }
-  .c-link:hover { background: #fff; color: var(--ps-blue); }
-  .c-link svg { width: 16px; height: 16px; }
-  .form { background: var(--canvas); color: var(--body); border-radius: 14px; padding: 28px; box-shadow: 0 30px 80px rgba(0,0,0,.35); display: grid; gap: 12px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .form input, .form textarea { width: 100%; background: var(--elevated); border: 1px solid var(--hairline); border-radius: 8px; padding: 11px 14px; color: var(--ink); font: inherit; font-size: 15px; transition: border-color .15s; }
-  .form input:focus, .form textarea:focus { outline: 0; border-color: var(--blue); }
-  .form textarea { min-height: 140px; resize: vertical; }
-  .form ::placeholder { color: var(--ash); }
-  .form .btn-white { justify-content: center; height: 44px; }
-  .form .btn-white:disabled { opacity: .6; cursor: wait; }
-  .status { display: none; font-size: 14px; padding: 10px 14px; border-radius: 8px; }
-  .status.success { color: var(--green); background: rgba(89,212,153,.12); }
-  .status.error { color: var(--red); background: rgba(255,97,97,.12); }
-
-  footer { padding: 32px 0; font-size: 13px; color: var(--ash); }
-  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  footer .egg { font-family: var(--pixel); font-size: 10px; letter-spacing: .5px; }
-
-  /* ── OVERLAYS ────────────────────────── */
-  .back-top { position: fixed; right: 20px; bottom: 20px; z-index: 40; width: 42px; height: 42px; border-radius: 10px; background: var(--elevated); border: 1px solid var(--hairline); color: var(--ink); display: grid; place-items: center; opacity: 0; pointer-events: none; transform: translateY(8px); transition: opacity .2s, transform .2s, border-color .15s; }
-  .back-top.show { opacity: 1; pointer-events: auto; transform: none; }
-  .back-top:hover { border-color: var(--strong); }
-  .lightbox, .modal { position: fixed; inset: 0; z-index: 150; background: rgba(0,0,0,.85); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; padding: 24px; opacity: 0; pointer-events: none; transition: opacity .25s; }
-  .lightbox.open, .modal.open { opacity: 1; pointer-events: auto; }
-  .lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 10px; }
-  .x-btn { position: absolute; top: 18px; right: 18px; width: 38px; height: 38px; border-radius: 8px; background: var(--elevated); border: 1px solid var(--hairline); color: var(--ink); }
-  .modal-box { width: min(1000px, 100%); height: min(88vh, 1100px); background: var(--surface); border: 1px solid var(--hairline); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
-  .modal-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 10px 10px 18px; border-bottom: 1px solid var(--hairline); color: var(--ink); font-size: 14px; font-weight: 500; }
-  .modal-head .x-btn { position: static; width: 32px; height: 32px; }
-  .modal iframe { flex: 1; width: 100%; border: 0; background: #fff; }
-
-  .toast { position: fixed; left: 50%; bottom: 24px; z-index: 300; display: flex; align-items: center; gap: 14px; padding: 10px 22px 10px 10px; border-radius: 999px;
-    background: #16181a; border: 1px solid var(--strong); box-shadow: 0 20px 50px rgba(0,0,0,.6); transform: translate(-50%, 140%); transition: transform .45s cubic-bezier(.2,.9,.3,1.2); max-width: calc(100vw - 32px); }
-  .toast.show { transform: translate(-50%, 0); }
-  .toast-ic { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(145deg, #2b2b2b, #111); border: 2px solid var(--green); color: var(--green); flex-shrink: 0; }
-  .toast-ic svg { width: 20px; height: 20px; }
-  .toast small { display: block; font-family: var(--pixel); font-size: 10px; color: var(--green); letter-spacing: .5px; }
-  .toast b { color: var(--ink); font-weight: 500; font-size: 14px; }
-
-  /* reveal */
-  .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
-  .reveal.visible { opacity: 1; transform: none; }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .reveal { opacity: 1; transform: none; transition: none; }
-    .now-bars i, .xp-bar i.active { animation: none; }
-  }
-
-  /* Touch screens have no keyboard shortcut, so show a plain label */
-  @media (hover: none) {
-    .k-btn .kbd { display: none; }
-    .k-btn .k-label { display: inline !important; }
-    .k-btn { padding: 0 12px; }
-    .p-hint { display: none; }
-  }
-
-  /* ── RESPONSIVE ──────────────────────── */
-  @media (max-width: 980px) {
-    .nav-links { display: none; }
-    .two, #contact .wrap { grid-template-columns: 1fr; gap: 40px; }
-    .skills { grid-template-columns: 1fr 1fr; }
-    .case { grid-template-columns: 1fr; }
-    .case-side { border-right: 0; border-bottom: 1px solid var(--hairline); flex-direction: row; flex-wrap: wrap; align-items: center; padding: 22px 24px; }
-    .case-num { font-size: 40px; }
-    .case-ic { display: none; }
-    .role { grid-template-columns: 1fr; }
-    .role-side { border-right: 0; border-bottom: 1px solid var(--hairline); padding: 20px 24px; }
-    .role-body { padding: 22px 24px; }
-    .case-note { flex-basis: 100%; }
-  }
-  @media (max-width: 640px) {
-    .wrap { padding: 0 16px; }
-    section.block { padding: 80px 0; }
-    #hero { padding-top: 64px; }
-    .k-btn .k-label { display: none; }
-    .skills, .crits, .form-row { grid-template-columns: 1fr; }
-    .case-body { padding: 22px 18px; }
-    .steps { flex-direction: column; gap: 10px; }
-    .step { padding: 2px 0 0 32px; min-height: 22px; }
-    .step::after { display: none; }
-    .ach { grid-template-columns: 52px 1fr; gap: 14px; }
-    .ach-ic, .ach-thumb { width: 52px; height: 52px; }
-    .ach-meta { grid-column: 2; text-align: left; }
-    .p-row small, .p-tag, .p-hint { display: none; }
-    .collage { grid-template-rows: 180px 140px; }
-  }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600&family=Silkscreen&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css?v=23">
+<script>
+  // Pick Walk or Read before first paint so the page never flashes the wrong layout.
+  (function () {
+    var mode = new URLSearchParams(location.search).get('mode');
+    if (mode !== 'walk' && mode !== 'read') {
+      try { mode = localStorage.getItem('mode'); } catch (e) { mode = null; }
+    }
+    var gl = false;
+    try { var c = document.createElement('canvas'); gl = !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) {}
+    var calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (mode !== 'walk' && mode !== 'read') mode = (calm || innerWidth <= 860) ? 'read' : 'walk';
+    if (!gl) mode = 'read';
+    document.documentElement.dataset.mode = mode;
+    document.documentElement.dataset.webgl = gl ? 'yes' : 'no';
+  })();
+</script>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
 </head>
 <body>
 
-<!-- Face-button glyphs, used as section markers -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="tri" viewBox="0 0 20 20"><path d="M10 3.5 17 16H3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
-  <symbol id="cir" viewBox="0 0 20 20"><circle cx="10" cy="10" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
-  <symbol id="x" viewBox="0 0 20 20"><path d="m4.5 4.5 11 11m0-11-11 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
-  <symbol id="sq" viewBox="0 0 20 20"><rect x="4" y="4" width="12" height="12" rx="1" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
-  <symbol id="doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z M14 3v5h5 M9 13h6 M9 17h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="slides" viewBox="0 0 24 24"><path d="M3 4h18v12H3Z M12 16v4 M8 20h8 M7 12l3-3 3 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-  <symbol id="trophy" viewBox="0 0 24 24"><path d="M8 21h8 M12 17v4 M7 4h10v5a5 5 0 0 1-10 0Z M7 6H4a3 3 0 0 0 3 4 M17 6h3a3 3 0 0 1-3 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-hero" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M2.5 14.5c3 2 16 -3 19 -5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-about" viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 9.5V21h14V9.5M10 21v-6h4v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-studio" viewBox="0 0 24 24"><path d="M7.5 7h9a5 5 0 0 1 5 5v1a3 3 0 0 1-5.5 1.7L14.5 13h-5L8 14.7A3 3 0 0 1 2.5 13v-1a5 5 0 0 1 5-5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M7.5 9.5v3M6 11h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="16.5" cy="11" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-research" viewBox="0 0 24 24"><path d="M3 21h18M5 21v-6a7 7 0 0 1 14 0v6M12 8l6-5M15 6l2 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-skills" viewBox="0 0 24 24"><path d="M12 22v-8M12 14l-4-3M12 14l4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="10" cy="6" r="1.2" fill="currentColor"/><circle cx="14" cy="8.5" r="1.2" fill="currentColor"/></symbol>
+  <symbol id="i-experience" viewBox="0 0 24 24"><path d="M12 10 5 3M12 10l7-7M12 10l-7 7M12 10l7 7M10 21l2-11 2 11Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-critiques" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><rect x="8.5" y="5" width="7" height="5" rx="1" fill="currentColor"/><path d="M10 15v3M8.5 16.5h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="15" cy="16" r="1.3" fill="currentColor"/></symbol>
+  <symbol id="i-recognition" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0ZM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-contact" viewBox="0 0 24 24"><path d="M9 22l1-13h4l1 13M8 9h8M10 9V6h4v3M12 3v1M3 6l3 1M21 6l-3 1M7 22h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8ZM14 3v5h5M9 13h6M9 17h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-slides" viewBox="0 0 24 24"><path d="M3 4h18v12H3ZM12 16v4M8 20h8M7 12l3-3 3 2 4-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-in" viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3Zm6.5 0h3.8v1.5h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4Z"/></symbol>
+  <symbol id="i-walk" viewBox="0 0 24 24"><circle cx="13" cy="4" r="2" fill="currentColor"/><path d="M9 21l2.5-6.5L14 17v4M8 11l2-3.5 4 1 2 3.5 2.5 1M11.5 14.5 10 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-read" viewBox="0 0 24 24"><path d="M12 6c-2-1.6-5-2-8-1.5v14c3-.5 6 0 8 1.5 2-1.5 5-2 8-1.5v-14c-3-.5-6-.1-8 1.5Zm0 0v14" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-orbit" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="currentColor"/><ellipse cx="12" cy="12" rx="10" ry="4.5" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(-25 12 12)"/></symbol>
 </svg>
 
-<nav class="top" id="nav">
-  <div class="wrap">
-    <a href="#hero" class="brand"><span class="brand-mark">A</span>Alfie Bunyan</a>
-    <ul class="nav-links">
-      <li><a href="#why">Why</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#work">Case Studies</a></li>
-      <li><a href="#critiques">Critiques</a></li>
-      <li><a href="#recognition">Recognition</a></li>
+<a class="skip" href="#about">Skip to content</a>
+
+<canvas id="world" aria-hidden="true"></canvas>
+<div class="transfer" id="transfer" aria-hidden="true">
+  <div class="cloudwall"><i class="edge l"></i><i class="solid"></i><i class="edge r"></i></div>
+  <div class="flyer">
+    <svg viewBox="0 0 120 60" class="plane"><path class="body" d="M14 30c0-6 10-10 30-10h40c10 0 22 4 26 10-4 6-16 10-26 10H44c-20 0-30-4-30-10Z"/><path class="stripe" d="M30 31h66"/><path class="wing" d="M52 30 40 6h12l20 24-20 24H40Z"/><path class="tail" d="M18 28 8 12h8l10 14Z"/><circle class="window" cx="88" cy="27" r="3"/><circle class="window" cx="78" cy="27" r="3"/><g class="prop"><rect x="110" y="16" width="3" height="28" rx="1.5"/></g></svg>
+    <span class="banner" id="transfer-to">Flying to</span>
+  </div>
+</div>
+<div class="loading" role="status"><span class="spin" aria-hidden="true"></span>Building the planet&hellip;</div>
+<div class="pins" id="pins" aria-hidden="true"></div>
+
+<!-- Fixed chrome -->
+<a class="seal-link" href="#top" aria-label="Alfie Bunyan, back to the start">
+  <span class="seal">
+    <svg class="ring" viewBox="0 0 100 100" aria-hidden="true"><defs><path id="seal-c" d="M50 50m-41 0a41 41 0 1 1 82 0a41 41 0 1 1-82 0"/></defs><text><textPath href="#seal-c">GAMES USER RESEARCHER &#183; PSYCHOLOGY &#215; PLAY &#183;</textPath></text></svg>
+    <span class="core">AB</span>
+  </span>
+</a>
+
+<div class="modes" role="radiogroup" aria-label="How to view this site">
+  <span class="modes-blob" aria-hidden="true"></span>
+  <button role="radio" data-set-mode="walk"><svg><use href="#i-walk"/></svg>Walk</button>
+  <button role="radio" data-set-mode="read"><svg><use href="#i-read"/></svg>Read</button>
+</div>
+
+<nav class="route" id="route" aria-label="Stops on the route"></nav>
+
+<p class="sr-only" id="sr-stop" aria-live="polite"></p>
+<div class="topbar" aria-hidden="true"><i id="topbar-fill"></i><span id="topbar-label">Start</span></div>
+
+<div class="roam-ui">
+  <p>Free roam: drag to spin, tap a landmark to jump to it. <b id="egg-count">0/9</b> easter eggs found.</p>
+  <button class="blob-btn" id="roam-exit">Back to the walk</button>
+</div>
+
+<main id="top">
+
+<!-- STOP 0 · ARRIVE -->
+<section class="stop hero" data-stop="hero" data-label="Start" style="--c:var(--gold)">
+  <div class="hero-text">
+    <div class="hello">
+      <span class="avatar"><img src="assets/alfie-face.jpg?v=6" alt="Photo of Alfie Bunyan" width="240" height="240" draggable="false"><i>P1</i></span>
+      <span class="kicker"><i></i>OPEN TO WORK &#183; GUILDFORD &amp; LONDON</span>
+    </div>
+    <h1 id="hero-title">Alfie Bunyan</h1>
+    <p class="tag">I research the <span class="squig">why<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8Q14 2 26 7T50 7T74 7T98 5"/></svg></span> behind how people think, play, and interact.</p>
+    <p class="how walk-only">Welcome to my planet. Scroll to walk the route: eight stops, about two minutes, ending with how to reach me.</p>
+    <p class="how read-only">Games user researcher combining psychology, play, and mixed-methods UX research, from VR to mobile playtesting. Eight short stops, ending with how to reach me.</p>
+    <div class="cta-row">
+      <a class="blob-btn" href="#about"><span class="walk-only">Start the walk</span><span class="read-only">Start reading</span> &darr;</a>
+      <a class="blob-btn ghost" href="assets/Alfie_Bunyan_CV.docx" download="Alfie_Bunyan_CV.docx"><svg><use href="#i-down"/></svg>Get my CV</a>
+      <a class="text-link" href="#contact">Get in touch</a>
+    </div>
+    <dl class="facts" aria-label="Quick facts">
+      <div style="--fc:var(--gold)"><dt>LOOKING FOR</dt><dd>Junior UX and games user research roles</dd></div>
+      <div style="--fc:var(--sky)"><dt>WHERE</dt><dd>Guildford and London, onsite, hybrid or remote</dd></div>
+      <div style="--fc:var(--mint)"><dt>QUALIFIED</dt><dd>MSc Psychology, Game Design and Digital Innovation</dd></div>
+      <div style="--fc:var(--coral)"><dt>AVAILABLE</dt><dd>Immediately</dd></div>
+    </dl>
+  </div>
+  <div class="hero-planet" aria-hidden="true"><img src="assets/planet.webp?v=5" alt="" width="900" height="900"></div>
+  <div class="scroll-cue" aria-hidden="true"><span></span>SCROLL</div>
+</section>
+
+<!-- STOP 1 · ABOUT -->
+<section class="stop" id="about" data-stop="about" data-label="About me" style="--c:var(--coral)">
+  <header class="stop-head"><span class="badge"><svg><use href="#i-about"/></svg></span><span class="kick">STOP 1 &#183; GUILDFORD CATHEDRAL</span></header>
+  <h2>Psychology, <span class="squig">applied<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8Q14 2 26 7T50 7T74 7T98 5"/></svg></span> to play.</h2>
+  <div class="blobphoto"><img src="assets/alfie-hero.jpg" alt="Alfie Bunyan at graduation" loading="lazy"></div>
+  <p class="lede">I have had two obsessions my whole life: gaming and psychology. This is what happens when you combine them.</p>
+  <aside class="note" aria-label="Field note"><b>FIELD NOTE</b>Two obsessions, one career. Turns out you can study the thing you love.</aside>
+  <p>Postgraduate researcher combining psychology, play, and mixed-methods UX research, from VR to mobile playtesting, to help teams build better player experiences in an AI-shaped industry. Based in Guildford and London, open to onsite, hybrid, and remote.</p>
+
+  <div class="bubbles">
+    <div class="bubble" style="--bc:var(--coral)"><b>2</b><span>Psychology degrees at Surrey</span></div>
+    <div class="bubble" style="--bc:var(--gold)"><b>4</b><span>Research studies across games, VR and behaviour</span></div>
+    <div class="bubble" style="--bc:var(--sky)"><b>40+</b><span>Participants engaged</span></div>
+    <div class="bubble" style="--bc:var(--mint)"><b>5</b><span>Stage research lifecycle, ethics to report</span></div>
+  </div>
+
+  <h4>WHY I DO THIS</h4>
+  <ul class="points">
+    <li><strong>I study the gap between what people say and what they do.</strong>Most human behaviour runs on autopilot. My interest is in making the invisible visible: finding the patterns in what people do and giving teams something they can actually act on.</li>
+    <li><strong>The counterintuitive questions are the interesting ones.</strong>Why does removing a feature players hated make them angrier? Why does anticipating a reward feel different from receiving it, even when the brain responds the same way?</li>
+    <li><strong>Games are a unique research environment.</strong>High-stakes emotional behaviour (frustration, trust, flow, social dynamics) in a controlled setting. The stakes feel low to the participant. The insight is anything but.</li>
+    <li><strong>I've experienced gaming communities at scale.</strong>Attending major esports events shapes how I think about player psychology, not just as data points, but as something felt firsthand.</li>
+  </ul>
+
+  <div class="polaroids">
+    <figure><img src="assets/worlds-arena.jpg" alt="LoL Worlds 2024 Grand Final arena at The O2 London, packed crowd under blue light" loading="lazy"><figcaption>WORLDS 2024 &#183; THE O2</figcaption></figure>
+    <figure><img src="assets/worlds-banners.jpg" alt="LoL Worlds 2024 Grand Final BLG vs T1 banners inside The O2" loading="lazy"><figcaption>BLG VS T1</figcaption></figure>
+    <figure><img src="assets/worlds-stage.jpg" alt="LoL Worlds 2024 stage with a player on the main screen" loading="lazy"><figcaption>MAIN STAGE</figcaption></figure>
+  </div>
+
+  <h4>BACKGROUND</h4>
+  <ul class="points">
+    <li><strong>Psychology at the University of Surrey</strong>BSc (2:1), then MSc in Psychology, Game Design and Digital Innovation (predicted Distinction). The research methods grounding matters as much as the subject.</li>
+    <li><strong>Live studio placement at 22cans</strong>On Masters of Albion: the full research lifecycle with real stakeholders, recruitment, facilitation, analysis, and a prioritised findings report delivered to the development team.</li>
+    <li><strong>Specialist interests</strong>Player psychology and AI's growing role in game design, with PC and mobile playtesting, VR interaction design, and trust in immersive systems all part of the toolkit.</li>
+  </ul>
+
+  <div class="nowplaying"><span class="eq"><i></i><i></i><i></i></span><b>NOW PLAYING</b>Piloting mobile playtests on PlaytestCloud, mentored by senior games researcher Joe Kulik through the Limit Break Mentorship Programme.</div>
+</section>
+
+<!-- STOP 2 · FEATURED STUDY -->
+<section class="stop" id="featured" data-stop="studio" data-label="Featured study" style="--c:var(--sky)">
+  <header class="stop-head"><span class="badge"><svg><use href="#i-studio"/></svg></span><span class="kick">STOP 2 &#183; THE STUDIO</span></header>
+  <h2>Playtests for a <span class="squig">real<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8Q14 2 26 7T50 7T74 7T98 5"/></svg></span> release.</h2>
+  <span class="flag">Featured study</span><span class="flag">22cans &#183; 2026</span><span class="flag">Live studio, not a simulation</span>
+  <p class="lede">End-to-end playtest research embedded in 22cans, a live games studio, on Masters of Albion.</p>
+  <aside class="note" aria-label="Field note"><b>FIELD NOTE</b>8 of 10 adopted. Watching a real studio act on my findings is what hooked me.</aside>
+  <div class="bubbles">
+    <div class="bubble"><b>3</b><span>Sessions facilitated</span></div>
+    <div class="bubble"><b>20</b><span>Participants analysed</span></div>
+    <div class="bubble"><b>10</b><span>Recommendations made</span></div>
+    <div class="bubble" style="--bc:var(--mint)"><b>8</b><span>Adopted by the studio</span></div>
+  </div>
+  <p>A full user research engagement covering the complete research lifecycle, from participant recruitment through stakeholder delivery. I ran 3 live facilitated playtest sessions, conducted and transcribed post-play interviews, and applied thematic analysis across data from 20 participants to surface usability pain points and engagement patterns, then delivered a prioritised findings report of 10 recommendations to the development team.</p>
+  <p>Working in a live studio environment meant navigating real constraints: NDA protocols, stakeholder expectations, and production timelines alongside the research itself.</p>
+  <div class="path-steps"><span>Ethics and consent</span><span>Recruitment</span><span>Facilitation</span><span>Thematic analysis</span><span>Studio debrief</span></div>
+  <img src="assets/giz-screens.jpg" alt="Dual-screen playtesting setup at the GIZ" class="media" loading="lazy">
+  <div class="outcome"><b>OUTCOME</b>8 of the 10 recommendations were adopted and acted on by the development team, feeding directly into post-playtest iteration on the title. Specifics under NDA.</div>
+  <div class="pebbles"><span class="pebble">Playtesting Facilitation</span><span class="pebble">Semi-structured Interviews</span><span class="pebble">Thematic Analysis</span><span class="pebble">Ethics Documentation</span><span class="pebble">Stakeholder Management</span></div>
+  <div class="nda"><svg><use href="#i-lock"/></svg>Full research documentation available on request (NDA-restricted)</div>
+</section>
+
+<!-- STOP 3 · MORE RESEARCH -->
+<section class="stop" id="research" data-stop="research" data-label="More research" style="--c:var(--violet)">
+  <header class="stop-head"><span class="badge"><svg><use href="#i-research"/></svg></span><span class="kick">STOP 3 &#183; THE ALAN TURING BUILDING</span></header>
+  <h2>Four more <span class="squig">studies<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8Q14 2 26 7T50 7T74 7T98 5"/></svg></span>.</h2>
+  <p class="lede">VR, children's motor learning, trust in self-driving cars, and a usability test of this very site: the same research rigour in very different settings.</p>
+  <aside class="note" aria-label="Field note"><b>FIELD NOTE</b>A VR headset, a room of 9 to 11 year olds, a self-driving car. Same question every time: what do people actually do?</aside>
+
+  <article class="study" style="--cc:var(--sky)">
+    <div class="study-head">
+      <span class="minicard"><b>02</b><svg viewBox="0 0 52 30" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M2 10C2 6 6 4 10 4h32c4 0 8 2 8 6v10c0 4-4 6-8 6h-4c-2 0-4-2-6-4s-4-2-6-2-4 0-6 2-4 4-6 4h-4c-4 0-8-2-8-6Z"/><circle cx="16" cy="15" r="5"/><circle cx="36" cy="15" r="5"/></svg></span>
+      <div><div class="ctx">UNIVERSITY OF SURREY &#183; MSC YEAR 1</div><h3>VR Cognitive Impairment Simulation</h3></div>
+    </div>
+    <p>Designed and built a proof-of-concept VR environment in Unreal Engine simulating alcohol-like visual impairment, proposed as part of a larger study into how impairment affects cognitive performance. The prototype demonstrated one of four planned cognitive tests, introducing measurable perceptual distortions during an in-world task with a single demonstration participant.</p>
+    <p>Scoped as a four-domain study, delivered as an academic presentation covering design rationale, methodology, and implications for accessibility and safety simulation.</p>
+    <div class="outcome"><b>OUTCOME</b>Showed that measurable perceptual distortion could be induced and tested in VR, establishing the method for the proposed four-domain study.</div>
+    <video class="media" controls muted playsinline preload="none" aria-label="Demonstration session recording"><source src="assets/vr-participant.mp4" type="video/mp4"></video>
+    <button class="blob-btn" data-doc="assets/vr-presentation.pdf" data-title="VR Cognitive Impairment Simulation: Full Presentation"><svg><use href="#i-doc"/></svg>Read the presentation</button>
+    <div class="pebbles"><span class="pebble">Unreal Engine</span><span class="pebble">VR Prototyping</span><span class="pebble">Cognitive Assessment</span><span class="pebble">Behavioural Observation</span></div>
+  </article>
+
+  <article class="study" style="--cc:var(--mint)">
+    <div class="study-head">
+      <span class="minicard"><b>03</b><svg viewBox="0 0 44 42" fill="currentColor"><circle cx="22" cy="6" r="4"/><circle cx="7" cy="22" r="4"/><circle cx="37" cy="22" r="4"/><circle cx="14" cy="37" r="4"/><circle cx="30" cy="37" r="4"/></svg></span>
+      <div><div class="ctx">UNIVERSITY OF SURREY &#183; BSC PSYCHOLOGY &#183; 2025</div><h3>Motor Learning in DCD: Gamified Research with Children</h3></div>
+    </div>
+    <span class="flag">First Class Honours</span>
+    <p>Investigated motor learning differences in children with Developmental Coordination Disorder using a gamified visuomotor rotation task, presented as an alien-feeding game for participants aged 9 to 11. Piloted across 6 runs of two 50-trial stages each, the study compared implicit and explicit learning strategies across DCD and typically-developing groups.</p>
+    <figure class="clip">
+      <video class="media" autoplay muted loop playsinline preload="metadata" poster="assets/dcd-game.jpg" aria-label="Clip of the research game: a Welcome Captain space intro, then the targeting task"><source src="assets/dcd-game.mp4" type="video/mp4"></video>
+      <figcaption>The game children played: a space intro to set the scene, then the targeting task that measured how they adapted to the rotation.</figcaption>
+    </figure>
+    <div class="outcome"><b>DESIGN CHALLENGE</b>The research instrument had to work as a game first and a study second, with findings analysed in Jamovi and written up with implications for inclusive, child-appropriate UX methodology.</div>
+    <button class="blob-btn" data-doc="assets/dissertation.pdf" data-title="Motor Learning in DCD: BSc Dissertation"><svg><use href="#i-doc"/></svg>Read the dissertation</button>
+    <div class="pebbles"><span class="pebble">Child-appropriate Methodology</span><span class="pebble">Gamified Research Design</span><span class="pebble">Between-subjects Design</span><span class="pebble">Jamovi</span></div>
+  </article>
+
+  <article class="study" style="--cc:var(--gold)">
+    <div class="study-head">
+      <span class="minicard"><b>04</b><svg viewBox="0 0 48 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22v-6l5-8h26l5 8v6a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2Z"/><circle cx="13" cy="24" r="3.5"/><circle cx="35" cy="24" r="3.5"/></svg></span>
+      <div><div class="ctx">UNIVERSITY OF SURREY &#183; MSC DISSERTATION &#183; 2026</div><h3>Passenger Trust in Autonomous Vehicles</h3></div>
+    </div>
+    <span class="flag">Submitted September 2026</span>
+    <p>Do explanations change how much passengers trust a self-driving car? In a 2x2 within-subjects online experiment, 43 participants watched four first-person rides filmed in a custom Unreal Engine driving environment: smooth or assertive driving, with or without a calm voice explaining each manoeuvre before it happened (&ldquo;Slowing due to pedestrian near crossing&rdquo;). After every ride they rated their trust, how predictable the car felt, and how closely they would watch it.</p>
+    <figure class="chart">
+      <svg viewBox="0 0 460 250" role="img" aria-labelledby="av-chart-title av-chart-desc">
+        <title id="av-chart-title">Mean trust by driving style and explanation</title>
+        <desc id="av-chart-desc">Smooth driving: 3.32 without explanation, 3.71 with. Assertive driving: 2.19 without explanation, 3.20 with. Explanation raised trust far more after assertive driving.</desc>
+        <g class="grid"><line x1="70" x2="430" y1="171.7" y2="171.7"/><line x1="70" x2="430" y1="115" y2="115"/><line x1="70" x2="430" y1="58.3" y2="58.3"/></g>
+        <g class="axis"><text x="58" y="175.7">2</text><text x="58" y="119">3</text><text x="58" y="62.3">4</text>
+          <text x="110" y="228" text-anchor="middle">No explanation</text><text x="350" y="228" text-anchor="middle">Explanation</text>
+          <text x="20" y="115" transform="rotate(-90 20 115)" text-anchor="middle">Trust (1 to 7)</text></g>
+        <g class="line smooth"><line x1="110" y1="96.9" x2="350" y2="74.8"/><circle cx="110" cy="96.9" r="6"/><circle cx="350" cy="74.8" r="6"/>
+          <text x="96" y="91" text-anchor="end">3.32</text><text x="364" y="70">3.71</text><text x="230" y="70" text-anchor="middle" class="gain">+0.39</text></g>
+        <g class="line assertive"><line x1="110" y1="160.9" x2="350" y2="103.7"/><circle cx="110" cy="160.9" r="6"/><circle cx="350" cy="103.7" r="6"/>
+          <text x="96" y="165" text-anchor="end">2.19</text><text x="364" y="112">3.20</text><text x="230" y="150" text-anchor="middle" class="gain">+1.01</text></g>
+      </svg>
+      <figcaption><span class="key smooth">Smooth driving</span><span class="key assertive">Assertive driving</span>Mean trust per condition, N = 43</figcaption>
+    </figure>
+    <div class="outcome"><b>KEY FINDING</b>Explanations did the most work where trust was weakest. They lifted trust about two and a half times more after assertive driving than after smooth driving (style &times; explanation interaction, F(1,42) = 9.31, p = .004). They also made the car feel more predictable in both styles and reduced how closely people intended to monitor it.</div>
+    <div class="outcome" style="margin-top:12px"><b>SO WHAT FOR DESIGN</b>Explain adaptively rather than uniformly: a vehicle should say more when its behaviour is less comfortable, instead of narrating everything the same way.</div>
+    <p>Next, I want to run the same design in immersive VR. I am continuing this research beyond the MSc and preparing the findings for publication.</p>
+    <div class="xp">
+      <div class="xp-top"><span>QUEST PROGRESS</span><b>N = 43</b></div>
+      <div class="xp-bar"><i class="done"></i><i class="done"></i><i class="done"></i><i class="active"></i></div>
+    </div>
+    <div class="pebbles"><span class="pebble">Within-subjects Experiment</span><span class="pebble">Unreal Engine Stimuli</span><span class="pebble">Qualtrics</span><span class="pebble">Repeated-measures ANOVA</span><span class="pebble">Trust Measurement</span><span class="pebble">Power Analysis</span></div>
+  </article>
+  <article class="study" style="--cc:var(--pink)">
+    <div class="study-head">
+      <span class="minicard"><b>05</b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+      <div><div class="ctx">SELF-DIRECTED &#183; 2026</div><h3>I Usability Tested My Own Portfolio</h3></div>
+      <span class="scribble" aria-label="Handwritten note"><svg viewBox="0 0 40 24" aria-hidden="true"><path d="M38 6C28 2 14 4 4 16M4 16l1-8M4 16l8-1"/></svg>Just for a little bit of fun.</span>
+    </div>
+    <p>A researcher's portfolio is a product too. Before launch I ran the same process I'd run for a studio: recruit, test, analyse, fix, retest. Six participants (2 UX researchers, 1 PhD student and 3 MSc peers) completed four tasks while thinking aloud.</p>
+    <div class="bubbles">
+      <div class="bubble" style="--bc:var(--sky)"><b>6</b><span>Participants</span></div>
+      <div class="bubble" style="--bc:var(--gold)"><b>4</b><span>Core tasks</span></div>
+      <div class="bubble" style="--bc:var(--coral)"><b>6</b><span>Issues found</span></div>
+      <div class="bubble" style="--bc:var(--mint)"><b>82s&rarr;5s</b><span>Hardest task after the fix</span></div>
+    </div>
+    <table class="metrics">
+      <thead><tr><th>Task</th><th>Success</th><th>Median time</th></tr></thead>
+      <tbody>
+        <tr><td>Say what I do after 5 seconds</td><td>6 of 6</td><td>4 s</td></tr>
+        <tr><td>Find my strongest research</td><td>5 of 6</td><td>34 s</td></tr>
+        <tr><td>Find availability and location</td><td>3 of 6, then 6 of 6 after the fix</td><td>82 s, then 5 s</td></tr>
+        <tr><td>Download CV or make contact</td><td>6 of 6</td><td>8 s</td></tr>
+      </tbody>
+    </table>
+    <div class="finding">
+      <h4 class="f-title"><span class="sev high">HIGH</span>Important information was difficult to find</h4>
+      <p>Three of six participants struggled to find my availability and location, because it sat too far down the page.</p>
+      <p class="quote">"I'd normally have moved on by now. I just need to know when you can start and where you're based."</p>
+      <p class="fix"><b>FIX</b>Added a quick facts section to the first screen, so key information is visible straight away. After the change, all six found it, with a median of 5 seconds.</p>
+    </div>
+    <div class="finding">
+      <h4 class="f-title"><span class="sev high">HIGH</span>Scrolling between sections wasn't always working</h4>
+      <p>Some trackpad users had trouble scrolling on to the next section, and two participants thought the website had frozen.</p>
+      <p class="fix"><b>FIX</b>Made the scrolling respond more reliably and added a clear "Next stop" button to make moving on easier.</p>
+    </div>
+    <div class="finding">
+      <h4 class="f-title"><span class="sev med">MEDIUM</span>Creative wording caused confusion</h4>
+      <p>The heading "Insert cartridge" wasn't immediately clear to two participants, who needed extra time to understand the section. Both appreciated the playful wording once they got it.</p>
+      <p class="fix"><b>DECISION</b>Kept the heading to hold on to the arcade theme, with a short explanation underneath for clarity.</p>
+    </div>
+    <div class="outcome"><b>OUTCOME</b>The hardest task went from 3 of 6 to all 6 participants succeeding, and its median time dropped from 82 seconds to 5. Next: prioritise mobile testing, and include recruiters in future sessions for the most relevant feedback.</div>
+    <h4>METHODS USED</h4>
+    <ul class="points methods">
+      <li><strong>Think-aloud</strong>Participants talked through their thoughts while navigating the website.</li>
+      <li><strong>Task-based testing</strong>Specific tasks showed how easily people could find information.</li>
+      <li><strong>Affinity mapping</strong>Grouping similar feedback revealed the common issues.</li>
+      <li><strong>Severity rating</strong>Issues were prioritised by their impact on the experience.</li>
+      <li><strong>Iterate and retest</strong>Changes were tested again to check they worked.</li>
     </ul>
-    <div class="nav-right">
-      <button class="k-btn" id="openCmdk" aria-label="Open quick search"><span class="k-label">Search</span><span class="kbd" id="modKey">Ctrl</span><span class="kbd">K</span></button>
-      <a href="#contact" class="btn btn-white" style="height:32px;padding:0 14px">Contact</a>
-    </div>
+  </article>
+</section>
+
+<!-- STOP 4 · SKILLS -->
+<section class="stop" id="skills" data-stop="skills" data-label="Skills" style="--c:var(--mint)">
+  <header class="stop-head"><span class="badge"><svg><use href="#i-skills"/></svg></span><span class="kick">STOP 4 &#183; THE SKILL TREE</span></header>
+  <h2>How I <span class="squig">work<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8Q14 2 26 7T50 7T74 7T98 5"/></svg></span>.</h2>
+  <p class="lede">Every fruit on the tree is a branch of my toolkit, each skill tagged with where I've used it.</p>
+  <aside class="note" aria-label="Field note"><b>FIELD NOTE</b>Every tag says where I actually used it. No buzzword bingo.</aside>
+  <div class="clusters">
+    <div class="cluster"><span class="fruit" style="--fc:var(--coral)"></span><h3>Games Research</h3>
+      <div class="pebbles"><span class="pebble">Playtesting facilitation<small>22cans</small></span><span class="pebble">Think-aloud protocols<small>22cans</small></span><span class="pebble">Player psychology frameworks<small>MSc</small></span><span class="pebble">Heuristic evaluation<small>MSc</small></span><span class="pebble">Engagement and retention analysis<small>22cans</small></span><span class="pebble">Game feel and UX critique<small>Portfolio</small></span></div></div>
+    <div class="cluster"><span class="fruit" style="--fc:var(--sky)"></span><h3>Research Methods</h3>
+      <div class="pebbles"><span class="pebble">Semi-structured interviews<small>22cans</small></span><span class="pebble">Behavioural observation<small>22cans</small></span><span class="pebble">Eye-tracking (VR)<small>VR study</small></span><span class="pebble">Within and between-subjects design<small>VR study</small></span><span class="pebble">Survey and experiment design<small>MSc</small></span><span class="pebble">Ethics and consent management<small>22cans</small></span></div></div>
+    <div class="cluster"><span class="fruit" style="--fc:var(--mint)"></span><h3>Analysis</h3>
+      <div class="pebbles"><span class="pebble">Thematic analysis<small>22cans</small></span><span class="pebble">Qualitative coding<small>22cans</small></span><span class="pebble">Affinity mapping<small>22cans</small></span><span class="pebble">SPSS<small>MSc</small></span><span class="pebble">Jamovi<small>BSc, Surrey WP</small></span><span class="pebble">Data cleaning and dashboards (Excel)<small>Surrey WP</small></span><span class="pebble">Mixed-methods design<small>VR study</small></span><span class="pebble">Prompt engineering for research<small>Portfolio</small></span><span class="pebble">AI/ML-aware research design<small>Portfolio</small></span></div></div>
+    <div class="cluster"><span class="fruit" style="--fc:var(--gold)"></span><h3>VR and Technical</h3>
+      <div class="pebbles"><span class="pebble">Unreal Engine prototyping<small>VR study</small></span><span class="pebble">VR environment design<small>VR study</small></span><span class="pebble">Immersive UX evaluation<small>VR study</small></span><span class="pebble">Embodied interaction research<small>VR study</small></span><span class="pebble">OBS Studio recording<small>VR study</small></span></div></div>
+    <div class="cluster"><span class="fruit" style="--fc:#c88cff"></span><h3>Behavioural Science</h3>
+      <div class="pebbles"><span class="pebble">Motor learning and skill acquisition<small>BSc</small></span><span class="pebble">Cognitive load assessment<small>VR study</small></span><span class="pebble">Trust and mental models<small>MSc</small></span><span class="pebble">Child-appropriate methodology<small>BSc</small></span><span class="pebble">Implicit vs explicit learning<small>BSc</small></span></div></div>
+    <div class="cluster"><span class="fruit" style="--fc:#f6f2ff"></span><h3>Tools and Platforms</h3>
+      <div class="pebbles"><span class="pebble">Qualtrics<small>22cans</small></span><span class="pebble">HEAT<small>Surrey WP</small></span><span class="pebble">Google Forms<small>MSc</small></span><span class="pebble">Zoom facilitation<small>22cans</small></span><span class="pebble">MS Teams<small>22cans</small></span><span class="pebble">Recruitment pipelines<small>22cans</small></span></div></div>
   </div>
-</nav>
+</section>
 
-<!-- HERO -->
-<section id="hero">
-  <div class="glow"></div>
-  <div class="grid-fade"></div>
-  <div class="wrap">
-    <div class="presence reveal">
-      <div class="presence-av"><img src="assets/alfie.jpg" alt="Alfie Bunyan"></div>
-      <div><b>Games User Researcher</b><span>Online <em>&middot; Open to work &middot; Guildford &amp; London</em></span></div>
+<!-- STOP 5 · EXPERIENCE -->
+<section class="stop" id="experience" data-stop="experience" data-label="Experience" style="--c:var(--gold)">
+  <header class="stop-head"><span class="badge"><svg><use href="#i-experience"/></svg></span><span class="kick">STOP 5 &#183; THE WINDMILL</span></header>
+  <h2>Where I've <span class="squig">worked<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8Q14 2 26 7T50 7T74 7T98 5"/></svg></span>.</h2>
+  <p class="lede">Applying research and data skills in real teams, with real stakeholders.</p>
+  <aside class="note" aria-label="Field note"><b>FIELD NOTE</b>A year of feedback nobody had touched. Now it is shaping how the programme runs.</aside>
+  <div class="trail">
+    <div class="trail-stop now">
+      <span class="when">JUN 2026 TO OCT 2026 &#183; FULL-TIME, FIXED TERM</span>
+      <h3>Data Analyst and Admin Coordinator</h3>
+      <div class="org">Widening Participation and Outreach &#183; University of Surrey</div>
+      <ul class="points">
+        <li><strong>Turned a year of unused feedback into findings.</strong>Single-handedly cleaned, structured, and analysed a full year of programme feedback that had never been used.</li>
+        <li><strong>Working at scale with personal, opinion-rich data.</strong>Student records, survey results, and open-text feedback covering thousands of students.</li>
+        <li><strong>Reporting to decision makers.</strong>Reports, dashboards, and cleaned datasets for managers and for internal and external stakeholders.</li>
+        <li><strong>Coordinating data across the university.</strong>The link between teams and schools for reporting data, working with internal and external partners.</li>
+        <li><strong>Findings that lead to change.</strong>Recurring shortcomings surfaced in the feedback are now driving changes to the areas concerned.</li>
+        <li><strong>Building systems that outlast the contract.</strong>Reusable data processes, with video walkthroughs so the team can keep running them.</li>
+      </ul>
+      <div class="pebbles"><span class="pebble">Excel</span><span class="pebble">HEAT</span><span class="pebble">Jamovi</span><span class="pebble">Data Cleaning</span><span class="pebble">Dashboards</span><span class="pebble">Survey Analysis</span><span class="pebble">Stakeholder Reporting</span></div>
     </div>
-    <h1 class="reveal">I research the <span class="why">why</span> behind how people think, play, and interact.</h1>
-    <p class="lede reveal">Postgraduate researcher combining psychology, play, and mixed-methods UX research, from VR to mobile playtesting, to help teams build better player experiences in an AI-shaped industry. Based in Guildford and London, open to hybrid and remote.</p>
-    <div class="ctas reveal">
-      <a href="#work" class="btn btn-white">View Case Studies</a>
-      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
-      <a href="assets/Alfie_Bunyan_CV.docx" download="Alfie_Bunyan_CV.docx" class="btn btn-ghost">Download CV</a>
-    </div>
-
-    <div class="palette reveal" id="heroPalette">
-      <label class="p-search">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-        <input type="text" placeholder="Search Alfie's research..." aria-label="Search the portfolio" autocomplete="off">
-      </label>
-      <div class="p-list" role="listbox"></div>
-      <div class="p-foot">
-        <div class="now"><span class="now-bars"><i></i><i></i><i></i></span><b>Now playing</b><span>Piloting mobile playtests on PlaytestCloud, mentored by senior games researcher Joe Kulik through the Limit Break Mentorship Programme</span></div>
-        <div class="p-hint"><span class="kbd">&uarr;</span><span class="kbd">&darr;</span><span class="kbd">&#8629;</span></div>
-      </div>
+    <div class="trail-stop" style="--c:var(--coral)">
+      <span class="when">2026 &#183; LIVE STUDIO PLACEMENT</span>
+      <h3>User Research Consultant</h3>
+      <div class="org">22cans (Games Studio) &#183; via the University of Surrey</div>
+      <ul class="points">
+        <li>Ran the full research lifecycle on Masters of Albion: recruitment, facilitation, thematic analysis, and a prioritised findings report for the development team.</li>
+        <li>3 facilitated playtest sessions, 20 participants analysed, and 8 of 10 recommendations adopted by the studio.</li>
+      </ul>
+      <a class="text-link" href="#featured">Back to the featured study &uarr;</a>
     </div>
   </div>
 </section>
 
-<!-- WHY -->
-<section class="block" id="why">
-  <div class="wrap">
-    <div class="eyebrow reveal"><svg class="glyph g-tri"><use href="#tri"/></svg>Motivation</div>
-    <h2 class="reveal">Why I do this.</h2>
-    <div class="two">
-      <div class="reveal">
-        <p class="lead">I have had two obsessions my whole life: <strong>gaming and psychology</strong>. This is what happens when you combine them.</p>
-        <ul class="points">
-          <li><strong>I study the gap between what people say and what they do.</strong>Most human behaviour runs on autopilot. My interest is in making the invisible visible: finding the patterns in what people do and giving teams something they can actually act on.</li>
-          <li><strong>The counterintuitive questions are the interesting ones.</strong>Why does removing a feature players hated make them angrier? Why does anticipating a reward feel different from receiving it, even when the brain responds the same way?</li>
-          <li><strong>Games are a unique research environment.</strong>High-stakes emotional behaviour (frustration, trust, flow, social dynamics) in a controlled setting. The stakes feel low to the participant. The insight is anything but.</li>
-          <li><strong>I've experienced gaming communities at scale.</strong>Attending major esports events shapes how I think about player psychology, not just as data points, but as something felt firsthand.</li>
-        </ul>
-      </div>
-      <div class="collage reveal">
-        <figure class="c1"><img src="assets/worlds-arena.jpg" alt="LoL Worlds 2024 Grand Final arena at The O2 London, packed crowd under blue light" loading="lazy"><figcaption>Worlds 2024 &middot; The O2</figcaption></figure>
-        <figure><img src="assets/worlds-banners.jpg" alt="LoL Worlds 2024 Grand Final BLG vs T1 banners inside The O2" loading="lazy"></figure>
-        <figure><img src="assets/worlds-stage.jpg" alt="LoL Worlds 2024 stage, player on main screen, crowd lights" loading="lazy"></figure>
-      </div>
+<!-- STOP 6 · CRITIQUES -->
+<section class="stop" id="critiques" data-stop="critiques" data-label="Critiques" style="--c:var(--sky)">
+  <header class="stop-head"><span class="badge"><svg><use href="#i-critiques"/></svg></span><span class="kick">STOP 6 &#183; THE ARCADE</span></header>
+  <h2>Insert <span class="squig">cartridge<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8Q14 2 26 7T50 7T74 7T98 5"/></svg></span>.</h2>
+  <p class="lede">Independent UX and player psychology analysis of AAA titles, applying behavioural frameworks to real design decisions. Evidence of how I think, not just what I've done.</p>
+  <aside class="note" aria-label="Field note"><b>FIELD NOTE</b>Written on my own time, for fun. Yes, I still play League.</aside>
+  <div class="carts">
+    <article class="cart">
+      <div class="cart-shell"><img src="assets/cs2-bg.jpg" alt="" loading="lazy"><span class="cart-game">COUNTER-STRIKE 2</span></div>
+      <h3>A Tale of Two Economies</h3>
+      <p>A psychological critique separating CS2's two design systems: a skill-based in-game economy built on prospect theory and cognitive load, and a monetisation economy built on variable reinforcement, the near-miss effect, and classical conditioning. Examines the ethics of gambling mechanics in a free-to-access platform that peaks at 1.8 million concurrent players.</p>
+      <p class="quote">"The skin economy isn't cosmetic. It's a second game built on variable reinforcement, running parallel to the first."</p>
+      <button class="blob-btn" data-doc="critique-cs2.html" data-title="CS2: A Tale of Two Economies"><svg><use href="#i-doc"/></svg>Read critique</button>
+      <a class="blob-btn ghost" href="assets/critique-1.pdf" target="_blank" rel="noopener"><svg><use href="#i-slides"/></svg>View slides</a>
+    </article>
+    <article class="cart">
+      <div class="cart-shell"><img src="assets/lol-bg.jpg" alt="" loading="lazy"><span class="cart-game">LEAGUE OF LEGENDS</span></div>
+      <h3>Mastery, Monetisation, and Manufactured Toxicity</h3>
+      <p>A three-part critique of how League of Legends sustains 180 million players through emergent complexity and staged mastery; how ranked satisfies self-determination needs while weaponising loss aversion and the goal gradient effect; and how Hextech monetisation deploys variable ratio reinforcement and engineered FOMO against a largely adolescent player base.</p>
+      <p class="quote" style="--c:var(--violet)">"Toxicity isn't a player personality problem. Riot built the conditions for it."</p>
+      <button class="blob-btn" data-doc="critique-lol.html" data-title="LoL: Mastery, Monetisation, and Manufactured Toxicity"><svg><use href="#i-doc"/></svg>Read critique</button>
+      <a class="blob-btn ghost" href="assets/critique-2.pdf" target="_blank" rel="noopener"><svg><use href="#i-slides"/></svg>View slides</a>
+    </article>
+  </div>
+</section>
+
+<!-- STOP 7 · RECOGNITION -->
+<section class="stop" id="recognition" data-stop="recognition" data-label="Recognition" style="--c:var(--gold)">
+  <header class="stop-head"><span class="badge"><svg><use href="#i-recognition"/></svg></span><span class="kick">STOP 7 &#183; THE SHRINE</span></header>
+  <h2>Achievements <span class="squig">unlocked<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8Q14 2 26 7T50 7T74 7T98 5"/></svg></span>.</h2>
+  <p class="lede">Selected for competitive games industry programmes and academic distinctions.</p>
+  <aside class="note" aria-label="Field note"><b>FIELD NOTE</b>Gen.G backed me with a scholarship. Limit Break paired me with a senior games researcher.</aside>
+  <div class="medals">
+    <div class="medal" style="--mc:var(--gold)">
+      <span class="medal-disc"><img src="assets/geng-award.jpg" alt="Gen.G Foundation Scholarship certificate, click to enlarge" data-zoom loading="lazy"></span>
+      <div><span class="when">UNLOCKED JUN 2024</span><h3>Gen.G Foundation Scholarship</h3><p>Competitively awarded for the Gen.G gaming industry practicum abroad programme, in recognition of achievements in gaming, esports, and leadership.</p></div>
+    </div>
+    <div class="medal" style="--mc:var(--sky)">
+      <span class="medal-disc"><svg><use href="#i-recognition"/></svg></span>
+      <div><span class="when">UNLOCKED 2025/26</span><h3>Limit Break Mentorship Programme</h3><p>Selected for the games industry mentorship programme connecting emerging talent with senior industry professionals.</p></div>
+    </div>
+    <div class="medal" style="--mc:var(--mint)">
+      <span class="medal-disc"><svg><use href="#i-doc"/></svg></span>
+      <div><span class="when">BSC PSYCHOLOGY &#183; 2025</span><h3>First Class dissertation</h3><p>Motor learning in children with DCD, built as a gamified alien-feeding task.</p></div>
+    </div>
+    <div class="medal" style="--mc:var(--coral)">
+      <span class="medal-disc"><svg><use href="#i-critiques"/></svg></span>
+      <div><span class="when">JAN 2024 TO JAN 2026</span><h3>Active Game Jam Participant</h3><p>Surrey Video Game Society member. Independently produced AAA design critiques as part of an ongoing personal research practice.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section class="block" id="about">
-  <div class="wrap">
-    <div class="eyebrow reveal"><svg class="glyph g-cir"><use href="#cir"/></svg>Background</div>
-    <h2 class="reveal">Psychology applied to play.</h2>
-    <div class="two">
-      <div class="reveal">
-        <ul class="points">
-          <li><strong>Psychology at the University of Surrey</strong>BSc (2:1), then MSc in Psychology, Game Design and Digital Innovation (predicted Distinction). The research methods grounding matters as much as the subject.</li>
-          <li><strong>Live studio placement at 22cans</strong>A games studio, on Masters of Albion: the full research lifecycle with real stakeholders, recruitment, facilitation, analysis, and a prioritised findings report delivered to the development team.</li>
-          <li><strong>Specialist interests</strong>Player psychology and AI's growing role in game design, with PC and mobile playtesting, VR interaction design, and trust in immersive systems all part of the toolkit. Focused on translating findings into something a development team can actually use.</li>
-          <li><strong>Based in Guildford and London</strong>Open to onsite, hybrid, or fully remote.</li>
-        </ul>
-      </div>
-      <div class="reveal">
-        <div class="about-photo"><img src="assets/alfie-hero.jpg" alt="Alfie Bunyan at graduation" loading="lazy"></div>
-        <div class="stats-head"><span>Player stats</span><span>P1</span></div>
-        <div class="stats" style="margin-top:10px">
-          <div class="stat"><span class="stat-key">DEG</span><div class="stat-num">2</div><div class="stat-lbl">Psychology degrees at Surrey: BSc (2:1) and MSc (predicted Distinction)</div></div>
-          <div class="stat"><span class="stat-key">STU</span><div class="stat-num">4</div><div class="stat-lbl">Research studies across games, VR, and behavioural contexts</div></div>
-          <div class="stat"><span class="stat-key">PAR</span><div class="stat-num">40+</div><div class="stat-lbl">Participants engaged across studies</div></div>
-          <div class="stat"><span class="stat-key">LVL</span><div class="stat-num">5</div><div class="stat-lbl">Stage research lifecycle delivered, ethics to stakeholder report</div></div>
-        </div>
-      </div>
+<!-- STOP 8 · CONTACT -->
+<section class="stop" id="contact" data-stop="contact" data-label="Contact" style="--c:var(--pink)">
+  <header class="stop-head"><span class="badge"><svg><use href="#i-contact"/></svg></span><span class="kick">STOP 8 &#183; THE LIGHTHOUSE</span></header>
+  <h2>Let's <span class="squig">work<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8Q14 2 26 7T50 7T74 7T98 5"/></svg></span> together.</h2>
+  <p class="lede">Open to junior user research and UX research roles in games and AI. Onsite, hybrid, or fully remote across Guildford, London, and the UK.</p>
+  <aside class="note" aria-label="Field note"><b>FIELD NOTE</b>I reply to every message. Norman, my sausage dog, supervises.</aside>
+  <div class="links">
+    <a class="blob-btn" href="https://www.linkedin.com/in/alfie-bunyan" target="_blank" rel="noopener"><svg><use href="#i-in"/></svg>LinkedIn</a>
+    <a class="blob-btn ghost" href="assets/Alfie_Bunyan_CV.docx" download="Alfie_Bunyan_CV.docx"><svg><use href="#i-down"/></svg>Download CV</a>
+  </div>
+  <form class="form" id="contact-form">
+    <input type="hidden" name="access_key" value="0482d18f-e628-4cd8-8c17-0fe20e042c59">
+    <input type="hidden" name="subject" value="Portfolio Enquiry - Alfie Bunyan">
+    <input type="hidden" name="from_name" value="Alfie Bunyan Portfolio">
+    <div class="row">
+      <input type="text" name="name" placeholder="Your name" required aria-label="Your name">
+      <input type="email" name="email" placeholder="Your email" required aria-label="Your email">
     </div>
+    <input type="text" name="organisation" placeholder="Organisation (optional)" aria-label="Organisation">
+    <textarea name="message" placeholder="Send a signal from the lighthouse..." required aria-label="Your message"></textarea>
+    <div class="status" id="contact-status" role="status"></div>
+    <button type="submit" class="blob-btn">Send message</button>
+  </form>
+
+  <div class="finale walk-only">
+    <span class="finale-ic"><svg><use href="#i-orbit"/></svg></span>
+    <div><b>You walked the whole planet.</b><span>Free roam is unlocked: spin the planet, revisit any landmark, and hunt for 9 hidden easter eggs.</span></div>
+    <button class="blob-btn" id="roam-enter">Free roam</button>
+  </div>
+  <div class="finale read-only webgl-only">
+    <span class="finale-ic"><svg><use href="#i-walk"/></svg></span>
+    <div><b>Prefer the scenic route?</b><span>The same story, told as a walk around a small 3D planet.</span></div>
+    <button class="blob-btn" data-set-mode="walk">Take the walk</button>
   </div>
 </section>
 
-<!-- EXPERIENCE -->
-<section class="block" id="experience">
-  <div class="wrap">
-    <div class="eyebrow reveal"><svg class="glyph g-sq"><use href="#sq"/></svg>Work History</div>
-    <h2 class="reveal">Experience.</h2>
-    <p class="intro reveal">Where I have applied research and data skills in real teams, with real stakeholders.</p>
-    <div class="roles">
-
-      <article class="role reveal" id="role-surrey">
-        <div class="role-side">
-          <span class="role-live">Current role</span>
-          <div class="role-dates">Jun 2026 to Oct 2026</div>
-          <div class="role-kind">Full-time, fixed-term contract</div>
-        </div>
-        <div class="role-body">
-          <h3>Data Analyst and Admin Coordinator</h3>
-          <div class="role-org">Widening Participation and Outreach &middot; University of Surrey</div>
-          <ul>
-            <li><strong>Turned a year of unused feedback into findings.</strong> Single-handedly cleaned, structured, and analysed a full year of programme feedback that had never been used.</li>
-            <li><strong>Working at scale with personal, opinion-rich data.</strong> Student records, survey results, and open-text feedback covering thousands of students.</li>
-            <li><strong>Reporting to decision makers.</strong> Produce reports, dashboards, and cleaned datasets for managers and for internal and external stakeholders.</li>
-            <li><strong>Coordinating data across the university.</strong> The link between teams and schools for reporting data, working with internal and external partners.</li>
-            <li><strong>Findings that lead to change.</strong> Recurring shortcomings surfaced in the feedback are now driving changes to the areas concerned.</li>
-            <li><strong>Building systems that outlast the contract.</strong> Setting up reusable data processes, with video walkthroughs so the team can keep running them.</li>
-          </ul>
-          <div class="tags">
-            <span class="tag">Excel</span><span class="tag">HEAT</span><span class="tag">Jamovi</span><span class="tag">Data Cleaning</span><span class="tag">Dashboards</span><span class="tag">Survey Analysis</span><span class="tag">Stakeholder Reporting</span>
-          </div>
-        </div>
-      </article>
-
-      <article class="role r-red reveal" id="role-22cans">
-        <div class="role-side">
-          <div class="role-dates">2026</div>
-          <div class="role-kind">Live studio placement</div>
-        </div>
-        <div class="role-body">
-          <h3>User Research Consultant</h3>
-          <div class="role-org">22cans (Games Studio) &middot; via the University of Surrey</div>
-          <ul>
-            <li>Ran the full research lifecycle on Masters of Albion: recruitment, facilitation, thematic analysis, and a prioritised findings report for the development team.</li>
-            <li>3 facilitated playtest sessions, 20 participants analysed, and 8 of 10 recommendations adopted by the studio.</li>
-          </ul>
-          <a href="#case-22cans" class="role-link">Read the case study &rarr;</a>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section class="block" id="skills">
-  <div class="wrap">
-    <div class="eyebrow reveal"><svg class="glyph g-x"><use href="#x"/></svg>Capabilities</div>
-    <h2 class="reveal">How I work.</h2>
-    <p class="intro reveal">Methods, tools, and analytical approaches I bring to user research projects. Each one is tagged with where I have applied it.</p>
-    <div class="skills">
-      <div class="skill reveal">
-        <div class="skill-head"><span class="skill-ic" style="background:rgba(255,97,97,.12);color:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.3 5H6.7a4 4 0 0 0-4 3.6L2 15a3 3 0 0 0 5.4 2l1.6-2h6l1.6 2a3 3 0 0 0 5.4-2l-.7-6.4A4 4 0 0 0 17.3 5Z"/></svg></span><h3>Games Research</h3></div>
-        <ul>
-          <li>Playtesting facilitation <span class="applied">22cans</span></li>
-          <li>Think-aloud protocols <span class="applied">22cans</span></li>
-          <li>Player psychology frameworks <span class="applied">MSc</span></li>
-          <li>Heuristic evaluation <span class="applied">MSc</span></li>
-          <li>Engagement and retention analysis <span class="applied">22cans</span></li>
-          <li>Game feel and UX critique <span class="applied">Portfolio</span></li>
-        </ul>
-      </div>
-      <div class="skill reveal">
-        <div class="skill-head"><span class="skill-ic" style="background:rgba(87,193,255,.12);color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M8 11h6M11 8v6"/></svg></span><h3>Research Methods</h3></div>
-        <ul>
-          <li>Semi-structured interviews <span class="applied">22cans</span></li>
-          <li>Behavioural observation <span class="applied">22cans</span></li>
-          <li>Eye-tracking (VR contexts) <span class="applied">VR study</span></li>
-          <li>Within/between-subjects design <span class="applied">VR study</span></li>
-          <li>Survey and experiment design <span class="applied">MSc</span></li>
-          <li>Ethics and consent management <span class="applied">22cans</span></li>
-        </ul>
-      </div>
-      <div class="skill reveal">
-        <div class="skill-head"><span class="skill-ic" style="background:rgba(89,212,153,.12);color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></span><h3>Analysis</h3></div>
-        <ul>
-          <li>Thematic analysis <span class="applied">22cans</span></li>
-          <li>Qualitative coding <span class="applied">22cans</span></li>
-          <li>Affinity mapping <span class="applied">22cans</span></li>
-          <li>SPSS <span class="applied">MSc</span></li>
-          <li>Jamovi <span class="applied">BSc, Surrey WP</span></li>
-          <li>Data cleaning and dashboards (Excel) <span class="applied">Surrey WP</span></li>
-          <li>Mixed-methods design <span class="applied">VR study</span></li>
-          <li>Prompt engineering for research workflows <span class="applied">Portfolio</span></li>
-          <li>AI/ML-aware research design <span class="applied">Portfolio</span></li>
-        </ul>
-      </div>
-      <div class="skill reveal">
-        <div class="skill-head"><span class="skill-ic" style="background:rgba(255,197,51,.12);color:var(--yellow)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3h-3l-2-2.5h-4L8 18H5a3 3 0 0 1-3-3Z"/><circle cx="8" cy="12" r="1.6"/><circle cx="16" cy="12" r="1.6"/></svg></span><h3>VR and Technical</h3></div>
-        <ul>
-          <li>Unreal Engine (prototyping) <span class="applied">VR study</span></li>
-          <li>VR environment design <span class="applied">VR study</span></li>
-          <li>Immersive UX evaluation <span class="applied">VR study</span></li>
-          <li>Embodied interaction research <span class="applied">VR study</span></li>
-          <li>OBS Studio (session recording) <span class="applied">VR study</span></li>
-        </ul>
-      </div>
-      <div class="skill reveal">
-        <div class="skill-head"><span class="skill-ic" style="background:rgba(200,140,255,.12);color:#c88cff"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="12" r="2"/><circle cx="19" cy="12" r="2"/><circle cx="8" cy="19" r="2"/><circle cx="16" cy="19" r="2"/><path d="m10.5 6.5-4 4M13.5 6.5l4 4M6 14l1.3 3M18 14l-1.3 3M10 19h4"/></svg></span><h3>Behavioural Science</h3></div>
-        <ul>
-          <li>Motor learning and skill acquisition <span class="applied">VR study</span></li>
-          <li>Cognitive load assessment <span class="applied">VR study</span></li>
-          <li>Trust and mental model research <span class="applied">MSc</span></li>
-          <li>Child-appropriate methodology <span class="applied">MSc</span></li>
-          <li>Implicit vs explicit learning <span class="applied">VR study</span></li>
-        </ul>
-      </div>
-      <div class="skill reveal">
-        <div class="skill-head"><span class="skill-ic" style="background:rgba(255,255,255,.08);color:var(--ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.6 2.6-2.4-.6-.6-2.4Z"/></svg></span><h3>Tools and Platforms</h3></div>
-        <ul>
-          <li>Qualtrics <span class="applied">22cans</span></li>
-          <li>HEAT (student tracking database) <span class="applied">Surrey WP</span></li>
-          <li>Google Forms <span class="applied">MSc</span></li>
-          <li>Zoom (remote facilitation) <span class="applied">22cans</span></li>
-          <li>MS Teams <span class="applied">22cans</span></li>
-          <li>Participant recruitment pipelines <span class="applied">22cans</span></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CASE STUDIES -->
-<section class="block" id="work">
-  <div class="wrap">
-    <div class="eyebrow reveal"><svg class="glyph g-sq"><use href="#sq"/></svg>Selected Research</div>
-    <h2 class="reveal">Case studies.</h2>
-    <p class="intro reveal">A selection of research projects spanning games, VR, and behavioural psychology.</p>
-
-    <div class="cases">
-
-      <!-- 01 · 22CANS -->
-      <article class="case reveal" id="case-22cans">
-        <div class="case-side">
-          <div class="case-num">01</div>
-          <span class="case-type">User Research Consultant</span>
-          <span class="case-flag">Featured study</span>
-          <div class="case-note">22cans is an active, live games studio. This placement ran alongside a real release, not a simulated exercise.</div>
-          <svg class="case-ic" viewBox="0 0 48 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 8h20a10 10 0 0 1 10 10v2a6 6 0 0 1-11 3.4L29 19H19l-4 4.4A6 6 0 0 1 4 20v-2A10 10 0 0 1 14 8Z"/><path d="M13 14v6M10 17h6"/><circle cx="34" cy="15" r="1.6" fill="currentColor" stroke="none"/><circle cx="38" cy="19" r="1.6" fill="currentColor" stroke="none"/><circle cx="34" cy="23" r="1.6" fill="currentColor" stroke="none"/><circle cx="30" cy="19" r="1.6" fill="currentColor" stroke="none"/></svg>
-        </div>
-        <div class="case-body">
-          <div class="case-ctx">University of Surrey &middot; 22cans (Games Studio) &middot; 2026</div>
-          <h3>End-to-End Playtest Research for a Released Title</h3>
-          <div class="case-stats">
-            <div class="case-stat"><span class="cs-val">3</span><span class="cs-lbl">Sessions facilitated</span></div>
-            <div class="case-stat"><span class="cs-val">20</span><span class="cs-lbl">Participants analysed</span></div>
-            <div class="case-stat"><span class="cs-val">10</span><span class="cs-lbl">Recommendations made</span></div>
-            <div class="case-stat"><span class="cs-val">8</span><span class="cs-lbl">Adopted by the studio</span></div>
-          </div>
-          <p>A full user research engagement embedded within 22cans, a live games studio, covering the complete research lifecycle from participant recruitment through stakeholder delivery. I ran 3 live facilitated playtest sessions, conducted and transcribed post-play interviews, and applied thematic analysis across data from 20 participants to surface usability pain points and engagement patterns, then delivered a prioritised findings report of 10 recommendations to the development team.</p>
-          <p>Working in a live studio environment meant navigating real constraints: NDA protocols, stakeholder expectations, and production timelines alongside the research itself.</p>
-          <div class="tags">
-            <span class="tag">Playtesting Facilitation</span><span class="tag">Semi-structured Interviews</span><span class="tag">Thematic Analysis</span><span class="tag">Ethics Documentation</span><span class="tag">Stakeholder Expectation Management</span>
-          </div>
-          <div class="steps">
-            <div class="step">Ethics and Consent</div><div class="step">Recruitment</div><div class="step">Facilitation</div><div class="step">Thematic Analysis</div><div class="step">Studio Debrief</div>
-          </div>
-          <img src="assets/giz-screens.jpg" alt="Dual-screen playtesting setup at the GIZ" class="media media-img" loading="lazy">
-          <div class="outcome"><span class="outcome-lbl">Outcome</span>8 of the 10 recommendations were adopted and acted on by the development team, feeding directly into post-playtest iteration on the title. Specifics under NDA.</div>
-          <div class="nda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Full research documentation available on request (NDA-restricted)</div>
-        </div>
-      </article>
-
-      <!-- 02 · VR SIMULATION -->
-      <article class="case c-blue reveal" id="case-vr">
-        <div class="case-side">
-          <div class="case-num">02</div>
-          <span class="case-type">MSc Module Project</span>
-          <svg class="case-ic" viewBox="0 0 52 30" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M2 10C2 6 6 4 10 4L42 4C46 4 50 6 50 10L50 20C50 24 46 26 42 26L38 26C36 26 34 24 32 22C30 20 28 20 26 20C24 20 22 20 20 22C18 24 16 26 14 26L10 26C6 26 2 24 2 20Z"/><circle cx="16" cy="15" r="5"/><circle cx="36" cy="15" r="5"/><path d="M21 15L31 15" stroke-width="1.5"/></svg>
-        </div>
-        <div class="case-body">
-          <div class="case-ctx">University of Surrey &middot; MSc Year 1</div>
-          <h3>VR Cognitive Impairment Simulation</h3>
-          <div class="case-stats">
-            <div class="case-stat"><span class="cs-val">UE5</span><span class="cs-lbl">Custom VR build</span></div>
-            <div class="case-stat"><span class="cs-val">1 of 4</span><span class="cs-lbl">Cognitive domains prototyped</span></div>
-            <div class="case-stat"><span class="cs-val">Proposal</span><span class="cs-lbl">Proof of concept</span></div>
-          </div>
-          <p>Designed and built a proof-of-concept VR environment in Unreal Engine simulating alcohol-like visual impairment, proposed as part of a larger study into how impairment affects cognitive performance. The prototype demonstrated one of four planned cognitive tests, introducing measurable perceptual distortions during an in-world task with a single demonstration participant to show how the full study would run.</p>
-          <p>Scoped as a four-domain study examining distinct cognitive capacities and how they interact under impairment. Delivered as an academic presentation covering design rationale, methodology, and implications for accessibility and safety simulation.</p>
-          <div class="tags">
-            <span class="tag">Unreal Engine</span><span class="tag">VR Prototyping</span><span class="tag">Cognitive Assessment</span><span class="tag">Behavioural Observation</span><span class="tag">Academic Presentation</span>
-          </div>
-          <div class="steps">
-            <div class="step">Prototype Design</div><div class="step">VR Build</div><div class="step">User Sessions</div><div class="step">Findings Presentation</div>
-          </div>
-          <div class="outcome"><span class="outcome-lbl">Outcome</span>The proof of concept showed that measurable perceptual distortion could be induced and tested in VR, establishing the method for the proposed four-domain study into cognitive impairment.</div>
-          <p class="media-lbl">&#9654;&nbsp; Demonstration session recording, click to play</p>
-          <video class="media" controls muted playsinline preload="none"><source src="assets/vr-participant.mp4" type="video/mp4"></video>
-          <div class="doc-row">
-            <button class="doc-btn" onclick="openPDF('assets/vr-presentation.pdf','VR Cognitive Impairment Simulation: Full Presentation')"><svg><use href="#doc"/></svg>Read Presentation</button>
-          </div>
-        </div>
-      </article>
-
-      <!-- 03 · DCD DISSERTATION -->
-      <article class="case c-green reveal" id="case-dcd">
-        <div class="case-side">
-          <div class="case-num">03</div>
-          <span class="case-type">BSc Dissertation</span>
-          <svg class="case-ic" viewBox="0 0 44 42" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="22" cy="5" r="3.5" fill="currentColor" stroke="none"/><circle cx="7" cy="22" r="3.5" fill="currentColor" stroke="none"/><circle cx="37" cy="22" r="3.5" fill="currentColor" stroke="none"/><circle cx="14" cy="37" r="3.5" fill="currentColor" stroke="none"/><circle cx="30" cy="37" r="3.5" fill="currentColor" stroke="none"/><line x1="22" y1="8.5" x2="10" y2="18.5"/><line x1="22" y1="8.5" x2="34" y2="18.5"/><line x1="9" y1="25" x2="13" y2="33.5"/><line x1="35" y1="25" x2="31" y2="33.5"/><line x1="17.5" y1="37" x2="26.5" y2="37"/></svg>
-        </div>
-        <div class="case-body">
-          <div class="case-ctx">University of Surrey &middot; BSc Psychology &middot; 2025</div>
-          <h3>Motor Learning in DCD: Gamified Research with Children</h3>
-          <div class="distinction"><svg><use href="#trophy"/></svg>First Class Honours</div>
-          <div class="outcome" style="margin-top:0"><span class="outcome-lbl">Design challenge</span>Designing for a 9 to 11 year old participant group meant the research instrument had to work as a game first and a study second, an alien-feeding task standing in for a visuomotor rotation test, with findings analysed in Jamovi and written up with implications for inclusive, child-appropriate UX methodology.</div>
-          <div class="case-stats" style="margin-top:18px">
-            <div class="case-stat"><span class="cs-val">6</span><span class="cs-lbl">Pilot studies</span></div>
-            <div class="case-stat"><span class="cs-val">100</span><span class="cs-lbl">Trials per participant</span></div>
-            <div class="case-stat"><span class="cs-val">9-11 yrs</span><span class="cs-lbl">Participant age</span></div>
-          </div>
-          <p>Investigated motor learning differences in children with Developmental Coordination Disorder using a gamified visuomotor rotation task, presented as an alien-feeding game for participants aged 9 to 11. Piloted across 6 runs of two 50-trial stages each, the study compared implicit and explicit learning strategies across DCD and typically-developing groups.</p>
-          <p>Designing research instruments for a child population required careful attention to ethics, age-appropriate language, and engagement, skills directly transferable to game UX research with diverse player populations.</p>
-          <div class="steps">
-            <div class="step">Study Design</div><div class="step">Gamified Task</div><div class="step">Data Collection</div><div class="step">Statistical Analysis</div>
-          </div>
-          <div class="tags">
-            <span class="tag">Child-appropriate Methodology</span><span class="tag">Gamified Research Design</span><span class="tag">Between-subjects Design</span><span class="tag">Jamovi Analysis</span><span class="tag">Ethics: Child Participants</span>
-          </div>
-          <div class="doc-row">
-            <button class="doc-btn" onclick="openPDF('assets/dissertation.pdf','Motor Learning in DCD: BSc Dissertation')"><svg><use href="#doc"/></svg>Read Dissertation</button>
-          </div>
-        </div>
-      </article>
-
-      <!-- 04 · MSC AV TRUST -->
-      <article class="case c-yellow reveal" id="case-av">
-        <div class="case-side">
-          <div class="case-num">04</div>
-          <span class="case-type">MSc Dissertation</span>
-          <span class="case-flag">Ongoing research</span>
-          <svg class="case-ic" viewBox="0 0 48 32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 22v-6l5-8h26l5 8v6a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2Z"/><path d="M6 16h36"/><circle cx="13" cy="24" r="3.5"/><circle cx="35" cy="24" r="3.5"/><path d="M20 4l4 4 4-4"/></svg>
-        </div>
-        <div class="case-body">
-          <div class="case-ctx">University of Surrey &middot; MSc Dissertation &middot; 2026</div>
-          <h3>Trust in Autonomous Vehicles: VR Study</h3>
-          <p>Examining how driving style and explanatory behaviour affect user trust in autonomous systems, using a custom VR environment and a mixed-methods design with 43 participants, combining quantitative psychometrics with qualitative self-report analysis.</p>
-          <p>I am continuing this line of research beyond the MSc and preparing the findings for publication.</p>
-          <div class="tags">
-            <span class="tag">VR Research Design</span><span class="tag">Trust Measurement</span><span class="tag">Mixed-methods</span><span class="tag">Autonomous Systems UX</span><span class="tag">Psychometrics</span>
-          </div>
-          <div class="xp">
-            <div class="xp-top"><span>Quest progress</span><b>N = 43</b></div>
-            <div class="xp-bar"><i class="done"></i><i class="done"></i><i class="done"></i><i class="active"></i></div>
-            <div class="xp-lbl">Continuing the research and preparing for publication</div>
-          </div>
-        </div>
-      </article>
-
-    </div>
-  </div>
-</section>
-
-<!-- CRITIQUES -->
-<section class="block" id="critiques">
-  <div class="wrap">
-    <div class="eyebrow reveal"><svg class="glyph g-tri"><use href="#tri"/></svg>UX Analysis</div>
-    <h2 class="reveal">Game design critiques.</h2>
-    <p class="intro reveal">Independent UX and player psychology analysis of AAA titles, applying behavioural frameworks to real game design decisions. These sit alongside the case studies as evidence of how I think, not just what I have done.</p>
-    <div class="crits">
-      <article class="crit reveal" id="crit-cs2">
-        <div class="crit-cover" style="background-image:url('assets/cs2-bg.jpg')"><span class="crit-game">Counter-Strike 2</span></div>
-        <div class="crit-body">
-          <h3>A Tale of Two Economies</h3>
-          <p>A psychological critique separating CS2's two design systems: a skill-based in-game economy built on prospect theory and cognitive load, and a monetisation economy built on variable reinforcement, the near-miss effect, and classical conditioning. Examines the ethical implications of gambling mechanics in a free-to-access platform that peaks at 1.8 million concurrent players, including the CSGOLotto scandal and the gap between regulatory response and psychological evidence.</p>
-          <p class="pull">"The skin economy isn't cosmetic. It's a second game built on variable reinforcement, running parallel to the first."</p>
-          <div class="doc-row">
-            <a href="critique-cs2.html" onclick="event.preventDefault(); openPDF('critique-cs2.html','CS2: A Tale of Two Economies')" class="doc-btn"><svg><use href="#doc"/></svg>Read Critique</a>
-            <a href="assets/critique-1.pdf" target="_blank" rel="noopener" class="doc-btn"><svg><use href="#slides"/></svg>View Slides</a>
-          </div>
-        </div>
-      </article>
-      <article class="crit reveal" id="crit-lol">
-        <div class="crit-cover" style="background-image:url('assets/lol-bg.jpg')"><span class="crit-game">League of Legends</span></div>
-        <div class="crit-body">
-          <h3>Mastery, Monetisation, and Manufactured Toxicity</h3>
-          <p>A three-part critique examining how League of Legends sustains 180 million players through emergent complexity and staged mastery; how the ranked system satisfies self-determination theory needs while weaponising loss aversion and the goal gradient effect; and how Hextech monetisation deploys variable ratio reinforcement and engineered FOMO against a predominantly adolescent player base. Argues that toxicity is a structural output of anonymous high-stakes design, not a player personality problem, and that Riot built the conditions for it.</p>
-          <p class="pull" style="border-left-color:var(--blue)">"Toxicity isn't a player personality problem. Riot built the conditions for it."</p>
-          <div class="doc-row">
-            <a href="critique-lol.html" onclick="event.preventDefault(); openPDF('critique-lol.html','LoL: Mastery, Monetisation, and Manufactured Toxicity')" class="doc-btn"><svg><use href="#doc"/></svg>Read Critique</a>
-            <a href="assets/critique-2.pdf" target="_blank" rel="noopener" class="doc-btn"><svg><use href="#slides"/></svg>View Slides</a>
-          </div>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- RECOGNITION -->
-<section class="block" id="recognition">
-  <div class="wrap">
-    <div class="eyebrow reveal"><svg class="glyph g-cir"><use href="#cir"/></svg>Awards and Programmes</div>
-    <h2 class="reveal">Recognition.</h2>
-    <p class="intro reveal">Selected for competitive games industry programmes and academic distinctions.</p>
-    <div class="achs">
-      <div class="ach gold reveal">
-        <img src="assets/geng-award.jpg" class="ach-thumb" alt="Gen.G Foundation Scholarship certificate awarded to Alfie Bunyan" loading="lazy" onclick="openImg('assets/geng-award.jpg')">
-        <div><h3>Gen.G Foundation Scholarship</h3><p>Recipient of the Gen.G Foundation Scholarship, competitively awarded for the Gen.G gaming industry practicum abroad programme, in recognition of achievements in gaming, esports, and leadership.</p></div>
-        <div class="ach-meta"><small>Unlocked</small><span>Jun 2024</span></div>
-      </div>
-      <div class="ach reveal">
-        <div class="ach-ic" style="--c:var(--blue)"><svg><use href="#trophy"/></svg></div>
-        <div><h3>Limit Break Mentorship Programme</h3><p>Selected applicant for the games industry mentorship programme connecting emerging talent with senior industry professionals.</p></div>
-        <div class="ach-meta"><small>Unlocked</small><span>2025/26</span></div>
-      </div>
-      <div class="ach reveal">
-        <div class="ach-ic" style="--c:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 11h4M8 9v4M15 12h.01M18 10h.01"/><path d="M17.3 5H6.7a4 4 0 0 0-4 3.6L2 15a3 3 0 0 0 5.4 2l1.6-2h6l1.6 2a3 3 0 0 0 5.4-2l-.7-6.4A4 4 0 0 0 17.3 5Z"/></svg></div>
-        <div><h3>Active Game Jam Participant</h3><p>Surrey Video Game Society member. Independently produced AAA design critiques as part of ongoing personal research practice.</p></div>
-        <div class="ach-meta"><small>Unlocked</small><span>Jan 2024 - Jan 2026</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACT -->
-<section class="block" id="contact">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="eyebrow"><svg class="glyph"><use href="#x"/></svg>Get in Touch</div>
-      <h2>Let's work together.</h2>
-      <p class="intro">Open to junior user research and UX research roles in games and AI. Onsite, hybrid, or fully remote. Guildford, London, and across the UK.</p>
-      <div class="c-links">
-        <a href="https://www.linkedin.com/in/alfie-bunyan" target="_blank" rel="noopener" class="c-link"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9.75h4v11H3Zm6.5 0h3.8v1.5h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1v5.45h-4v-4.83c0-1.15-.02-2.63-1.6-2.63-1.6 0-1.85 1.25-1.85 2.55v4.91h-4Z"/></svg>LinkedIn</a>
-        <a href="assets/Alfie_Bunyan_CV.docx" download="Alfie_Bunyan_CV.docx" class="c-link"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12m0 0-5-5m5 5 5-5M5 20h14"/></svg>Download CV</a>
-      </div>
-    </div>
-    <form class="form reveal" id="contact-form">
-      <input type="hidden" name="access_key" value="0482d18f-e628-4cd8-8c17-0fe20e042c59">
-      <input type="hidden" name="subject" value="Portfolio Enquiry - Alfie Bunyan">
-      <input type="hidden" name="from_name" value="Alfie Bunyan Portfolio">
-      <div class="form-row">
-        <input type="text" name="name" placeholder="Your name" required aria-label="Your name">
-        <input type="email" name="email" placeholder="Your email" required aria-label="Your email">
-      </div>
-      <input type="text" name="organisation" placeholder="Organisation (optional)" aria-label="Organisation">
-      <textarea name="message" placeholder="Your message..." required aria-label="Your message"></textarea>
-      <div class="status" id="contact-status"></div>
-      <button type="submit" class="btn btn-white contact-submit">Send Message</button>
-    </form>
-  </div>
-</section>
-
-<footer>
-  <div class="wrap">
-    <span>Alfie Bunyan &middot; Games User Researcher &middot; Guildford, UK</span>
-    <span class="egg" title="Try it">&uarr;&uarr;&darr;&darr;&larr;&rarr;&larr;&rarr; B A</span>
-  </div>
+<footer class="foot">
+  <span>Alfie Bunyan &#183; Games User Researcher &#183; Guildford, UK</span>
+  <span class="egg" title="Try it">&uarr;&uarr;&darr;&darr;&larr;&rarr;&larr;&rarr; B A</span>
 </footer>
+</main>
 
 <!-- Overlays -->
-<div class="cmdk" id="cmdk" aria-hidden="true">
-  <div class="palette" role="dialog" aria-label="Quick search">
-    <label class="p-search">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input type="text" placeholder="Jump to a section, study or document..." aria-label="Search the portfolio" autocomplete="off">
-      <span class="kbd">Esc</span>
-    </label>
-    <div class="p-list" role="listbox"></div>
-  </div>
-</div>
-
-<div id="img-lightbox" class="lightbox" onclick="closeImg()">
-  <button class="x-btn" onclick="closeImg()" aria-label="Close">&#x2715;</button>
-  <img id="img-lightbox-src" src="" alt="Award certificate">
-</div>
-
-<div id="pdf-modal" class="modal" onclick="closePDFModal(event)">
+<div class="modal" id="doc-modal" role="dialog" aria-modal="true" aria-labelledby="doc-title">
   <div class="modal-box">
-    <div class="modal-head"><span id="pdf-modal-title">Document</span><button class="x-btn" onclick="closePDF()" aria-label="Close">&#x2715;</button></div>
-    <iframe id="pdf-modal-frame" src="" title="Document viewer"></iframe>
+    <div class="modal-head"><span id="doc-title">Document</span><button class="x" id="doc-close" aria-label="Close document">&#x2715;</button></div>
+    <iframe id="doc-frame" title="Document viewer"></iframe>
   </div>
 </div>
+<div class="modal" id="img-modal" role="dialog" aria-modal="true" aria-label="Enlarged image"><img id="img-full" alt="Gen.G Foundation Scholarship certificate"></div>
 
 <div class="toast" id="toast" role="status" aria-live="polite">
-  <span class="toast-ic"><svg><use href="#trophy"/></svg></span>
-  <span><small>Achievement unlocked</small><b id="toast-text"></b></span>
+  <span class="t-ic"><svg><use href="#i-recognition"/></svg></span>
+  <span><small>ACHIEVEMENT UNLOCKED</small><b id="toast-text"></b></span>
 </div>
 
-<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">&uarr;</button>
-
-<script>
-  // Clean up /index.html in URL bar
-  if (location.pathname === '/index.html') history.replaceState(null, '', '/');
-
-  // Scroll reveal
-  const ro = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } });
-  }, { threshold: 0.08 });
-  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
-
-  // Nav active state, border and back to top
-  const nav = document.getElementById('nav');
-  const sections = document.querySelectorAll('section[id]');
-  const links = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
-    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
-    nav.classList.toggle('scrolled', window.scrollY > 10);
-    document.getElementById('backTop').classList.toggle('show', window.scrollY > 600);
-  }, { passive: true });
-
-  // Achievement toast
-  let toastTimer;
-  function achievement(text) {
-    const t = document.getElementById('toast');
-    document.getElementById('toast-text').textContent = text;
-    t.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => t.classList.remove('show'), 4200);
-  }
-  function once(key, fn) {
-    try { if (sessionStorage.getItem(key)) return; sessionStorage.setItem(key, '1'); } catch (e) {}
-    fn();
-  }
-  // Reaching the contact section counts as "completing" the portfolio
-  new IntersectionObserver((entries, obs) => {
-    if (entries[0].isIntersecting) { once('ach-complete', () => achievement('Completionist: you reached the end')); obs.disconnect(); }
-  }, { threshold: 0.4 }).observe(document.getElementById('contact'));
-
-  // Konami code easter egg
-  const konami = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
-  let kPos = 0;
-  document.addEventListener('keydown', e => {
-    const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
-    kPos = k === konami[kPos] ? kPos + 1 : (k === konami[0] ? 1 : 0);
-    if (kPos === konami.length) { kPos = 0; achievement('Secret found: +30 lives. Thanks for exploring!'); }
-  });
-
-  // ── Command palette ───────────────────────
-  const go = sel => () => { closeCmdk(); document.querySelector(sel).scrollIntoView({ behavior: 'smooth' }); };
-  const ITEMS = [
-    { g: 'Case studies', t: 'End-to-End Playtest Research', s: '22cans · 8 of 10 recommendations adopted', tag: 'Featured', ic: '01', c: 'var(--red)', run: go('#case-22cans') },
-    { g: 'Case studies', t: 'Trust in Autonomous Vehicles', s: 'VR · N = 43 · towards publication', tag: 'Ongoing', ic: '04', c: 'var(--yellow)', run: go('#case-av') },
-    { g: 'Case studies', t: 'Motor Learning in DCD', s: 'Gamified research with children · First Class', tag: 'BSc', ic: '03', c: 'var(--green)', run: go('#case-dcd') },
-    { g: 'Case studies', t: 'VR Cognitive Impairment Simulation', s: 'Unreal Engine 5 proof of concept', tag: 'MSc', ic: '02', c: 'var(--blue)', run: go('#case-vr') },
-    { g: 'Critiques', t: 'Counter-Strike 2: A Tale of Two Economies', s: 'Variable reinforcement and skin economies', tag: 'Critique', ic: 'CS', run: () => { closeCmdk(); openPDF('critique-cs2.html','CS2: A Tale of Two Economies'); } },
-    { g: 'Critiques', t: 'League of Legends: Manufactured Toxicity', s: 'Mastery, monetisation and toxicity', tag: 'Critique', ic: 'LoL', run: () => { closeCmdk(); openPDF('critique-lol.html','LoL: Mastery, Monetisation, and Manufactured Toxicity'); } },
-    { g: 'Documents', t: 'Download CV', s: 'Word document', tag: 'File', ic: 'CV', run: () => { closeCmdk(); const a = document.createElement('a'); a.href = 'assets/Alfie_Bunyan_CV.docx'; a.download = 'Alfie_Bunyan_CV.docx'; a.click(); } },
-    { g: 'Documents', t: 'BSc Dissertation', s: 'Motor Learning in DCD', tag: 'PDF', ic: 'PDF', run: () => { closeCmdk(); openPDF('assets/dissertation.pdf','Motor Learning in DCD: BSc Dissertation'); } },
-    { g: 'Documents', t: 'VR Simulation Presentation', s: 'Full presentation deck', tag: 'PDF', ic: 'PDF', run: () => { closeCmdk(); openPDF('assets/vr-presentation.pdf','VR Cognitive Impairment Simulation: Full Presentation'); } },
-    { g: 'Sections', t: 'Why I do this', s: 'Motivation', tag: 'Section', ic: '&#9651;', run: go('#why') },
-    { g: 'Sections', t: 'About', s: 'Background and stats', tag: 'Section', ic: '&#9675;', run: go('#about') },
-    { g: 'Sections', t: 'Experience', s: 'Data Analyst at Surrey, 22cans placement', tag: 'Section', ic: '&#9633;', run: go('#experience') },
-    { g: 'Sections', t: 'Skills', s: 'How I work', tag: 'Section', ic: '&#10005;', run: go('#skills') },
-    { g: 'Sections', t: 'Recognition', s: 'Awards and programmes', tag: 'Section', ic: '&#9633;', run: go('#recognition') },
-    { g: 'Sections', t: 'Contact', s: 'Send a message', tag: 'Section', ic: '&#9993;', run: go('#contact') },
-    { g: 'Links', t: 'LinkedIn', s: 'linkedin.com/in/alfie-bunyan', tag: 'External', ic: 'in', run: () => { closeCmdk(); window.open('https://www.linkedin.com/in/alfie-bunyan', '_blank', 'noopener'); } },
-  ];
-
-  function makePalette(root, limit) {
-    const input = root.querySelector('input');
-    const list = root.querySelector('.p-list');
-    let shown = [], idx = 0;
-    function render() {
-      const q = input.value.trim().toLowerCase();
-      shown = ITEMS.filter(it => !q || (it.t + ' ' + it.s + ' ' + it.g + ' ' + it.tag).toLowerCase().includes(q));
-      if (limit && !q) shown = shown.slice(0, limit);
-      idx = Math.min(idx, Math.max(shown.length - 1, 0));
-      if (!shown.length) { list.innerHTML = '<div class="p-empty">No results. Try "VR", "CV" or "trust".</div>'; return; }
-      let html = '', last = '';
-      shown.forEach((it, n) => {
-        if (it.g !== last) { html += `<div class="p-group">${it.g}</div>`; last = it.g; }
-        const ic = it.c ? `style="background:color-mix(in srgb, ${it.c} 15%, transparent);color:${it.c}"` : '';
-        html += `<button class="p-row${n === idx ? ' active' : ''}" data-n="${n}" role="option"><span class="p-icon" ${ic}>${it.ic}</span>${it.t} <small>${it.s}</small><span class="p-tag">${it.tag}</span><span class="p-keys"><span class="kbd">Open</span><span class="kbd">&#8629;</span></span></button>`;
-      });
-      list.innerHTML = html;
-    }
-    function setIdx(n) {
-      if (!shown.length) return;
-      idx = (n + shown.length) % shown.length;
-      list.querySelectorAll('.p-row').forEach(r => r.classList.toggle('active', +r.dataset.n === idx));
-      const a = list.querySelector('.p-row.active'); if (a) a.scrollIntoView({ block: 'nearest' });
-    }
-    input.addEventListener('input', () => { idx = 0; render(); });
-    input.addEventListener('keydown', e => {
-      if (e.key === 'ArrowDown') { e.preventDefault(); setIdx(idx + 1); }
-      else if (e.key === 'ArrowUp') { e.preventDefault(); setIdx(idx - 1); }
-      else if (e.key === 'Enter' && shown[idx]) { e.preventDefault(); shown[idx].run(); }
-    });
-    list.addEventListener('mousemove', e => { const r = e.target.closest('.p-row'); if (r && +r.dataset.n !== idx) setIdx(+r.dataset.n); });
-    list.addEventListener('click', e => { const r = e.target.closest('.p-row'); if (r) shown[+r.dataset.n].run(); });
-    render();
-    return { input, reset() { input.value = ''; idx = 0; render(); } };
-  }
-
-  const heroPal = makePalette(document.getElementById('heroPalette'), 6);
-  const cmdkEl = document.getElementById('cmdk');
-  const modalPal = makePalette(cmdkEl, 0);
-  function openCmdk() { modalPal.reset(); cmdkEl.classList.add('open'); cmdkEl.setAttribute('aria-hidden', 'false'); setTimeout(() => modalPal.input.focus(), 10); }
-  function closeCmdk() { cmdkEl.classList.remove('open'); cmdkEl.setAttribute('aria-hidden', 'true'); }
-  cmdkEl.addEventListener('click', e => { if (e.target === cmdkEl) closeCmdk(); });
-  document.getElementById('openCmdk').addEventListener('click', openCmdk);
-  if (/Mac|iPhone|iPad/.test(navigator.platform)) document.getElementById('modKey').textContent = '⌘';
-  document.addEventListener('keydown', e => {
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); cmdkEl.classList.contains('open') ? closeCmdk() : openCmdk(); }
-  });
-
-  // ── Document viewer, lightbox, form ──────
-  function openPDF(src, title) {
-    const frameSrc = src.toLowerCase().endsWith('.pdf') ? src + '#toolbar=0&navpanes=0' : src;
-    document.getElementById('pdf-modal-frame').src = frameSrc;
-    document.getElementById('pdf-modal-title').textContent = title;
-    document.getElementById('pdf-modal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closePDF() {
-    document.getElementById('pdf-modal').classList.remove('open');
-    document.body.style.overflow = '';
-    setTimeout(() => { document.getElementById('pdf-modal-frame').src = ''; }, 300);
-  }
-  function closePDFModal(e) { if (e.target === document.getElementById('pdf-modal')) closePDF(); }
-  function openImg(src) {
-    document.getElementById('img-lightbox-src').src = src;
-    document.getElementById('img-lightbox').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeImg() {
-    document.getElementById('img-lightbox').classList.remove('open');
-    document.body.style.overflow = '';
-    setTimeout(() => { document.getElementById('img-lightbox-src').src = ''; }, 300);
-  }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closePDF(); closeImg(); closeCmdk(); } });
-
-  document.getElementById('contact-form').addEventListener('submit', async function (e) {
-    e.preventDefault();
-    const btn = this.querySelector('.contact-submit');
-    const status = document.getElementById('contact-status');
-    btn.disabled = true;
-    btn.textContent = 'Sending...';
-    status.style.display = 'none';
-    const data = Object.fromEntries(new FormData(this));
-    try {
-      const res = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(data)
-      });
-      const json = await res.json();
-      if (json.success) {
-        status.textContent = 'Message sent! I\'ll get back to you soon.';
-        status.className = 'status success';
-        this.reset();
-        achievement('First contact: message sent');
-      } else {
-        throw new Error(json.message);
-      }
-    } catch (err) {
-      status.textContent = 'Something went wrong. Try emailing alfiebunyans@gmail.com directly.';
-      status.className = 'status error';
-    }
-    status.style.display = 'block';
-    btn.disabled = false;
-    btn.textContent = 'Send Message';
-  });
-</script>
+<script type="module" src="app.js?v=26"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%2307080a'/><rect x='6' y='6' width='88' height='88' rx='18' fill='none' stroke='%23ff5757' stroke-width='6'/><text y='70' x='50' font-size='56' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='700' fill='white'>A</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Silkscreen&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@300;400;500;600&family=Silkscreen&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #07080a;
@@ -303,11 +303,12 @@
   .footer-back { font-weight: 500; font-size: 14px; }
   th { font-family: var(--pixel); font-weight: 400 !important; }
 </style>
+<link rel="stylesheet" href="critique.css?v=1">
 </head>
 <body>
 
 <nav class="back-nav">
-  <button class="back-link" onclick="window.self !== window.top ? window.parent.closePDF() : history.back()">
+  <button class="back-link" onclick="window.self !== window.top ? (window.parent.closeDoc ? window.parent.closeDoc() : history.back()) : history.back()">
     <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="M9 2L4 7l5 5"/>
     </svg>
@@ -617,7 +618,7 @@
 
   <footer class="page-footer">
     <p>Alfie Bunyan &nbsp;&middot;&nbsp; Games User Researcher &nbsp;&middot;&nbsp; 2024</p>
-    <button class="footer-back" onclick="window.self !== window.top ? window.parent.closePDF() : history.back()">Back to Portfolio &rarr;</button>
+    <button class="footer-back" onclick="window.self !== window.top ? (window.parent.closeDoc ? window.parent.closeDoc() : history.back()) : history.back()">Back to Portfolio &rarr;</button>
   </footer>
 
 </main>

@@ -1,0 +1,70 @@
+/* Brings the critique pages into the planet site's look: same night palette,
+   Bricolage headings, pixel labels and soft, organic shapes. Loaded after each
+   page's own <style>, so it only overrides. */
+:root {
+  --bg: #0b0920;
+  --surface: rgba(22,17,58,.72);
+  --surface-2: rgba(30,24,72,.75);
+  --border: rgba(255,255,255,.1);
+  --border-bright: rgba(255,255,255,.16);
+  --text: #d4cfe8;
+  --text-dim: #a39dc2;
+  --text-muted: #8a84ad;
+  --white: #f6f2ff;
+  --display: "Bricolage Grotesque", Inter, system-ui, sans-serif;
+}
+body {
+  background:
+    radial-gradient(ellipse 70% 40% at 90% 0%, rgba(139,108,255,.2), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 0% 100%, rgba(255,107,90,.08), transparent 70%),
+    var(--bg);
+  background-attachment: fixed;
+  color: var(--text);
+}
+h1, h2, h3, .stat-val, .price-amount, .theory-card-title, .system-title, .rank-name {
+  font-family: var(--display) !important;
+  letter-spacing: -.02em !important;
+}
+h1 { font-weight: 800; font-size: clamp(36px, 6vw, 58px); line-height: 1; letter-spacing: -.035em !important; }
+h2 { font-weight: 800; font-size: clamp(24px, 3.4vw, 32px); }
+.nav-label, .critique-tag, .section-label, .toc-title, .callout-label, .stat-lbl, .toc-num {
+  font-family: "Silkscreen", monospace !important; font-weight: 400 !important; letter-spacing: .6px !important;
+}
+
+/* Floating back pill instead of a full-width bar */
+.back-nav {
+  top: 16px; left: 16px; right: 16px; padding: 10px 18px;
+  border: 1px solid var(--border-bright); border-radius: 26px 22px 26px 8px;
+  background: rgba(22,17,58,.85);
+}
+.back-link { color: var(--white); }
+
+.critique-tag { padding: 7px 14px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.critique-tag::before { display: none; }
+
+/* Stats become floating bubbles */
+.stats-strip { border: 0; background: none; gap: 12px; overflow: visible; }
+.stat-item {
+  border: 1.5px solid color-mix(in srgb, var(--accent) 40%, transparent) !important;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border-radius: 34px 28px 34px 12px; text-align: center;
+}
+.stat-item:nth-child(even) { border-radius: 28px 34px 12px 34px; transform: translateY(8px); }
+
+.toc { border: 1px solid var(--border-bright); border-left-width: 1px; border-radius: 34px 34px 34px 12px; background: var(--surface); }
+.section-label::after {
+  height: 8px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='8'%3E%3Cpath d='M0 4Q6 0 12 4T24 4' fill='none' stroke='rgba(255,255,255,.2)' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x center;
+}
+
+.pull-quote { font-family: var(--display); font-style: italic; border-radius: 4px 30px 30px 4px; }
+.callout, .theory-card, .price-box, .rank-tier, .system-box {
+  background: var(--surface) !important;
+  border: 1px solid var(--border-bright) !important;
+  border-radius: 30px 26px 30px 10px !important;
+}
+.theory-card:nth-child(even), .price-box:nth-child(even), .system-box:nth-child(even) { border-radius: 26px 30px 10px 30px !important; }
+.callout { border-left: 3px solid var(--accent) !important; }
+.econ-table { border-radius: 24px; overflow: hidden; }
+.econ-table th { background: var(--surface-2); }
+.footer-back { border-radius: 26px 22px 26px 8px; }
+img { border-radius: 26px 26px 26px 8px; }
