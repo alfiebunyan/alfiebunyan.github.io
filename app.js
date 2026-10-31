@@ -221,7 +221,7 @@ addEventListener('resize', () => { if (planet) planet.setPanelWidth(panelWidth()
 async function ensurePlanet() {
   if (planet) return planet;
   if (!planetLoading) {
-    planetLoading = import('./planet.js?v=32').then(({ createPlanet, EGGS }) => {
+    planetLoading = import('./planet.js?v=38').then(({ createPlanet, EGGS }) => {
       eggs = EGGS;
       planet = createPlanet({ canvas: $('#world'), pinsEl: $('#pins'), onPick: id => leaveRoam(id), onEgg: foundEgg });
       // Regenerates assets/planet.webp (the Read mode hero): run __planetSnapshot() in the console.

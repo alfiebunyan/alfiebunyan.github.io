@@ -306,7 +306,7 @@ main, .route { transition: opacity .5s; }
   66% { border-radius: 54% 46% 62% 38% / 40% 62% 38% 60%; }
 }
 
-.polaroids { position: relative; height: clamp(170px, 46cqw, 250px); margin: 30px 0 10px; clear: both; }
+.polaroids { position: relative; height: calc(52cqw * 0.75 + 70px); margin: 30px 0 18px; clear: both; }
 .polaroids figure {
   position: absolute; width: 52%; background: #f6f2ff; padding: 7px 7px 26px; border-radius: 4px;
   box-shadow: 0 18px 40px rgba(0,0,0,.45); transition: transform .4s cubic-bezier(.3,1.5,.5,1);
@@ -636,11 +636,6 @@ html[data-mode="walk"], [data-mode="walk"] body { overflow: hidden; height: 100%
     radial-gradient(1px 1px at 240px 40px, #fffb, transparent 50%);
   background-size: 260px 220px;
 }
-[data-mode="walk"] .sky::after {
-  content: ""; position: absolute; left: 6vw; top: 8vh; width: 18vh; height: 18vh; border-radius: 50%;
-  background: radial-gradient(circle, var(--sky-orb, #fff1cf) 0 22%, color-mix(in srgb, var(--sky-orb, #fff1cf) 30%, transparent) 30%, transparent 70%);
-  opacity: .85;
-}
 [data-mode="walk"] #world { z-index: 3; }
 [data-mode="walk"] main { position: fixed; inset: 0; z-index: 2; perspective: 1100px; perspective-origin: 50% 100%; }
 [data-mode="walk"] .stop {
@@ -663,19 +658,22 @@ html[data-mode="walk"], [data-mode="walk"] body { overflow: hidden; height: 100%
 [data-mode="walk"] .hero .facts { margin-left: auto; margin-right: auto; text-align: left; }
 [data-mode="walk"] .scroll-cue { display: none; }
 [data-mode="walk"] .stop:not(.hero) {
-  --col: min(820px, 92vw);
+  --col: min(1040px, 86vw);
   left: 50%; width: var(--col); margin-left: calc(var(--col) / -2);
-  top: 0; bottom: 16vh;
+  top: 0; bottom: 13vh;
   transform-origin: 50% 100%;
-  transform: rotateX(12deg) translateY(90px);
+  transform: rotateX(4deg) translateY(90px);
   overflow-y: auto; overscroll-behavior: contain; outline: none; scrollbar-width: none;
-  padding: 20vh 36px 34vh;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 66%, transparent 90%);
-  mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 66%, transparent 90%);
+  padding: 13vh 40px 30vh;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 11%, #000 76%, transparent 94%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 11%, #000 76%, transparent 94%);
   text-shadow: 0 2px 14px rgba(11,9,32,.7);
 }
 [data-mode="walk"] .stop:not(.hero)::-webkit-scrollbar { display: none; }
-[data-mode="walk"] .stop.active:not(.hero) { transform: rotateX(12deg); }
+[data-mode="walk"] .stop.active:not(.hero) { transform: rotateX(4deg); }
+[data-mode="walk"] .stop:not(.hero) p, [data-mode="walk"] .stop:not(.hero) .points li { font-size: 17px; }
+[data-mode="walk"] .stop:not(.hero) .lede { font-size: 22px; }
+[data-mode="walk"] .stop:not(.hero) .points li strong { font-size: 18px; }
 [data-mode="walk"] .stop-head { justify-content: center; }
 [data-mode="walk"] .stop:not(.hero) > h2, [data-mode="walk"] .stop:not(.hero) > .lede { text-align: center; }
 [data-mode="walk"] .foot { display: none; }
@@ -721,14 +719,15 @@ html.booting .stop, html.booting #world { transition: none !important; }
   [data-mode="walk"] .hero { padding: 11vh 18px 0; }
   [data-mode="walk"] .hero .facts { display: none; }
   [data-mode="walk"] .stop:not(.hero) {
-    --col: 94vw; bottom: 20vh; padding: 16vh 16px 30vh;
-    transform: rotateX(8deg) translateY(60px);
+    --col: 94vw; bottom: 18vh; padding: 12vh 14px 28vh;
+    transform: rotateX(3deg) translateY(60px);
   }
-  [data-mode="walk"] .stop.active:not(.hero) { transform: rotateX(8deg); }
+  [data-mode="walk"] .stop.active:not(.hero) { transform: rotateX(3deg); }
+  [data-mode="walk"] .stop:not(.hero) p, [data-mode="walk"] .stop:not(.hero) .points li { font-size: 15.5px; }
+  [data-mode="walk"] .stop:not(.hero) .lede { font-size: 18px; }
 }
 @media (max-width: 640px) {
   .modes { top: 18px; right: 12px; }
-  [data-mode="walk"] .sky::after { width: 10vh; height: 10vh; left: 4vw; top: 3vh; }
   .modes button { padding: 8px 11px; font-size: 13px; }
   html:not([data-mode="walk"]) .stop { padding: 100px 20px 24px; }
   html:not([data-mode="walk"]) .stop:not(.hero)::before { left: 20px; right: 20px; }

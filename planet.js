@@ -946,18 +946,17 @@ export function createPlanet({ canvas, pinsEl, onPick, onEgg = () => {} }) {
     const k = easeIO(clamp(s, 0, 1));
     // The planet lives along the bottom of the screen and the text crawls above it.
     // Hero: a big planet rising from the bottom edge. Walk: just behind the current landmark.
-    const heroD = R * (small ? 3.4 : 2.4);
+    const heroD = R * (small ? 3.0 : 1.95);
     heroPos.set(0, R * 1.35, heroD);
     heroTarget.set(0, R * 0.8, 0);
-    const r = 1.8 + h * 0.5;
-    const baseY = 4.2 + h * 0.5, baseZ = 11.5 + h * 0.9;
-    const need = fitDist(r, small ? 0.9 : 0.55, small ? 0.34 : 0.4);
-    const fit = Math.max(1, need / Math.hypot(baseY, baseZ));
+    // A little behind and above the current landmark, close enough that the planet
+    // spans most of the width, with the scene pushed low so the landmark sits under the text.
+    const baseY = (small ? 7 : 3.6) + h * 0.45, baseZ = (small ? 17 : 9.6) + h * 0.6;
     walkTarget.set(0, R + 0.3 + h * 0.3, -1.2);
-    walkPos.set(0, walkTarget.y + baseY * fit, baseZ * fit);
+    walkPos.set(0, walkTarget.y + baseY, baseZ);
     const pos = heroPos.clone().lerp(walkPos, k);
     const target = heroTarget.clone().lerp(walkTarget, k);
-    const off = { x: 0, y: -innerHeight * ((small ? 0.44 : 0.53) * (1 - k) + (small ? 0.27 : 0.3) * k) };
+    const off = { x: 0, y: -innerHeight * ((small ? 0.44 : 0.53) * (1 - k) + (small ? 0.33 : 0.32) * k) };
     return { pos, target, off, k };
   }
 
