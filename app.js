@@ -148,7 +148,7 @@ function settledAt(dir, since = performance.now() - 250) {
   const now = performance.now();
   // At the edge with no scroll seen getting there (a short panel, or a jump): it has been resting.
   if (!edgeSince[key]) edgeSince[key] = now - 10000;
-  return edgeSince[key] <= since || now - edgeSince[key] > 900;
+  return edgeSince[key] <= since || now - edgeSince[key] > 1400;
 }
 addEventListener('wheel', e => {
   if (!isWalk() || roaming() || modalOpen()) return;
@@ -170,8 +170,9 @@ addEventListener('wheel', e => {
   const dir = Math.sign(px);
   if (!dir || !settledAt(dir, gestureStart)) { wheelAcc = 0; return; }
   wheelAcc += abs;
-  clearTimeout(wheelTimer); wheelTimer = setTimeout(() => (wheelAcc = 0), 300);
-  if (wheelAcc > 60) { wheelAcc = 0; go(current + dir); }
+  clearTimeout(wheelTimer); wheelTimer = setTimeout(() => (wheelAcc = 0), 450);
+  // A deliberate push is needed (several wheel notches or a strong swipe), so reading never skips a stop.
+  if (wheelAcc > 240) { wheelAcc = 0; go(current + dir); }
 }, { passive: true });
 
 let touchY = null, touchEdge = null;
@@ -183,7 +184,7 @@ addEventListener('touchstart', e => {
 addEventListener('touchend', e => {
   if (touchY === null || !isWalk() || roaming()) return;
   const dy = touchY - e.changedTouches[0].clientY; touchY = null;
-  if (Math.abs(dy) < 70 || performance.now() - lastMove < 700) return;
+  if (Math.abs(dy) < 140 || performance.now() - lastMove < 700) return;
   if (dy > 0 && touchEdge.down) go(current + 1);
   if (dy < 0 && touchEdge.up) go(current - 1);
 }, { passive: true });
@@ -220,7 +221,7 @@ addEventListener('resize', () => { if (planet) planet.setPanelWidth(panelWidth()
 async function ensurePlanet() {
   if (planet) return planet;
   if (!planetLoading) {
-    planetLoading = import('./planet.js?v=26').then(({ createPlanet, EGGS }) => {
+    planetLoading = import('./planet.js?v=32').then(({ createPlanet, EGGS }) => {
       eggs = EGGS;
       planet = createPlanet({ canvas: $('#world'), pinsEl: $('#pins'), onPick: id => leaveRoam(id), onEgg: foundEgg });
       // Regenerates assets/planet.webp (the Read mode hero): run __planetSnapshot() in the console.

@@ -30,6 +30,7 @@ export const EGGS = [
   { id: 'balatro',  lat: 72,  lon: 300, text: 'A Joker card. Balatro: one more run, always.' },
   { id: 'chained',  lat: -38, lon: 330, text: 'Chained Together. Teamwork, tested.' },
   { id: 'fans',     lat: 50,  lon: 150, text: 'The fan corner: G2 in League, Paper Rex in Valorant, and Tottenham. Come on you Spurs!' },
+  { id: 'ghost',    lat: -40, lon: 22,  text: 'Boo! A friendly little ghost. Happy haunting.' },
   { id: 'travel',   text: 'The travel plane. When I am not researching, I am planning the next trip.' },
   { id: 'norman',   text: 'Woof! That is Norman, my black and tan sausage dog.' },
 ];
@@ -345,7 +346,9 @@ const BUILD = {
 /* Create                                                              */
 /* ------------------------------------------------------------------ */
 export function createPlanet({ canvas, pinsEl, onPick, onEgg = () => {} }) {
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+  // Transparent canvas: the sky is drawn by the page behind the text, and the planet sits in front of it.
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+  renderer.setClearColor(0x000000, 0);
   let dpr = Math.min(devicePixelRatio, 1.5);
   renderer.setPixelRatio(dpr);
   renderer.setSize(innerWidth, innerHeight, false);
@@ -535,6 +538,7 @@ export function createPlanet({ canvas, pinsEl, onPick, onEgg = () => {} }) {
 
   /* ---------- Space around it ---------- */
   const space = new THREE.Group(); scene.add(space);
+  space.visible = false; // the page's CSS sky replaces this; kept for the colour maths
   const ORB_DIR = new THREE.Vector3(-0.55, 0.42, -0.72).normalize();
   const skyMat = new THREE.ShaderMaterial({
     side: THREE.BackSide, depthWrite: false,
@@ -653,6 +657,10 @@ export function createPlanet({ canvas, pinsEl, onPick, onEgg = () => {} }) {
     stars.material.opacity = num('stars');
     birds.visible = num('stars') < 0.5;
     skyNow = f < 0.5 ? A : B;
+    // Hand the colours to the page so its CSS sky matches the time of day.
+    const css = document.documentElement.style, tmp = new THREE.Color();
+    for (const key of ['top', 'mid', 'low', 'orb']) css.setProperty(`--sky-${key}`, mixCol(key, tmp).getStyle());
+    css.setProperty('--sky-stars', num('stars').toFixed(2));
   }
 
   applySky();
@@ -805,6 +813,28 @@ export function createPlanet({ canvas, pinsEl, onPick, onEgg = () => {} }) {
         });
         for (let i = 0; i < 4; i++) k.lit(new THREE.TorusGeometry(0.045, 0.012, 4, 8), '#c9c2d8', { p: [-0.15 + i * 0.1, 1.1, 0.02], r: [0, i % 2 ? Math.PI / 2 : 0, 0] });
       },
+      ghost(k) {
+        // A friendly ghost that floats, sways and wobbles.
+        const g = k.dyn(new THREE.Group());
+        const sheet = new THREE.MeshStandardMaterial({ color: 0xf6f2ff, emissive: 0x8f86c8, emissiveIntensity: 0.55, flatShading: true, transparent: true, opacity: 0.92 });
+        const head = new THREE.Mesh(new THREE.SphereGeometry(0.5, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2), sheet);
+        const skirt = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.56, 0.55, 12, 1, true), sheet);
+        skirt.position.y = -0.27; g.add(head, skirt);
+        for (let i = 0; i < 6; i++) {
+          const a = (i / 6) * Math.PI * 2;
+          const t = new THREE.Mesh(new THREE.ConeGeometry(0.15, 0.26, 5), sheet);
+          t.position.set(Math.cos(a) * 0.44, -0.66, Math.sin(a) * 0.44); t.rotation.x = Math.PI; g.add(t);
+        }
+        for (const x of [-0.16, 0.16]) g.add(dm(G.sph(0.075, 8, 6), '#1b1430', { p: [x, 0.12, 0.43] }));
+        g.add(dm(G.sph(0.06, 8, 6), '#1b1430', { p: [0, -0.06, 0.47] }));
+        for (const s of [-1, 1]) { const arm = new THREE.Mesh(new THREE.ConeGeometry(0.11, 0.32, 5), sheet); arm.position.set(s * 0.55, -0.05, 0.05); arm.rotation.z = s * 1.9; g.add(arm); }
+        k.updates.push(t => {
+          g.position.set(Math.sin(t * 0.7) * 0.35, 1.4 + Math.sin(t * 2.1) * 0.22, Math.cos(t * 0.5) * 0.2);
+          g.rotation.y = Math.sin(t * 0.9) * 0.6;
+          g.rotation.z = Math.sin(t * 1.7) * 0.12;
+          sheet.opacity = 0.75 + Math.sin(t * 3) * 0.17;
+        });
+      },
       fans(k) {
         const flags = [
           ['#111111', '#f6f2ff', '#e1251b'],  // G2
@@ -897,7 +927,7 @@ export function createPlanet({ canvas, pinsEl, onPick, onEgg = () => {} }) {
   /* ---------- Camera choreography ---------- */
   let sGoal = 0, sCur = 0, panelW = 0, roam = false, flying = null, paused = false, travel = null, lastU = LANDMARKS[0].u;
   const qWalk = new THREE.Quaternion(), qSway = new THREE.Quaternion();
-  const heroPos = new THREE.Vector3(), walkPos = new THREE.Vector3(), walkTarget = new THREE.Vector3(), curTarget = new THREE.Vector3();
+  const heroPos = new THREE.Vector3(), heroTarget = new THREE.Vector3(), walkPos = new THREE.Vector3(), walkTarget = new THREE.Vector3(), curTarget = new THREE.Vector3();
   const offset = { x: 0, y: 0 };
   const tv = () => Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
   const fitDist = (r, fw, fh) => (r * 1.1) / Math.min(tv() * fh, tv() * camera.aspect * fw);
@@ -914,20 +944,20 @@ export function createPlanet({ canvas, pinsEl, onPick, onEgg = () => {} }) {
     frameAt(tmpP, tmpT, qWalk).invert();
 
     const k = easeIO(clamp(s, 0, 1));
-    // Hero: the whole planet. Walk: standing just behind the current landmark.
-    const heroD = fitDist(R * (small ? 1.25 : 1.5), small ? 1 : 0.5, small ? 0.55 : 1);
-    heroPos.set(0, heroD * 0.18, heroD);
+    // The planet lives along the bottom of the screen and the text crawls above it.
+    // Hero: a big planet rising from the bottom edge. Walk: just behind the current landmark.
+    const heroD = R * (small ? 3.4 : 2.4);
+    heroPos.set(0, R * 1.35, heroD);
+    heroTarget.set(0, R * 0.8, 0);
     const r = 1.8 + h * 0.5;
     const baseY = 4.2 + h * 0.5, baseZ = 11.5 + h * 0.9;
-    const need = fitDist(r, small ? 1 : (innerWidth - panelW * 0.6) / innerWidth, small ? 0.42 : 1);
+    const need = fitDist(r, small ? 0.9 : 0.55, small ? 0.34 : 0.4);
     const fit = Math.max(1, need / Math.hypot(baseY, baseZ));
     walkTarget.set(0, R + 0.3 + h * 0.3, -1.2);
     walkPos.set(0, walkTarget.y + baseY * fit, baseZ * fit);
     const pos = heroPos.clone().lerp(walkPos, k);
-    const target = new THREE.Vector3().lerp(walkTarget, k);
-    const off = small
-      ? { x: 0, y: -innerHeight * 0.2 * (1 - k) + innerHeight * 0.27 * k }
-      : { x: -innerWidth * 0.25 * (1 - k) + panelW * 0.3 * k, y: 0 };
+    const target = heroTarget.clone().lerp(walkTarget, k);
+    const off = { x: 0, y: -innerHeight * ((small ? 0.44 : 0.53) * (1 - k) + (small ? 0.27 : 0.3) * k) };
     return { pos, target, off, k };
   }
 
@@ -1069,7 +1099,7 @@ export function createPlanet({ canvas, pinsEl, onPick, onEgg = () => {} }) {
       space.visible = false; clouds.visible = true;
       r2.render(scene, cam);
       const url = r2.domElement.toDataURL('image/webp', 0.9);
-      space.visible = true; r2.dispose();
+      r2.dispose();
       return url;
     },
   };

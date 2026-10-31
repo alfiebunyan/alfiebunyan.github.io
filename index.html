@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600&family=Silkscreen&family=Caveat:wght@600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css?v=23">
+<link rel="stylesheet" href="site.css?v=32">
 <script>
   // Pick Walk or Read before first paint so the page never flashes the wrong layout.
   (function () {
@@ -67,6 +67,7 @@
 
 <a class="skip" href="#about">Skip to content</a>
 
+<div class="sky" aria-hidden="true"></div>
 <canvas id="world" aria-hidden="true"></canvas>
 <div class="transfer" id="transfer" aria-hidden="true">
   <div class="cloudwall"><i class="edge l"></i><i class="solid"></i><i class="edge r"></i></div>
@@ -79,13 +80,6 @@
 <div class="pins" id="pins" aria-hidden="true"></div>
 
 <!-- Fixed chrome -->
-<a class="seal-link" href="#top" aria-label="Alfie Bunyan, back to the start">
-  <span class="seal">
-    <svg class="ring" viewBox="0 0 100 100" aria-hidden="true"><defs><path id="seal-c" d="M50 50m-41 0a41 41 0 1 1 82 0a41 41 0 1 1-82 0"/></defs><text><textPath href="#seal-c">GAMES USER RESEARCHER &#183; PSYCHOLOGY &#215; PLAY &#183;</textPath></text></svg>
-    <span class="core">AB</span>
-  </span>
-</a>
-
 <div class="modes" role="radiogroup" aria-label="How to view this site">
   <span class="modes-blob" aria-hidden="true"></span>
   <button role="radio" data-set-mode="walk"><svg><use href="#i-walk"/></svg>Walk</button>
@@ -98,7 +92,7 @@
 <div class="topbar" aria-hidden="true"><i id="topbar-fill"></i><span id="topbar-label">Start</span></div>
 
 <div class="roam-ui">
-  <p>Free roam: drag to spin, tap a landmark to jump to it. <b id="egg-count">0/9</b> easter eggs found.</p>
+  <p>Free roam: drag to spin, tap a landmark to jump to it. <b id="egg-count">0/10</b> easter eggs found.</p>
   <button class="blob-btn" id="roam-exit">Back to the walk</button>
 </div>
 
@@ -444,7 +438,7 @@
 
   <div class="finale walk-only">
     <span class="finale-ic"><svg><use href="#i-orbit"/></svg></span>
-    <div><b>You walked the whole planet.</b><span>Free roam is unlocked: spin the planet, revisit any landmark, and hunt for 9 hidden easter eggs.</span></div>
+    <div><b>You walked the whole planet.</b><span>Free roam is unlocked: spin the planet, revisit any landmark, and hunt for 10 hidden easter eggs.</span></div>
     <button class="blob-btn" id="roam-enter">Free roam</button>
   </div>
   <div class="finale read-only webgl-only">
@@ -474,6 +468,6 @@
   <span><small>ACHIEVEMENT UNLOCKED</small><b id="toast-text"></b></span>
 </div>
 
-<script type="module" src="app.js?v=26"></script>
+<script type="module" src="app.js?v=32"></script>
 </body>
 </html>

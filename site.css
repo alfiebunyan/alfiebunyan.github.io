@@ -142,18 +142,6 @@ html.roam #world:active { cursor: grabbing; }
 .facts dd { font-size: 12.5px; font-weight: 500; color: var(--ink); margin-top: 3px; line-height: 1.3; }
 
 /* ---------- Fixed chrome ---------- */
-.seal-link { position: fixed; z-index: 30; top: 18px; left: 22px; text-decoration: none; }
-.seal { position: relative; width: 70px; height: 70px; display: block; }
-.seal svg.ring { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 22s linear infinite; }
-.seal svg.ring text { font-family: var(--pixel); font-size: 9.6px; fill: var(--mute); letter-spacing: .5px; }
-.seal .core {
-  position: absolute; inset: 14px; border-radius: 50%;
-  background: var(--gold); color: #1b1300;
-  display: grid; place-items: center;
-  font-family: var(--display); font-weight: 800; font-size: 17px; letter-spacing: -.02em;
-  transition: transform .3s cubic-bezier(.3,1.6,.5,1);
-}
-.seal-link:hover .core, .seal-link:focus-visible .core { transform: scale(1.1) rotate(-8deg); }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .modes {
@@ -627,46 +615,69 @@ html:not([data-mode="walk"]) .hero-planet { display: block; position: relative; 
 /* =========================================================
    WALK MODE
    ========================================================= */
-/* Walk mode is paged: one stop on screen at a time, each panel scrolls on its own,
-   and scrolling past a panel's end walks to the next stop. */
+/* Walk mode is a crawl. The sky is drawn behind everything, the current stop's text
+   rises in a centred, gently tilted column, and the planet sits in front along the
+   bottom, so the text appears to emerge from behind its horizon. One stop at a time:
+   each column scrolls on its own, and a firm scroll past its end walks to the next stop. */
 html[data-mode="walk"], [data-mode="walk"] body { overflow: hidden; height: 100%; }
-[data-mode="walk"] main { position: fixed; inset: 0; z-index: 2; }
+.sky { display: none; }
+[data-mode="walk"] .sky {
+  display: block; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(to bottom, var(--sky-top, #06051a) 0%, var(--sky-mid, #2a1a55) 80%, var(--sky-low, #0f0b2a) 100%);
+  transition: background 2s;
+}
+[data-mode="walk"] .sky::before {
+  content: ""; position: absolute; inset: 0; opacity: var(--sky-stars, .9);
+  background:
+    radial-gradient(1px 1px at 20px 30px, #fff, transparent 50%),
+    radial-gradient(1px 1px at 120px 80px, #fffd, transparent 50%),
+    radial-gradient(1.5px 1.5px at 190px 150px, #fff, transparent 50%),
+    radial-gradient(1px 1px at 60px 190px, #fffc, transparent 50%),
+    radial-gradient(1px 1px at 240px 40px, #fffb, transparent 50%);
+  background-size: 260px 220px;
+}
+[data-mode="walk"] .sky::after {
+  content: ""; position: absolute; left: 6vw; top: 8vh; width: 18vh; height: 18vh; border-radius: 50%;
+  background: radial-gradient(circle, var(--sky-orb, #fff1cf) 0 22%, color-mix(in srgb, var(--sky-orb, #fff1cf) 30%, transparent) 30%, transparent 70%);
+  opacity: .85;
+}
+[data-mode="walk"] #world { z-index: 3; }
+[data-mode="walk"] main { position: fixed; inset: 0; z-index: 2; perspective: 1100px; perspective-origin: 50% 100%; }
 [data-mode="walk"] .stop {
   position: absolute; visibility: hidden; opacity: 0;
-  transition: opacity .45s, transform .55s cubic-bezier(.3,1,.4,1), visibility 0s .55s;
+  transition: opacity .45s, transform .6s cubic-bezier(.3,1,.4,1), visibility 0s .6s;
 }
 [data-mode="walk"] .stop.active {
-  visibility: visible; opacity: 1; transform: none;
-  transition: opacity .5s .3s, transform .65s .3s cubic-bezier(.2,1,.3,1), visibility 0s;
+  visibility: visible; opacity: 1;
+  transition: opacity .5s .3s, transform .7s .3s cubic-bezier(.2,1,.3,1), visibility 0s;
 }
 [data-mode="walk"] .hero {
-  inset: 0; display: flex; align-items: center;
-  padding: 110px 48px 90px 110px; transform: translateY(-30px);
+  inset: 0; display: flex; justify-content: center; align-items: flex-start; text-align: center;
+  padding: 5vh 24px 0; transform: translateY(-30px); overflow: hidden;
 }
-[data-mode="walk"] .hero-text { max-width: 720px; }
-[data-mode="walk"] .hero { overflow-y: auto; }
-[data-mode="walk"] .hero::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(ellipse 55% 75% at 22% 52%, rgba(11,9,32,.6), rgba(11,9,32,0) 72%);
-}
+[data-mode="walk"] .hero.active { transform: none; }
+[data-mode="walk"] .hero-text { max-width: 880px; text-shadow: 0 2px 16px rgba(11,9,32,.6); }
+[data-mode="walk"] .hero h1 { font-size: clamp(44px, min(7.4vw, 10vh), 112px); }
+[data-mode="walk"] .hero .tag, [data-mode="walk"] .hero .how { margin-left: auto; margin-right: auto; }
+[data-mode="walk"] .hero .hello, [data-mode="walk"] .hero .cta-row { justify-content: center; }
+[data-mode="walk"] .hero .facts { margin-left: auto; margin-right: auto; text-align: left; }
+[data-mode="walk"] .scroll-cue { display: none; }
 [data-mode="walk"] .stop:not(.hero) {
-  top: 0; bottom: 0; right: 0; width: var(--panel-w);
-  transform: translateX(60px);
-  overflow-y: auto; overscroll-behavior: contain; outline: none;
-  scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.25) transparent;
-  padding: 96px 48px 70px 80px;
-  background: var(--glass);
-  backdrop-filter: blur(9px) saturate(1.4); -webkit-backdrop-filter: blur(9px) saturate(1.4);
-  -webkit-mask-image: var(--wave-v), linear-gradient(#000,#000);
-  mask-image: var(--wave-v), linear-gradient(#000,#000);
-  -webkit-mask-size: 44px 240px, calc(100% - 43px) 100%;
-  mask-size: 44px 240px, calc(100% - 43px) 100%;
-  -webkit-mask-position: 0 0, right top;
-  mask-position: 0 0, right top;
-  -webkit-mask-repeat: repeat-y, no-repeat;
-  mask-repeat: repeat-y, no-repeat;
+  --col: min(820px, 92vw);
+  left: 50%; width: var(--col); margin-left: calc(var(--col) / -2);
+  top: 0; bottom: 16vh;
+  transform-origin: 50% 100%;
+  transform: rotateX(12deg) translateY(90px);
+  overflow-y: auto; overscroll-behavior: contain; outline: none; scrollbar-width: none;
+  padding: 20vh 36px 34vh;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 66%, transparent 90%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 22%, #000 66%, transparent 90%);
+  text-shadow: 0 2px 14px rgba(11,9,32,.7);
 }
-[data-mode="walk"] .stop.active:not(.hero), [data-mode="walk"] .hero.active { transform: none; }
+[data-mode="walk"] .stop:not(.hero)::-webkit-scrollbar { display: none; }
+[data-mode="walk"] .stop.active:not(.hero) { transform: rotateX(12deg); }
+[data-mode="walk"] .stop-head { justify-content: center; }
+[data-mode="walk"] .stop:not(.hero) > h2, [data-mode="walk"] .stop:not(.hero) > .lede { text-align: center; }
 [data-mode="walk"] .foot { display: none; }
 html.booting .stop, html.booting #world { transition: none !important; }
 
@@ -687,7 +698,6 @@ html.booting .stop, html.booting #world { transition: none !important; }
 
 @media (min-width: 1181px) {
   html:not([data-mode="walk"]) .hero { padding-left: 140px; max-width: 1300px; }
-  [data-mode="walk"] .hero { padding-left: 150px; }
 }
 
 /* ---------- Mid screens ---------- */
@@ -704,31 +714,21 @@ html.booting .stop, html.booting #world { transition: none !important; }
     opacity: 0; transition: opacity .3s;
   }
   html.past-hero .topbar span { opacity: 1; }
-  [data-mode="walk"] .hero { padding-left: 48px; }
 }
 @media (max-width: 860px) {
   html:not([data-mode="walk"]) .hero { grid-template-columns: 1fr; padding-top: 110px; text-align: left; }
   html:not([data-mode="walk"]) .hero-planet { order: -1; width: min(78vw, 380px); margin: 0 auto -10px; }
-  [data-mode="walk"] .hero { align-items: flex-start; padding: 120px 22px 0; }
+  [data-mode="walk"] .hero { padding: 11vh 18px 0; }
+  [data-mode="walk"] .hero .facts { display: none; }
   [data-mode="walk"] .stop:not(.hero) {
-    top: 40vh; top: 40svh; left: 0; width: 100%; padding: 50px 22px 60px;
-    transform: translateY(60px);
-    -webkit-mask-image: var(--wave-h), linear-gradient(#000,#000);
-    mask-image: var(--wave-h), linear-gradient(#000,#000);
-    -webkit-mask-size: 240px 34px, 100% calc(100% - 33px);
-    mask-size: 240px 34px, 100% calc(100% - 33px);
-    -webkit-mask-position: 0 0, left bottom;
-    mask-position: 0 0, left bottom;
-    -webkit-mask-repeat: repeat-x, no-repeat;
-    mask-repeat: repeat-x, no-repeat;
+    --col: 94vw; bottom: 20vh; padding: 16vh 16px 30vh;
+    transform: rotateX(8deg) translateY(60px);
   }
+  [data-mode="walk"] .stop.active:not(.hero) { transform: rotateX(8deg); }
 }
 @media (max-width: 640px) {
-  .seal-link { top: 12px; left: 12px; }
-  .seal { width: 56px; height: 56px; }
-  .seal .core { inset: 11px; font-size: 14px; }
-  .seal svg.ring text { font-size: 9.2px; }
   .modes { top: 18px; right: 12px; }
+  [data-mode="walk"] .sky::after { width: 10vh; height: 10vh; left: 4vw; top: 3vh; }
   .modes button { padding: 8px 11px; font-size: 13px; }
   html:not([data-mode="walk"]) .stop { padding: 100px 20px 24px; }
   html:not([data-mode="walk"]) .stop:not(.hero)::before { left: 20px; right: 20px; }
