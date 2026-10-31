@@ -54,7 +54,7 @@ const roaming = () => html.classList.contains('roam');
 const modalOpen = () => !!$('.modal.open');
 
 /* ---------- Shared: which stop is current ---------- */
-let current = -1, finished = false;
+let current = -1, finished = false, prevIdx = 1;
 function setCurrent(idx) {
   if (idx === current) return;
   current = idx;
@@ -65,6 +65,15 @@ function setCurrent(idx) {
   const p = idx / (stops.length - 1);
   route.style.setProperty('--p', p);
   $('.topbar').style.setProperty('--p', p);
+  // Page 1: the minimap follows the section you're reading.
+  if (!isWalk()) {
+    const zone = idx === 0 ? 'START' : stops[idx].dataset.label.toUpperCase();
+    $('#mm-zone').textContent = zone;
+    $('#minimap').href = `?mode=walk${idx ? '#' + stops[idx].id : ''}`;
+    $('#minimap').setAttribute('aria-label', `Open the world map at ${idx ? stops[idx].dataset.label : 'the start'}`);
+    if (planet) { const to = Math.max(1, idx); planet.setStop(to, { hop: Math.abs(to - Math.max(1, prevIdx)) >= 2 }); }
+    prevIdx = idx;
+  }
   if (idx === stops.length - 1 && !finished && isWalk()) { finished = true; achievement('Journey complete: you walked the whole planet'); }
   if (idx > 0) track(`${isWalk() ? 'walk' : 'read'}/stop-${idx}-${stops[idx].dataset.stop}`);
   if (isWalk() && idx > 0) $('#sr-stop').textContent = `Stop ${idx} of ${stops.length - 1}: ${stops[idx].dataset.label}`;
@@ -73,6 +82,7 @@ function setCurrent(idx) {
 /* ---------- Read mode: ordinary scrolling ---------- */
 function readScroll() {
   if (isWalk()) return;
+  updateMap();
   let idx = 0;
   stops.forEach((st, i) => { if (st.getBoundingClientRect().top <= innerHeight * 0.45) idx = i; });
   setCurrent(idx);
@@ -212,19 +222,17 @@ document.addEventListener('click', e => {
   if (roaming()) leaveRoam(stop.dataset.stop); else go(stops.indexOf(stop));
 });
 
-/* ---------- Walk / Read ---------- */
-const modeBtns = $$('[data-set-mode]');
-function syncModeButtons() { $$('.modes button').forEach(b => b.setAttribute('aria-checked', b.dataset.setMode === html.dataset.mode)); }
+/* ---------- Two pages: the readable page (default) and the world walk ---------- */
 function panelWidth() { return isWalk() && innerWidth > 860 ? stops[1].offsetWidth : 0; }
-addEventListener('resize', () => { if (planet) planet.setPanelWidth(panelWidth()); });
+addEventListener('resize', () => { if (planet) planet.setPanelWidth(panelWidth()); updateMap(); });
 
 async function ensurePlanet() {
   if (planet) return planet;
   if (!planetLoading) {
-    planetLoading = import('./planet.js?v=38').then(({ createPlanet, EGGS }) => {
+    planetLoading = import('./planet.js?v=41').then(({ createPlanet, EGGS }) => {
       eggs = EGGS;
       planet = createPlanet({ canvas: $('#world'), pinsEl: $('#pins'), onPick: id => leaveRoam(id), onEgg: foundEgg });
-      // Regenerates assets/planet.webp (the Read mode hero): run __planetSnapshot() in the console.
+      // Regenerates assets/planet.webp (the no-3D hero image): run __planetSnapshot() in the console.
       window.__planetSnapshot = planet.snapshot;
       $('#world').classList.add('ready');
       html.classList.add('planet-ready');
@@ -234,42 +242,55 @@ async function ensurePlanet() {
   return planetLoading;
 }
 
-async function setMode(mode, { save = true, start } = {}) {
-  if (mode === html.dataset.mode && planet && !start) return;
-  const keep = start ?? Math.max(0, current);
-  if (roaming()) leaveRoam();
-  html.dataset.mode = mode;
-  syncModeButtons();
-  if (save) { try { localStorage.setItem('mode', mode); } catch (e) {} }
-  const q = new URLSearchParams(location.search);
-  if (q.has('mode')) { q.delete('mode'); history.replaceState(null, '', location.pathname + (q.size ? '?' + q : '') + location.hash); }
-  if (mode === 'walk') {
-    current = -1;
-    go(keep, { focus: false });
-    try {
-      const p = await ensurePlanet();
-      p.pause(false); p.setPanelWidth(panelWidth()); p.setStop(current);
-    } catch (err) {
-      console.error(err);
-      achievement('The 3D planet could not load, so here is the reading view');
-      setMode('read', { save: false });
-    }
-  } else {
-    stops.forEach(s => { s.classList.remove('active'); s.inert = false; });
-    if (planet) planet.pause(true);
-    if (keep > 0) stops[keep].scrollIntoView({ behavior: 'instant', block: 'start' });
-    current = -1; readScroll();
+// The world page opens straight into the walk.
+async function startWorld(start) {
+  current = -1;
+  go(start, { focus: false });
+  try {
+    const p = await ensurePlanet();
+    p.setPanelWidth(panelWidth()); p.setStop(current);
+  } catch (err) {
+    console.error(err);
+    location.replace('./');
   }
 }
-modeBtns.forEach(b => b.addEventListener('click', () => { setMode(b.dataset.setMode); track(`mode/${b.dataset.setMode}`, false); }));
-// The Walk / Read switch behaves like a proper radio group with the arrow keys.
-$('.modes').addEventListener('keydown', e => {
-  if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) return;
-  e.preventDefault(); e.stopPropagation();
-  const next = html.dataset.mode === 'walk' ? 'read' : 'walk';
-  setMode(next); track(`mode/${next}`, false);
-  $(`.modes [data-set-mode="${next}"]`).focus();
+
+// Page 1: the planet sits beside the intro, then shrinks into a corner minimap as you
+// scroll, turning to show each section's landmark. Clicking it opens the world there.
+const miniSize = () => (innerWidth <= 640 ? 112 : 200);
+function updateMap() {
+  if (isWalk() || !planet) return;
+  const hero = stops[0];
+  const p = Math.min(1, Math.max(0, scrollY / (hero.offsetHeight * 0.55)));
+  const e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+  // clientWidth leaves out the scrollbar, matching the fixed canvas and the minimap frame.
+  const D = miniSize(), W = document.documentElement.clientWidth, H = innerHeight;
+  const cx = W - 18 - D / 2, cy = 18 + D / 2;
+  const scale = 1 + (D / H - 1) * e;
+  const r = (Math.hypot(W, H) / 2) * (1 - e) + (H / 2) * e;
+  const world = $('#world');
+  world.style.transform = `translate(${((cx - W / 2) * e).toFixed(1)}px, ${((cy - H / 2) * e).toFixed(1)}px) scale(${scale.toFixed(4)})`;
+  world.style.clipPath = `circle(${r.toFixed(1)}px at 50% 50%)`;
+  html.style.setProperty('--mp', p.toFixed(3));
+  html.style.setProperty('--mm', D + 'px');
+  html.classList.toggle('mm-on', p > 0.95);
+  planet.setMapProgress(p, D);
+}
+async function startPage() {
+  readScroll();
+  if (html.dataset.webgl !== 'yes') return;
+  try {
+    const p = await ensurePlanet();
+    p.setView('map');
+    p.setStop(Math.max(1, current));
+    updateMap();
+  } catch (err) { console.error(err); }
+}
+addEventListener('keydown', e => {
+  if (isWalk() || e.key.toLowerCase() !== 'm' || e.target.closest('input, textarea')) return;
+  if (html.dataset.webgl === 'yes') location.href = $('#minimap').href;
 });
+$('#minimap').addEventListener('click', () => track('minimap/open', false));
 $$('a[download]').forEach(a => a.addEventListener('click', () => track('cv-download', false)));
 
 /* ---------- Easter eggs ---------- */
@@ -363,12 +384,11 @@ addEventListener('keydown', e => {
 });
 
 /* ---------- Boot ---------- */
-syncModeButtons();
 html.classList.add('booting');
 setTimeout(() => html.classList.remove('booting'), 60);
 if (isWalk()) {
   const fromHash = stops.findIndex(st => st.id && '#' + st.id === location.hash);
-  setMode('walk', { save: false, start: Math.max(0, fromHash) });
+  startWorld(Math.max(0, fromHash));
 } else {
-  readScroll();
+  startPage();
 }

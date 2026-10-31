@@ -67,8 +67,11 @@ body::before {
   position: fixed; inset: 0; width: 100%; height: 100%; display: block; z-index: -1;
   opacity: 0; transition: opacity .6s; pointer-events: none;
 }
-[data-mode="walk"] #world.ready { opacity: 1; }
+#world.ready { opacity: 1; }
+/* Page 1: the planet canvas is moved and clipped by script, from big beside the intro to the minimap. */
 [data-mode="read"] #world { display: none; }
+[data-mode="read"][data-webgl="yes"] #world { display: block; z-index: 40; transform-origin: 50% 50%; will-change: transform, clip-path; }
+[data-mode="read"][data-webgl="yes"] .hero-planet img { visibility: hidden; }
 html.roam #world { pointer-events: auto; cursor: grab; touch-action: none; z-index: 15; }
 html.roam #world:active { cursor: grabbing; }
 
@@ -144,27 +147,69 @@ html.roam #world:active { cursor: grabbing; }
 /* ---------- Fixed chrome ---------- */
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* Top-right link between the two pages */
 .modes {
-  position: fixed; z-index: 30; top: 26px; right: 24px;
-  display: flex; padding: 5px; gap: 2px;
-  background: rgba(22,17,58,.82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 26px 22px 26px 22px;
+  position: fixed; z-index: 42; top: 26px; right: 24px;
+  display: flex; align-items: center; gap: 8px; padding: 10px 17px 10px 13px;
+  font-size: 14px; font-weight: 600; color: #1b1300; text-decoration: none;
+  background: var(--gold); border-radius: 22px 20px 22px 8px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.3);
+  transition: transform .3s cubic-bezier(.3,1.6,.5,1), opacity .3s;
 }
-.modes button {
-  position: relative; z-index: 1; display: flex; align-items: center; gap: 7px;
-  padding: 9px 15px; font-size: 13.5px; font-weight: 600; color: var(--mute);
-  border-radius: 20px; transition: color .25s;
+.modes svg { width: 18px; height: 18px; }
+.modes:hover, .modes:focus-visible { transform: rotate(-2deg) scale(1.04); outline: none; box-shadow: 0 0 0 3px var(--ink); }
+.modes.walk-only { background: rgba(22,17,58,.85); color: var(--ink); border: 1px solid rgba(255,255,255,.14); }
+/* On page 1 the pill makes way for the minimap as it forms in the same corner. */
+[data-mode="read"] .modes { opacity: calc(1 - var(--mp, 0) * 2.5); pointer-events: auto; }
+html.mm-on .modes.read-only { pointer-events: none; }
+
+/* ---------- Page 1 minimap (Call of Duty style HUD) ---------- */
+.minimap, .mm-back { display: none; }
+[data-mode="read"][data-webgl="yes"] .minimap, [data-mode="read"][data-webgl="yes"] .mm-back {
+  display: block; position: fixed; top: 18px; right: 18px; width: var(--mm, 200px); height: var(--mm, 200px);
+  border-radius: 50%; opacity: clamp(0, calc((var(--mp, 0) - .82) * 6), 1); pointer-events: none;
 }
-.modes button svg { width: 17px; height: 17px; }
-.modes button[aria-checked="true"] { color: #1b1300; }
-.modes button:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
-.modes-blob {
-  position: absolute; z-index: 0; top: 5px; bottom: 5px; left: 5px; width: calc(50% - 6px);
-  background: var(--gold); border-radius: 20px 16px 20px 8px;
-  transition: transform .45s cubic-bezier(.3,1.5,.5,1);
+[data-mode="read"][data-webgl="yes"] .mm-back { z-index: 39; background: radial-gradient(circle, #1d1650, #0b0920 75%); }
+[data-mode="read"][data-webgl="yes"] .minimap {
+  z-index: 41; text-decoration: none; transition: transform .3s cubic-bezier(.3,1.6,.5,1);
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.22), 0 0 0 5px rgba(11,9,32,.92), 0 0 0 6.5px rgba(255,197,51,.65), 0 14px 34px rgba(0,0,0,.55);
 }
-[data-mode="read"] .modes-blob { transform: translateX(calc(100% + 2px)); border-radius: 16px 20px 8px 20px; }
+html.mm-on[data-mode="read"][data-webgl="yes"] .minimap { pointer-events: auto; cursor: pointer; }
+.minimap:hover, .minimap:focus-visible { transform: scale(1.05); outline: none; }
+.minimap:focus-visible { box-shadow: inset 0 0 0 2px #fff, 0 0 0 5px rgba(11,9,32,.92), 0 0 0 8px var(--gold); }
+.mm-ticks {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: repeating-conic-gradient(rgba(255,255,255,.7) 0 1.2deg, transparent 1.2deg 15deg);
+  -webkit-mask: radial-gradient(circle, transparent 0 86%, #000 87% 93%, transparent 94%);
+  mask: radial-gradient(circle, transparent 0 86%, #000 87% 93%, transparent 94%);
+}
+.mm-sweep {
+  position: absolute; inset: 0; border-radius: 50%; mix-blend-mode: screen;
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(89,212,153,.38) 52deg, transparent 53deg);
+  animation: spin 4.5s linear infinite;
+}
+.mm-n {
+  position: absolute; top: 0; left: 50%; transform: translate(-50%, -45%);
+  width: 22px; height: 22px; border-radius: 50%; background: var(--gold); color: #1b1300;
+  display: grid; place-items: center; font-family: var(--pixel); font-size: 10px;
+  box-shadow: 0 0 0 3px #0b0920;
+}
+.mm-you {
+  position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform: translate(-50%, -30%);
+  border-left: 8px solid transparent; border-right: 8px solid transparent; border-bottom: 14px solid var(--gold);
+  filter: drop-shadow(0 0 6px rgba(255,197,51,.9));
+  animation: blink 1.6s ease-in-out infinite;
+}
+@keyframes blink { 50% { opacity: .45; } }
+.mm-zone {
+  position: absolute; top: calc(100% + 14px); left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 4px; white-space: nowrap;
+}
+.mm-zone b {
+  font-family: var(--pixel); font-weight: 400; font-size: 10.5px; letter-spacing: .6px; color: var(--ink);
+  background: rgba(11,9,32,.88); padding: 5px 11px; border-radius: 12px 14px 14px 4px; border: 1px solid rgba(255,197,51,.4);
+}
+.mm-zone small { font-family: var(--pixel); font-size: 8.5px; color: var(--mute); letter-spacing: .5px; }
 
 /* Route map */
 .route {
@@ -615,10 +660,9 @@ html:not([data-mode="walk"]) .hero-planet { display: block; position: relative; 
 /* =========================================================
    WALK MODE
    ========================================================= */
-/* Walk mode is a crawl. The sky is drawn behind everything, the current stop's text
-   rises in a centred, gently tilted column, and the planet sits in front along the
-   bottom, so the text appears to emerge from behind its horizon. One stop at a time:
-   each column scrolls on its own, and a firm scroll past its end walks to the next stop. */
+/* The world page (walk mode): one stop on screen at a time in a panel on the right,
+   the planet whole on the left. Each panel scrolls on its own, and a firm scroll past
+   its end walks to the next stop. The sky is a page layer behind the transparent planet. */
 html[data-mode="walk"], [data-mode="walk"] body { overflow: hidden; height: 100%; }
 .sky { display: none; }
 [data-mode="walk"] .sky {
@@ -636,46 +680,43 @@ html[data-mode="walk"], [data-mode="walk"] body { overflow: hidden; height: 100%
     radial-gradient(1px 1px at 240px 40px, #fffb, transparent 50%);
   background-size: 260px 220px;
 }
-[data-mode="walk"] #world { z-index: 3; }
-[data-mode="walk"] main { position: fixed; inset: 0; z-index: 2; perspective: 1100px; perspective-origin: 50% 100%; }
+[data-mode="walk"] #world { z-index: 1; }
+[data-mode="walk"] main { position: fixed; inset: 0; z-index: 2; }
 [data-mode="walk"] .stop {
   position: absolute; visibility: hidden; opacity: 0;
-  transition: opacity .45s, transform .6s cubic-bezier(.3,1,.4,1), visibility 0s .6s;
+  transition: opacity .45s, transform .55s cubic-bezier(.3,1,.4,1), visibility 0s .55s;
 }
 [data-mode="walk"] .stop.active {
-  visibility: visible; opacity: 1;
-  transition: opacity .5s .3s, transform .7s .3s cubic-bezier(.2,1,.3,1), visibility 0s;
+  visibility: visible; opacity: 1; transform: none;
+  transition: opacity .5s .3s, transform .65s .3s cubic-bezier(.2,1,.3,1), visibility 0s;
 }
 [data-mode="walk"] .hero {
-  inset: 0; display: flex; justify-content: center; align-items: flex-start; text-align: center;
-  padding: 5vh 24px 0; transform: translateY(-30px); overflow: hidden;
+  inset: 0; display: flex; align-items: center;
+  padding: 110px 48px 90px 110px; transform: translateY(-30px); overflow-y: auto;
 }
-[data-mode="walk"] .hero.active { transform: none; }
-[data-mode="walk"] .hero-text { max-width: 880px; text-shadow: 0 2px 16px rgba(11,9,32,.6); }
-[data-mode="walk"] .hero h1 { font-size: clamp(44px, min(7.4vw, 10vh), 112px); }
-[data-mode="walk"] .hero .tag, [data-mode="walk"] .hero .how { margin-left: auto; margin-right: auto; }
-[data-mode="walk"] .hero .hello, [data-mode="walk"] .hero .cta-row { justify-content: center; }
-[data-mode="walk"] .hero .facts { margin-left: auto; margin-right: auto; text-align: left; }
-[data-mode="walk"] .scroll-cue { display: none; }
+[data-mode="walk"] .hero-text { max-width: 720px; }
+[data-mode="walk"] .hero::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(ellipse 55% 75% at 22% 52%, rgba(11,9,32,.6), rgba(11,9,32,0) 72%);
+}
 [data-mode="walk"] .stop:not(.hero) {
-  --col: min(1040px, 86vw);
-  left: 50%; width: var(--col); margin-left: calc(var(--col) / -2);
-  top: 0; bottom: 13vh;
-  transform-origin: 50% 100%;
-  transform: rotateX(4deg) translateY(90px);
-  overflow-y: auto; overscroll-behavior: contain; outline: none; scrollbar-width: none;
-  padding: 13vh 40px 30vh;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 11%, #000 76%, transparent 94%);
-  mask-image: linear-gradient(to bottom, transparent 0, #000 11%, #000 76%, transparent 94%);
-  text-shadow: 0 2px 14px rgba(11,9,32,.7);
+  top: 0; bottom: 0; right: 0; width: var(--panel-w);
+  transform: translateX(60px);
+  overflow-y: auto; overscroll-behavior: contain; outline: none;
+  scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.25) transparent;
+  padding: 96px 48px 70px 80px;
+  background: var(--glass);
+  backdrop-filter: blur(9px) saturate(1.4); -webkit-backdrop-filter: blur(9px) saturate(1.4);
+  -webkit-mask-image: var(--wave-v), linear-gradient(#000,#000);
+  mask-image: var(--wave-v), linear-gradient(#000,#000);
+  -webkit-mask-size: 44px 240px, calc(100% - 43px) 100%;
+  mask-size: 44px 240px, calc(100% - 43px) 100%;
+  -webkit-mask-position: 0 0, right top;
+  mask-position: 0 0, right top;
+  -webkit-mask-repeat: repeat-y, no-repeat;
+  mask-repeat: repeat-y, no-repeat;
 }
-[data-mode="walk"] .stop:not(.hero)::-webkit-scrollbar { display: none; }
-[data-mode="walk"] .stop.active:not(.hero) { transform: rotateX(4deg); }
-[data-mode="walk"] .stop:not(.hero) p, [data-mode="walk"] .stop:not(.hero) .points li { font-size: 17px; }
-[data-mode="walk"] .stop:not(.hero) .lede { font-size: 22px; }
-[data-mode="walk"] .stop:not(.hero) .points li strong { font-size: 18px; }
-[data-mode="walk"] .stop-head { justify-content: center; }
-[data-mode="walk"] .stop:not(.hero) > h2, [data-mode="walk"] .stop:not(.hero) > .lede { text-align: center; }
+[data-mode="walk"] .stop.active:not(.hero), [data-mode="walk"] .hero.active { transform: none; }
 [data-mode="walk"] .foot { display: none; }
 html.booting .stop, html.booting #world { transition: none !important; }
 
@@ -696,6 +737,7 @@ html.booting .stop, html.booting #world { transition: none !important; }
 
 @media (min-width: 1181px) {
   html:not([data-mode="walk"]) .hero { padding-left: 140px; max-width: 1300px; }
+  [data-mode="walk"] .hero { padding-left: 150px; }
 }
 
 /* ---------- Mid screens ---------- */
@@ -716,19 +758,25 @@ html.booting .stop, html.booting #world { transition: none !important; }
 @media (max-width: 860px) {
   html:not([data-mode="walk"]) .hero { grid-template-columns: 1fr; padding-top: 110px; text-align: left; }
   html:not([data-mode="walk"]) .hero-planet { order: -1; width: min(78vw, 380px); margin: 0 auto -10px; }
-  [data-mode="walk"] .hero { padding: 11vh 18px 0; }
-  [data-mode="walk"] .hero .facts { display: none; }
+  [data-mode="walk"] .hero { align-items: flex-start; padding: 120px 22px 0; }
   [data-mode="walk"] .stop:not(.hero) {
-    --col: 94vw; bottom: 18vh; padding: 12vh 14px 28vh;
-    transform: rotateX(3deg) translateY(60px);
+    top: 40vh; top: 40svh; left: 0; width: 100%; padding: 50px 22px 60px;
+    transform: translateY(60px);
+    -webkit-mask-image: var(--wave-h), linear-gradient(#000,#000);
+    mask-image: var(--wave-h), linear-gradient(#000,#000);
+    -webkit-mask-size: 240px 34px, 100% calc(100% - 33px);
+    mask-size: 240px 34px, 100% calc(100% - 33px);
+    -webkit-mask-position: 0 0, left bottom;
+    mask-position: 0 0, left bottom;
+    -webkit-mask-repeat: repeat-x, no-repeat;
+    mask-repeat: repeat-x, no-repeat;
   }
-  [data-mode="walk"] .stop.active:not(.hero) { transform: rotateX(3deg); }
-  [data-mode="walk"] .stop:not(.hero) p, [data-mode="walk"] .stop:not(.hero) .points li { font-size: 15.5px; }
-  [data-mode="walk"] .stop:not(.hero) .lede { font-size: 18px; }
 }
 @media (max-width: 640px) {
   .modes { top: 18px; right: 12px; }
-  .modes button { padding: 8px 11px; font-size: 13px; }
+  .modes { padding: 8px 13px 8px 10px; font-size: 13px; }
+  .mm-zone { display: none; }
+  .mm-n { width: 18px; height: 18px; font-size: 8px; }
   html:not([data-mode="walk"]) .stop { padding: 100px 20px 24px; }
   html:not([data-mode="walk"]) .stop:not(.hero)::before { left: 20px; right: 20px; }
   .stop .lede { font-size: 17.5px; }

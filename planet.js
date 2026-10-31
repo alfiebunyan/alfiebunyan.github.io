@@ -925,9 +925,10 @@ export function createPlanet({ canvas, pinsEl, onPick, onEgg = () => {} }) {
   controls.addEventListener('start', () => { controls.autoRotate = false; poke(); });
 
   /* ---------- Camera choreography ---------- */
+  let view = 'walk', mapP = 0, lowRes = false;
   let sGoal = 0, sCur = 0, panelW = 0, roam = false, flying = null, paused = false, travel = null, lastU = LANDMARKS[0].u;
   const qWalk = new THREE.Quaternion(), qSway = new THREE.Quaternion();
-  const heroPos = new THREE.Vector3(), heroTarget = new THREE.Vector3(), walkPos = new THREE.Vector3(), walkTarget = new THREE.Vector3(), curTarget = new THREE.Vector3();
+  const heroPos = new THREE.Vector3(), heroTarget = new THREE.Vector3(), mapPos = new THREE.Vector3(), mapTarget = new THREE.Vector3(), walkPos = new THREE.Vector3(), walkTarget = new THREE.Vector3(), curTarget = new THREE.Vector3();
   const offset = { x: 0, y: 0 };
   const tv = () => Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
   const fitDist = (r, fw, fh) => (r * 1.1) / Math.min(tv() * fh, tv() * camera.aspect * fw);
@@ -943,20 +944,34 @@ export function createPlanet({ canvas, pinsEl, onPick, onEgg = () => {} }) {
     pathAt(u, tmpP, tmpT);
     frameAt(tmpP, tmpT, qWalk).invert();
 
+    // Page 1: the planet starts big beside the intro, then becomes the corner minimap,
+    // looking down on the current section's landmark.
+    if (view === 'map') {
+      const p = easeIO(mapP);
+      const heroD = fitDist(R * (small ? 1.5 : 1.95), small ? 1 : 0.5, small ? 0.55 : 1);
+      heroPos.set(0, heroD * 0.18, heroD);
+      mapPos.set(0, R * 2.35, R * 1.15);
+      const pos = heroPos.clone().lerp(mapPos, p);
+      const target = new THREE.Vector3(0, 0, 0).lerp(mapTarget.set(0, R * 0.62, 0), p);
+      const off = small ? { x: 0, y: innerHeight * 0.2 * (1 - p) } : { x: -innerWidth * 0.27 * (1 - p), y: 0 };
+      return { pos, target, off, k: p };
+    }
+
+    // The world page: hero is the whole planet, then standing just behind the current landmark.
     const k = easeIO(clamp(s, 0, 1));
-    // The planet lives along the bottom of the screen and the text crawls above it.
-    // Hero: a big planet rising from the bottom edge. Walk: just behind the current landmark.
-    const heroD = R * (small ? 3.0 : 1.95);
-    heroPos.set(0, R * 1.35, heroD);
-    heroTarget.set(0, R * 0.8, 0);
-    // A little behind and above the current landmark, close enough that the planet
-    // spans most of the width, with the scene pushed low so the landmark sits under the text.
-    const baseY = (small ? 7 : 3.6) + h * 0.45, baseZ = (small ? 17 : 9.6) + h * 0.6;
+    const heroD = fitDist(R * (small ? 1.25 : 1.5), small ? 1 : 0.5, small ? 0.55 : 1);
+    heroPos.set(0, heroD * 0.18, heroD);
+    const r = 1.8 + h * 0.5;
+    const baseY = 4.2 + h * 0.5, baseZ = 11.5 + h * 0.9;
+    const need = fitDist(r, small ? 1 : (innerWidth - panelW * 0.6) / innerWidth, small ? 0.42 : 1);
+    const fit = Math.max(1, need / Math.hypot(baseY, baseZ));
     walkTarget.set(0, R + 0.3 + h * 0.3, -1.2);
-    walkPos.set(0, walkTarget.y + baseY, baseZ);
+    walkPos.set(0, walkTarget.y + baseY * fit, baseZ * fit);
     const pos = heroPos.clone().lerp(walkPos, k);
-    const target = heroTarget.clone().lerp(walkTarget, k);
-    const off = { x: 0, y: -innerHeight * ((small ? 0.44 : 0.53) * (1 - k) + (small ? 0.33 : 0.32) * k) };
+    const target = new THREE.Vector3().lerp(walkTarget, k);
+    const off = small
+      ? { x: 0, y: -innerHeight * 0.2 * (1 - k) + innerHeight * 0.27 * k }
+      : { x: -innerWidth * 0.25 * (1 - k) + panelW * 0.3 * k, y: 0 };
     return { pos, target, off, k };
   }
 
@@ -1022,7 +1037,7 @@ export function createPlanet({ canvas, pinsEl, onPick, onEgg = () => {} }) {
       offset.x = st.off.x; offset.y = st.off.y;
       planet.quaternion.copy(qWalk);
       updateWalker(dt, t, lastU);
-      if (!reduceMotion && st.k < 1) planet.quaternion.premultiply(qSway.setFromAxisAngle(Y, Math.sin(t * 0.15) * 0.5 * (1 - st.k)));
+      if (!reduceMotion && st.k < 1 && view !== 'map') planet.quaternion.premultiply(qSway.setFromAxisAngle(Y, Math.sin(t * 0.15) * 0.5 * (1 - st.k)));
     }
     camera.setViewOffset(innerWidth, innerHeight, offset.x, offset.y, innerWidth, innerHeight);
 
@@ -1061,6 +1076,18 @@ export function createPlanet({ canvas, pinsEl, onPick, onEgg = () => {} }) {
       sGoal = s; poke();
     },
     setPanelWidth(w) { panelW = w; },
+    setView(v) { view = v; poke(); },
+    // 0 = big beside the intro, 1 = corner minimap. The minimap only needs a few pixels,
+    // so drop the resolution right down once it has formed.
+    setMapProgress(p, miniPx = 200) {
+      mapP = clamp(p, 0, 1); poke();
+      const wantLow = mapP > 0.98;
+      if (wantLow !== lowRes) {
+        lowRes = wantLow;
+        renderer.setPixelRatio(lowRes ? Math.max(0.35, Math.min(1, (miniPx * 1.6) / innerHeight)) * Math.min(devicePixelRatio, 1.5) : dpr);
+        renderer.setSize(innerWidth, innerHeight, false);
+      }
+    },
     pause(p) { paused = p; if (!p) { last = performance.now(); poke(); } },
     get roaming() { return roam; },
     enterRoam() {

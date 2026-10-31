@@ -19,19 +19,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600&family=Silkscreen&family=Caveat:wght@600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css?v=33">
+<link rel="stylesheet" href="site.css?v=43">
 <script>
-  // Pick Walk or Read before first paint so the page never flashes the wrong layout.
+  // Two pages from one file: the readable page (default) and the world walk (?mode=walk).
+  // Decided before first paint so the page never flashes the wrong layout.
   (function () {
-    var mode = new URLSearchParams(location.search).get('mode');
-    if (mode !== 'walk' && mode !== 'read') {
-      try { mode = localStorage.getItem('mode'); } catch (e) { mode = null; }
-    }
     var gl = false;
     try { var c = document.createElement('canvas'); gl = !!(c.getContext('webgl2') || c.getContext('webgl')); } catch (e) {}
-    var calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (mode !== 'walk' && mode !== 'read') mode = (calm || innerWidth <= 860) ? 'read' : 'walk';
-    if (!gl) mode = 'read';
+    var mode = new URLSearchParams(location.search).get('mode') === 'walk' && gl ? 'walk' : 'read';
     document.documentElement.dataset.mode = mode;
     document.documentElement.dataset.webgl = gl ? 'yes' : 'no';
   })();
@@ -80,11 +75,18 @@
 <div class="pins" id="pins" aria-hidden="true"></div>
 
 <!-- Fixed chrome -->
-<div class="modes" role="radiogroup" aria-label="How to view this site">
-  <span class="modes-blob" aria-hidden="true"></span>
-  <button role="radio" data-set-mode="walk"><svg><use href="#i-walk"/></svg>Walk</button>
-  <button role="radio" data-set-mode="read"><svg><use href="#i-read"/></svg>Read</button>
-</div>
+<a class="modes read-only webgl-only" href="?mode=walk" id="to-world"><svg><use href="#i-orbit"/></svg>Explore the world</a>
+<a class="modes walk-only" href="./"><svg><use href="#i-read"/></svg>Back to the page</a>
+
+<!-- Page 1's minimap: the planet shrinks into this HUD as you scroll. Opens the world. -->
+<div class="mm-back" aria-hidden="true"></div>
+<a class="minimap read-only webgl-only" id="minimap" href="?mode=walk" aria-label="Open the world map at this section">
+  <span class="mm-sweep" aria-hidden="true"></span>
+  <span class="mm-ticks" aria-hidden="true"></span>
+  <span class="mm-n" aria-hidden="true">N</span>
+  <span class="mm-you" aria-hidden="true"></span>
+  <span class="mm-zone"><b id="mm-zone">START</b><small>M &#183; OPEN WORLD</small></span>
+</a>
 
 <nav class="route" id="route" aria-label="Stops on the route"></nav>
 
@@ -108,7 +110,7 @@
     <h1 id="hero-title">Alfie Bunyan</h1>
     <p class="tag">I research the <span class="squig">why<svg viewBox="0 0 100 12" preserveAspectRatio="none" aria-hidden="true"><path d="M2 8Q14 2 26 7T50 7T74 7T98 5"/></svg></span> behind how people think, play, and interact.</p>
     <p class="how walk-only">Welcome to my planet. Scroll to walk the route: eight stops, about two minutes, ending with how to reach me.</p>
-    <p class="how read-only">Games user researcher combining psychology, play, and mixed-methods UX research, from VR to mobile playtesting. Eight short stops, ending with how to reach me.</p>
+    <p class="how read-only">Games user researcher combining psychology, play, and mixed-methods UX research, from VR to mobile playtesting. Scroll for the highlights, or <a class="text-link inline" href="?mode=walk">explore the world</a>.</p>
     <div class="cta-row">
       <a class="blob-btn" href="#about"><span class="walk-only">Start the walk</span><span class="read-only">Start reading</span> &darr;</a>
       <a class="blob-btn ghost" href="assets/Alfie_Bunyan_CV.docx" download="Alfie_Bunyan_CV.docx"><svg><use href="#i-down"/></svg>Get my CV</a>
@@ -444,7 +446,7 @@
   <div class="finale read-only webgl-only">
     <span class="finale-ic"><svg><use href="#i-walk"/></svg></span>
     <div><b>Prefer the scenic route?</b><span>The same story, told as a walk around a small 3D planet.</span></div>
-    <button class="blob-btn" data-set-mode="walk">Take the walk</button>
+    <a class="blob-btn" href="?mode=walk#about">Take the walk</a>
   </div>
 </section>
 
@@ -468,6 +470,6 @@
   <span><small>ACHIEVEMENT UNLOCKED</small><b id="toast-text"></b></span>
 </div>
 
-<script type="module" src="app.js?v=38"></script>
+<script type="module" src="app.js?v=42"></script>
 </body>
 </html>
