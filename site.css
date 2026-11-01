@@ -175,6 +175,23 @@ html.mm-on .modes.read-only { pointer-events: none; }
   box-shadow: inset 0 0 0 2px rgba(255,255,255,.22), 0 0 0 5px rgba(11,9,32,.92), 0 0 0 6.5px rgba(255,197,51,.65), 0 14px 34px rgba(0,0,0,.55);
 }
 html.mm-on[data-mode="read"][data-webgl="yes"] .minimap { pointer-events: auto; cursor: pointer; }
+/* Section change: the rim takes the section's colour, the frame pulses, and a radar ping
+   ripples out behind it. */
+[data-mode="read"][data-webgl="yes"] .minimap {
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.22), 0 0 0 5px rgba(11,9,32,.92), 0 0 0 6.5px var(--zc, var(--gold)), 0 14px 34px rgba(0,0,0,.55);
+}
+.minimap.ping { animation: mm-pop .52s ease-out; }
+@keyframes mm-pop { 40% { transform: scale(1.12); } 100% { transform: scale(1); } }
+.mm-back::before, .mm-back::after {
+  content: ""; position: absolute; inset: -6px; border-radius: 50%;
+  border: 3px solid var(--zc, var(--gold)); opacity: 0; pointer-events: none;
+}
+.mm-back.ping::before { animation: mm-ping 1.1s ease-out; }
+.mm-back.ping::after { animation: mm-ping 1.1s .22s ease-out; }
+@keyframes mm-ping { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(1.9); opacity: 0; } }
+.mm-zone.ping b { animation: mm-label .5s cubic-bezier(.3,1.6,.5,1); }
+@keyframes mm-label { 0% { transform: translateY(-6px) scale(.85); opacity: 0; } 100% { transform: none; opacity: 1; } }
+.mm-zone b { border-color: var(--zc, rgba(255,197,51,.4)); transition: border-color .3s; }
 .minimap:hover, .minimap:focus-visible { transform: scale(1.05); outline: none; }
 .minimap:focus-visible { box-shadow: inset 0 0 0 2px #fff, 0 0 0 5px rgba(11,9,32,.92), 0 0 0 8px var(--gold); }
 .mm-ticks {

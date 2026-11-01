@@ -72,6 +72,7 @@ function setCurrent(idx) {
     $('#minimap').href = `?mode=walk${idx ? '#' + stops[idx].id : ''}`;
     $('#minimap').setAttribute('aria-label', `Open the world map at ${idx ? stops[idx].dataset.label : 'the start'}`);
     if (planet) { const to = Math.max(1, idx); planet.setStop(to, { hop: Math.abs(to - Math.max(1, prevIdx)) >= 2 }); }
+    pulseMinimap(stopColor(stops[idx]));
     prevIdx = idx;
   }
   if (idx === stops.length - 1 && !finished && isWalk()) { finished = true; achievement('Journey complete: you walked the whole planet'); }
@@ -258,6 +259,22 @@ async function startWorld(start) {
 // Page 1: the planet sits beside the intro, then shrinks into a corner minimap as you
 // scroll, turning to show each section's landmark. Clicking it opens the world there.
 const miniSize = () => (innerWidth <= 640 ? 112 : 200);
+// A quick grow-and-settle of the minimap (planet included) when the section changes.
+let mmPulse = 1, pulseRaf = 0;
+function pulseMinimap(color) {
+  html.style.setProperty('--zc', color);
+  if (reduceMotion || !html.classList.contains('mm-on')) return;
+  for (const el of [$('.mm-back'), $('#minimap'), $('.mm-zone')]) { el.classList.remove('ping'); void el.offsetWidth; el.classList.add('ping'); }
+  cancelAnimationFrame(pulseRaf);
+  const t0 = performance.now(), dur = 520;
+  const step = now => {
+    const k = Math.min(1, (now - t0) / dur);
+    mmPulse = 1 + 0.12 * Math.sin(Math.PI * k) * (1 - k * 0.3);
+    updateMap();
+    if (k < 1) pulseRaf = requestAnimationFrame(step); else { mmPulse = 1; updateMap(); }
+  };
+  pulseRaf = requestAnimationFrame(step);
+}
 function updateMap() {
   if (isWalk() || !planet) return;
   const hero = stops[0];
@@ -266,7 +283,7 @@ function updateMap() {
   // clientWidth leaves out the scrollbar, matching the fixed canvas and the minimap frame.
   const D = miniSize(), W = document.documentElement.clientWidth, H = innerHeight;
   const cx = W - 18 - D / 2, cy = 18 + D / 2;
-  const scale = 1 + (D / H - 1) * e;
+  const scale = (1 + (D / H - 1) * e) * mmPulse;
   const r = (Math.hypot(W, H) / 2) * (1 - e) + (H / 2) * e;
   const world = $('#world');
   world.style.transform = `translate(${((cx - W / 2) * e).toFixed(1)}px, ${((cy - H / 2) * e).toFixed(1)}px) scale(${scale.toFixed(4)})`;
