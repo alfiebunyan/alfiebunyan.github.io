@@ -69,7 +69,7 @@ function setCurrent(idx) {
   if (!isWalk()) {
     const zone = idx === 0 ? 'START' : stops[idx].dataset.label.toUpperCase();
     $('#mm-zone').textContent = zone;
-    $('#minimap').href = `?mode=walk${idx ? '#' + stops[idx].id : ''}`;
+    $('#minimap').href = $('#to-world').href = `?mode=walk${idx ? '#' + stops[idx].id : ''}`;
     $('#minimap').setAttribute('aria-label', `Open the world map at ${idx ? stops[idx].dataset.label : 'the start'}`);
     if (planet) { const to = Math.max(1, idx); planet.setStop(to, { hop: Math.abs(to - Math.max(1, prevIdx)) >= 2 }); }
     pulseMinimap(stopColor(stops[idx]));
@@ -136,6 +136,8 @@ function arrive(i, focus, hop = false) {
   if (planet) planet.setStop(i, { hop });
   setCurrent(i);
   history.replaceState(null, '', location.pathname + location.search + (i ? '#' + stops[i].id : ''));
+  // "Back to the page" returns you to the same section you were exploring.
+  $('#to-page').href = './' + (i ? '#' + stops[i].id : '');
   if (focus && i > 0) setTimeout(() => stops[i].focus({ preventScroll: true }), 350);
 }
 stops.forEach(s => { if (!s.classList.contains('hero')) s.tabIndex = -1; });
@@ -230,7 +232,7 @@ addEventListener('resize', () => { if (planet) planet.setPanelWidth(panelWidth()
 async function ensurePlanet() {
   if (planet) return planet;
   if (!planetLoading) {
-    planetLoading = import('./planet.js?v=41').then(({ createPlanet, EGGS }) => {
+    planetLoading = import('./planet.js?v=45').then(({ createPlanet, EGGS }) => {
       eggs = EGGS;
       planet = createPlanet({ canvas: $('#world'), pinsEl: $('#pins'), onPick: id => leaveRoam(id), onEgg: foundEgg });
       // Regenerates assets/planet.webp (the no-3D hero image): run __planetSnapshot() in the console.
@@ -259,6 +261,20 @@ async function startWorld(start) {
 // Page 1: the planet sits beside the intro, then shrinks into a corner minimap as you
 // scroll, turning to show each section's landmark. Clicking it opens the world there.
 const miniSize = () => (innerWidth <= 640 ? 112 : 200);
+// The first time the minimap forms, explain that it opens the world. Shown once per visitor.
+let hintDone = (() => { try { return localStorage.getItem('mapHintSeen') === '1'; } catch (e) { return false; } })(), hintTimer;
+function hideMapHint() {
+  $('#mm-hint').classList.remove('show');
+  clearTimeout(hintTimer);
+}
+function showMapHint() {
+  if (hintDone) return;
+  hintDone = true;
+  try { localStorage.setItem('mapHintSeen', '1'); } catch (e) {}
+  setTimeout(() => $('#mm-hint').classList.add('show'), 600);
+  hintTimer = setTimeout(hideMapHint, 8000);
+}
+$('#mm-hint button').addEventListener('click', hideMapHint);
 // A quick grow-and-settle of the minimap (planet included) when the section changes.
 let mmPulse = 1, pulseRaf = 0;
 function pulseMinimap(color) {
@@ -291,6 +307,7 @@ function updateMap() {
   html.style.setProperty('--mp', p.toFixed(3));
   html.style.setProperty('--mm', D + 'px');
   html.classList.toggle('mm-on', p > 0.95);
+  if (p > 0.95) showMapHint();
   planet.setMapProgress(p, D);
 }
 async function startPage() {
@@ -312,13 +329,16 @@ $$('a[download]').forEach(a => a.addEventListener('click', () => track('cv-downl
 
 /* ---------- Easter eggs ---------- */
 let eggs = [];
-const found = new Set();
+// Easter eggs found are remembered between visits.
+const found = new Set((() => { try { return JSON.parse(localStorage.getItem('eggsFound') || '[]'); } catch (e) { return []; } })());
+const saveEggs = () => { try { localStorage.setItem('eggsFound', JSON.stringify([...found])); } catch (e) {} };
+$('#egg-count').textContent = `${found.size}/10`;
 function foundEgg(id) {
   const egg = eggs.find(e => e.id === id);
   if (!egg) return;
   const isNew = !found.has(id);
   if (isNew) track(`egg/${id}`);
-  found.add(id);
+  found.add(id); saveEggs();
   $('#egg-count').textContent = `${found.size}/${eggs.length}`;
   achievement(isNew ? `Easter egg ${found.size}/${eggs.length}: ${egg.text}` : egg.text);
   if (isNew && found.size === eggs.length) setTimeout(() => achievement('Completionist: every easter egg found. Thanks for exploring!'), 4200);

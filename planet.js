@@ -995,9 +995,11 @@ export function createPlanet({ canvas, pinsEl, onPick, onEgg = () => {} }) {
     const dt = Math.min(0.05, (now - last) / 1000); last = now;
     if (paused) return;
     frameNo++;
-    // Idle: halve the frame rate when nothing is moving.
-    if (!roam && !flying && !travel && now - lastPoke > 3500 && frameNo % 2) return;
-    t += dt;
+    t += dt; // keep time moving even on skipped frames, so animations keep their speed
+    // Half frame rate (about 30fps) when nothing is moving, and always for the small minimap,
+    // which looks identical but saves battery while people read.
+    const mini = view === 'map' && mapP > 0.98;
+    if ((mini || (!roam && !flying && !travel && now - lastPoke > 3500)) && frameNo % 2) return;
 
     if (!perf.checked && frameNo > 20) {
       perf.n++; perf.sum += dt;

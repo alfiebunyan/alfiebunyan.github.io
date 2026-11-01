@@ -10,16 +10,19 @@
 <meta property="og:url" content="https://alfiebunyan.github.io">
 <meta property="og:title" content="Alfie Bunyan | Games &amp; UX Researcher">
 <meta property="og:description" content="Junior UX researcher specialising in games and AI. Hands-on playtest experience at 22cans. Open to roles across the UK.">
-<meta property="og:image" content="https://alfiebunyan.github.io/assets/alfie.jpg">
+<meta property="og:image" content="https://alfiebunyan.github.io/assets/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Alfie Bunyan, Games User Researcher, beside his low-poly planet portfolio">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Alfie Bunyan | Games &amp; UX Researcher">
 <meta name="twitter:description" content="Junior UX researcher specialising in games and AI.">
-<meta name="twitter:image" content="https://alfiebunyan.github.io/assets/alfie.jpg">
+<meta name="twitter:image" content="https://alfiebunyan.github.io/assets/og-card.jpg">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23ffc533'/><text y='67' x='50' font-size='46' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' fill='%231b1300'>AB</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600&family=Silkscreen&family=Caveat:wght@600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css?v=44">
+<link rel="stylesheet" href="site.css?v=45">
 <script>
   // Two pages from one file: the readable page (default) and the world walk (?mode=walk).
   // Decided before first paint so the page never flashes the wrong layout.
@@ -76,10 +79,11 @@
 
 <!-- Fixed chrome -->
 <a class="modes read-only webgl-only" href="?mode=walk" id="to-world"><svg><use href="#i-orbit"/></svg>Explore the world</a>
-<a class="modes walk-only" href="./"><svg><use href="#i-read"/></svg>Back to the page</a>
+<a class="modes walk-only" href="./" id="to-page"><svg><use href="#i-read"/></svg>Back to the page</a>
 
 <!-- Page 1's minimap: the planet shrinks into this HUD as you scroll. Opens the world. -->
 <div class="mm-back" aria-hidden="true"></div>
+<div class="mm-hint" id="mm-hint" role="note"><span>This is a map! Click it, or press <kbd>M</kbd>, to explore the world.</span><button type="button" aria-label="Dismiss the map hint">&#x2715;</button></div>
 <a class="minimap read-only webgl-only" id="minimap" href="?mode=walk" aria-label="Open the world map at this section">
   <span class="mm-sweep" aria-hidden="true"></span>
   <span class="mm-ticks" aria-hidden="true"></span>
@@ -123,7 +127,7 @@
       <div style="--fc:var(--coral)"><dt>AVAILABLE</dt><dd>Immediately</dd></div>
     </dl>
   </div>
-  <div class="hero-planet" aria-hidden="true"><img src="assets/planet.webp?v=5" alt="" width="900" height="900"></div>
+  <div class="hero-planet" aria-hidden="true"><img src="assets/planet.webp?v=6" alt="" width="900" height="900"></div>
   <div class="scroll-cue" aria-hidden="true"><span></span>SCROLL</div>
 </section>
 
@@ -336,7 +340,7 @@
   <aside class="note" aria-label="Field note"><b>FIELD NOTE</b>A year of feedback nobody had touched. Now it is shaping how the programme runs.</aside>
   <div class="trail">
     <div class="trail-stop now">
-      <span class="when">JUN 2026 TO OCT 2026 &#183; FULL-TIME, FIXED TERM</span>
+      <span class="when">JUN 2026 TO PRESENT &#183; FULL-TIME</span>
       <h3>Data Analyst and Admin Coordinator</h3>
       <div class="org">Widening Participation and Outreach &#183; University of Surrey</div>
       <ul class="points">
@@ -426,6 +430,8 @@
   </div>
   <form class="form" id="contact-form">
     <input type="hidden" name="access_key" value="0482d18f-e628-4cd8-8c17-0fe20e042c59">
+    <!-- Spam trap: people never see or tick this; bots that fill every field get rejected by Web3Forms. -->
+    <input type="checkbox" name="botcheck" class="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
     <input type="hidden" name="subject" value="Portfolio Enquiry - Alfie Bunyan">
     <input type="hidden" name="from_name" value="Alfie Bunyan Portfolio">
     <div class="row">
@@ -470,6 +476,6 @@
   <span><small>ACHIEVEMENT UNLOCKED</small><b id="toast-text"></b></span>
 </div>
 
-<script type="module" src="app.js?v=44"></script>
+<script type="module" src="app.js?v=45"></script>
 </body>
 </html>

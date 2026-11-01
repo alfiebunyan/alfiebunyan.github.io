@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Off the map | Alfie Bunyan</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='48' fill='%23ffc533'/><text y='67' x='50' font-size='46' text-anchor='middle' font-family='system-ui,sans-serif' font-weight='800' fill='%231b1300'>AB</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700..800&family=Inter:wght@400;600&family=Silkscreen&display=swap" rel="stylesheet">
+<style>
+  :root { --night: #0b0920; --ink: #f6f2ff; --body: #d4cfe8; --gold: #ffc533; --mint: #59d499; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    min-height: 100vh; min-height: 100svh; display: grid; place-items: center; padding: 24px; text-align: center;
+    color: var(--ink); font-family: "Inter", system-ui, sans-serif;
+    background:
+      radial-gradient(ellipse 70% 50% at 85% 10%, rgba(139,108,255,.2), transparent 70%),
+      radial-gradient(1px 1px at 20px 30px, #fff9, transparent 50%),
+      radial-gradient(1px 1px at 120px 80px, #fff7, transparent 50%),
+      radial-gradient(1.5px 1.5px at 190px 150px, #fffb, transparent 50%),
+      radial-gradient(1px 1px at 60px 190px, #fff6, transparent 50%),
+      var(--night);
+    background-size: auto, 260px 220px, 260px 220px, 260px 220px, 260px 220px, auto;
+  }
+  .ghost { width: 120px; margin: 0 auto 28px; animation: float 3.4s ease-in-out infinite; }
+  @keyframes float { 50% { transform: translateY(-14px) rotate(4deg); } }
+  .code { font-family: "Silkscreen", monospace; font-size: 12px; letter-spacing: .6px; color: var(--gold); }
+  h1 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; letter-spacing: -.03em; line-height: 1; font-size: clamp(40px, 8vw, 72px); margin: 14px 0 16px; }
+  p { color: var(--body); font-size: 17px; line-height: 1.6; max-width: 440px; margin: 0 auto; }
+  .row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 30px; }
+  a {
+    display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; font-weight: 600; font-size: 15px; text-decoration: none;
+    background: var(--ink); color: var(--night); border-radius: 26px 22px 26px 8px; transition: transform .3s cubic-bezier(.3,1.6,.5,1);
+  }
+  a.ghosty { background: rgba(255,255,255,.08); color: var(--ink); }
+  a:hover, a:focus-visible { transform: rotate(-2deg) scale(1.04); outline: none; box-shadow: 0 0 0 3px var(--gold); }
+  @media (prefers-reduced-motion: reduce) { .ghost { animation: none; } }
+</style>
+</head>
+<body>
+<main>
+  <svg class="ghost" viewBox="0 0 120 130" aria-hidden="true">
+    <path d="M10 60a50 50 0 0 1 100 0v58l-12-10-12 12-12-12-12 12-12-12-12 12-12-12-16 10Z" fill="#f6f2ff"/>
+    <circle cx="44" cy="58" r="8" fill="#1b1430"/><circle cx="76" cy="58" r="8" fill="#1b1430"/>
+    <ellipse cx="60" cy="82" rx="7" ry="9" fill="#1b1430"/>
+  </svg>
+  <span class="code">404 &#183; ZONE NOT FOUND</span>
+  <h1>You've wandered off the map.</h1>
+  <p>This page doesn't exist, and even Norman can't sniff it out. Head back to the planet and pick up where you left off.</p>
+  <div class="row">
+    <a href="/">Back to the page</a>
+    <a class="ghosty" href="/?mode=walk">Explore the world</a>
+  </div>
+</main>
+</body>
+</html>
